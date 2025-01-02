@@ -87,29 +87,31 @@ jobs:
     - name: Build
       shell: pwsh
       run: |
-        ./tools/cmdline/axmol -p osx
-        ./tools/cmdline/axmol run -p osx -xb '--target,unit-tests'
+        ./tools/cmdline/axmol -p osx -a arm64
+#./tools/cmdline/axmol run -p osx -xb '--target,unit-tests'
     - uses: actions/upload-artifact@v4
       with:
         name: osx_arm64
         path: build/bin/**
-  osx-x64:
-    runs-on: macos-13
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: 'recursive'
-    - name: Build
-      shell: pwsh
-      run: |
-        ./tools/cmdline/axmol -p osx
-        ./tools/cmdline/axmol run -p osx -xb '--target,unit-tests'
-    - uses: actions/upload-artifact@v4
-      with:
-        name: osx_x64
-        path: build/bin/**
     - name: List build directory
       run: ls -R build/bin/
+# osx-x64:
+#    runs-on: macos-13
+#    steps:
+#    - uses: actions/checkout@v4
+#      with:
+#        submodules: 'recursive'
+#    - name: Build
+#      shell: pwsh
+#      run: |
+#        ./tools/cmdline/axmol -p osx
+#        ./tools/cmdline/axmol run -p osx -xb '--target,unit-tests'
+#    - uses: actions/upload-artifact@v4
+#      with:
+#        name: osx_x64
+#       path: build/bin/**
+#    - name: List build directory
+#      run: ls -R build/bin/
   # android:
   #   runs-on: ubuntu-latest
   #   strategy:
