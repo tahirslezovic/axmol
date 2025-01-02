@@ -104,14 +104,12 @@ jobs:
       run: |
         ./tools/cmdline/axmol -p osx
         ./tools/cmdline/axmol run -p osx -xb '--target,unit-tests'
-    
-    - name: List build directory
-      run: ls -R build/bin/
-
     - uses: actions/upload-artifact@v4
       with:
         name: osx_x64
         path: build/bin/**
+    - name: List build directory
+      run: ls -R build/bin/
   # android:
   #   runs-on: ubuntu-latest
   #   strategy:
@@ -155,14 +153,11 @@ jobs:
       shell: pwsh
       run: ./tools/cmdline/axmol -p $env:TARGET_OS -a 'x64'
     - uses: actions/upload-artifact@v4
-
-
-    - name: List build directory
-      run: ls -R build/bin/
-
       with:
         name: ios_${{ matrix.target_os }}
         path: build/bin/**
+    - name: List build directory
+      run: ls -R build/bin/
   # wasm:
   #   runs-on: ubuntu-latest
   #   steps:
