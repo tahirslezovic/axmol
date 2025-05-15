@@ -18,11 +18,8 @@ on:
   workflow_dispatch:
     inputs:
       cxxstd:
-        # actions run ID
         description: 'Please input cxxstd, example: 23'
-        # Default value if no value is explicitly provided
         default: '23'
-        # Input has to be provided for the workflow to run
         required: false
 
 env:
@@ -45,37 +42,39 @@ jobs:
         name: windows_x64
         path: |
           build/bin/cpp-tests/**/*
+  
   win32-dll:
-        runs-on: windows-latest
-        steps:
-        - uses: actions/checkout@v4
-          with:
-            submodules: 'recursive'
-        - name: Build
-          shell: pwsh
-          run: .\tools\cmdline\axmol -p win32 -a x64 -dll
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - name: Build
+      shell: pwsh
+      run: .\tools\cmdline\axmol -p win32 -a x64 -dll
+
   winuwp:
-        # build uwp debug avoid github CI fail with memory issue
-        runs-on: windows-latest
-        steps:
-        - uses: actions/checkout@v4
-          with:
-            submodules: 'recursive'
-        - name: Build
-          shell: pwsh
-          run: .\tools\cmdline\axmol -p winuwp -a x64 -O3
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - name: Build
+      shell: pwsh
+      run: .\tools\cmdline\axmol -p winuwp -a x64 -O3
+
   win32-clang:
-        runs-on: windows-latest
-        env:
-          # Test winsdk < 10.0.22000.0 (missing C11 standard stdalign.h), axmol will auto fallback to C99 for resolving compiling issue.
-          WINSDK_VER: '10.0.19041.0'
-        steps:
-        - uses: actions/checkout@v4
-          with:
-            submodules: 'recursive'
-        - name: Build
-          shell: pwsh
-          run: .\tools\cmdline\axmol -p win32 -a 'x64' -cc clang -sdk $env:WINSDK_VER -O3
+    runs-on: windows-latest
+    env:
+      WINSDK_VER: '10.0.19041.0'
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+    - name: Build
+      shell: pwsh
+      run: .\tools\cmdline\axmol -p win32 -a 'x64' -cc clang -sdk $env:WINSDK_VER -O3
+
   linux:
     runs-on: ubuntu-latest
     steps:
@@ -91,6 +90,7 @@ jobs:
     - name: Build
       shell: pwsh
       run: ./tools/cmdline/axmol -p linux -a x64 -t 'cpp-tests,lua-tests' && ./tools/cmdline/axmol run -p linux -a x64 -t unit-tests -wait
+
   osx-arm64:
     runs-on: macos-latest
     steps:
@@ -100,6 +100,14 @@ jobs:
     - name: Build
       shell: pwsh
       run: ./tools/cmdline/axmol -p osx && ./tools/cmdline/axmol run -p osx -t unit-tests
+    - name: Upload macOS ARM64 artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: macos_arm64
+        path: |
+          build/bin/cpp-tests/**/*
+          build/libaxmol.a
+
   osx-x64:
     runs-on: macos-13
     steps:
@@ -109,6 +117,14 @@ jobs:
     - name: Build
       shell: pwsh
       run: ./tools/cmdline/axmol -p osx && ./tools/cmdline/axmol run -p osx -t unit-tests
+    - name: Upload macOS x64 artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: macos_x64
+        path: |
+          build/bin/cpp-tests/**/*
+          build/libaxmol.a
+
   android:
     runs-on: ubuntu-latest
     strategy:
@@ -135,6 +151,7 @@ jobs:
         path: |
           templates/**/*.apk
           tests/**/*.apk
+
   ios:
     runs-on: macos-latest
     strategy:
@@ -151,6 +168,7 @@ jobs:
     - name: Build
       shell: pwsh
       run: ./tools/cmdline/axmol -p $env:TARGET_OS -a 'x64'
+
   wasm:
     runs-on: ubuntu-latest
     steps:
