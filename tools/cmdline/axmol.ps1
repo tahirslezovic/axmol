@@ -5,6 +5,9 @@ param(
 
 # Set-StrictMode -Version Latest
 
+# clear last exit code
+$Global:LASTEXITCODE = 0
+
 # pwsh function alias
 function println($message) { Write-Host "axmol: $message" }
 
@@ -199,7 +202,7 @@ function axmol_run() {
     $sub_args = $args
     . axmol_deploy @sub_args
     if($is_host_target -and $TARGET_CPU -ne $HOST_CPU) {
-        println "Skip launch $cmake_target, due to $TARGET_OS-$TARGET_CPU apps can't runs on $HOST_OS_NAME-$HOST_CPU"
+        println "Skip launch $cmake_target, due to $TARGET_OS-$TARGET_CPU apps can't runs on $HOST_OS-$HOST_CPU"
         return
     }
     if ($TARGET_OS -eq 'winrt') {
