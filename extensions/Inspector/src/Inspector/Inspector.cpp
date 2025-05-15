@@ -31,10 +31,13 @@ void InspectorNodePropertyHandler::drawProperties(Node* node)
         ImGui::Text("User data: %p", userData);
     }
 
-    auto pos      = node->getPosition();
-    float _pos[2] = {pos.x, pos.y};
-    ImGui::DragFloat2("Position", _pos);
-    node->setPosition({_pos[0], _pos[1]});
+//    auto pos      = node->getPosition();
+    auto pos = node->getPosition3D();
+    float _pos[3] = {pos.x, pos.y, pos.z};
+//    ImGui::DragFloat2("Position", _pos);
+    ImGui::DragFloat3("Position",_pos);
+//    node->setPosition({_pos[0], _pos[1], });
+    node->setPosition3D({_pos[0],_pos[1],_pos[2]});
 
     // need to use getScaleX() because of assert
     float _scale[3] = {node->getScaleX(), node->getScaleX(), node->getScaleY()};
@@ -127,6 +130,7 @@ void InspectorSpritePropertyHandler::drawProperties(Node* node)
 
     ImGuiPresenter::getInstance()->image(sprite, ImVec2(256, 256));
 }
+
 
 bool InspectorLabelProtocolPropertyHandler::isSupportedType(Node* node)
 {
