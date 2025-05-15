@@ -42,7 +42,7 @@ jobs:
       with:
         name: libaxmol-macos-arm64
         path: |
-        build/lib/Release/libaxmol.a
+          build/lib/Release/libaxmol.a
 
   osx-x64:
     runs-on: macos-13
