@@ -22,14 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __CCTIMELINE_ACTION_H__
-#define __CCTIMELINE_ACTION_H__
+#pragma once
 
 #include "TimeLine.h"
 #include "ActionTimelineData.h"
-#include "base/Protocols.h"
+#include "axmol/base/Protocols.h"
 #include "cocostudio/CocosStudioExport.h"
-#include "2d/Action.h"
+#include "axmol/2d/Action.h"
 
 NS_TIMELINE_BEGIN
 
@@ -182,21 +181,21 @@ public:
     /** Inherit from Action. */
 
     /** Returns a clone of ActionTimeline */
-    virtual ActionTimeline* clone() const override;
+    ActionTimeline* clone() const override;
 
     /** Returns a reverse of ActionTimeline.
      *  Not implement yet.
      */
-    virtual ActionTimeline* reverse() const override { return nullptr; }
+    ActionTimeline* reverse() const override { return nullptr; }
 
-    virtual void step(float delta) override;
-    virtual void startWithTarget(ax::Node* target) override;
-    virtual bool isDone() const override { return false; }
+    void step(float delta) override;
+    void startWithTarget(ax::Node* target) override;
+    bool isDone() const override { return false; }
 
     /// @{
     /// @name implement Playable Protocol
-    virtual void start() override;
-    virtual void stop() override;
+    void start() override;
+    void stop() override;
     /// @} end of PlayableProtocol
 
 protected:
@@ -224,10 +223,8 @@ protected:
 
     std::function<void(Frame*)> _frameEventListener;
     std::function<void()> _lastFrameListener;
-    std::map<int, hlookup::string_map<std::function<void()>>> _frameEndCallFuncs;
-    hlookup::string_map<AnimationInfo> _animationInfos;
+    std::map<int, axstd::string_map<std::function<void()>>> _frameEndCallFuncs;
+    axstd::string_map<AnimationInfo> _animationInfos;
 };
 
 NS_TIMELINE_END
-
-#endif /*__CCTIMELINE_ACTION_H__*/

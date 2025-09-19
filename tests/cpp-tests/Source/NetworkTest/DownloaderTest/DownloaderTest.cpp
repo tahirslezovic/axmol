@@ -28,20 +28,26 @@
 
 #include "../../testResource.h"
 
-#include "ui/UILoadingBar.h"
-#include "ui/UIButton.h"
-#include "network/Downloader.h"
+#include "axmol/ui/UILoadingBar.h"
+#include "axmol/ui/UIButton.h"
+#include "axmol/network/Downloader.h"
+
+#include "axmol/tlx/format.hpp"
 
 using namespace ax;
 
+// clang-format off
+std::string_view sBigFileDigest = "d42b00a4fbfef44e8ab38a56c2028a5e";
 static const char* sURLList[] = {
-    "https://www.cocos2d-x.org/attachments/802/cocos2dx_landscape.png", "https://cocos2d-x.org/images/logo.png",
-    "https://www.cocos2d-x.org/attachments/1503/no_exist.txt",  // try to download no exist file
-    "https://github.com/axmolengine/axmol/releases/download/v2.1.3/axmol-2.1.3.zip"
+    "https://axmol.dev/assets/img/splash_white.png",
+    "https://axmol.dev/assets/img/logo.png",
+    "https://axmol.dev/assets/img/no_exist.txt",  // try to download no exist file
+    "https://github.com/axmolengine/axmol/releases/download/v2.1.5/axmol-2.1.5.zip"
 };
+// clang-format on
 const static int sListSize              = (sizeof(sURLList) / sizeof(sURLList[0]));
 static const char* sNameList[sListSize] = {
-    "cocos2dx_landscape.png",
+    "splash_white.png",
     "logo.png",
     "inexist file",
     "big file",
@@ -114,17 +120,17 @@ struct DownloaderTest : public TestCase
         return bg;
     }
 
-    static void sbtoa(double speedInBytes, char* buf, size_t buf_len)
+    static auto format_byte_per_sec(double speedInBytes, char* buf, size_t buf_len)
     {
         double speedInBits = speedInBytes;
         if (speedInBits < 1024)
-            snprintf(buf, buf_len, "%gB", speedInBits);
+            return fmt::format_to_n(buf, buf_len, "{:g}B", speedInBits);
         else if (speedInBits < 1024 * 1024)
-            snprintf(buf, buf_len, "%.1lfKB", speedInBits / 1024);
+            return fmt::format_to_n(buf, buf_len, "{:.1f}KB", speedInBits / 1024);
         else if (speedInBits < 1024 * 1024 * 1024)
-            snprintf(buf, buf_len, "%.1lfMB", speedInBits / 1024 / 1024);
+            return fmt::format_to_n(buf, buf_len, "{:.1f}MB", speedInBits / 1024 / 1024);
         else
-            snprintf(buf, buf_len, "%.1lfGB", speedInBits / 1024 / 1024 / 1024);
+            return fmt::format_to_n(buf, buf_len, "{:.1f}GB", speedInBits / 1024 / 1024 / 1024);
     }
 
     virtual void onEnter() override
@@ -144,7 +150,7 @@ struct DownloaderTest : public TestCase
             }
             auto btn = (ui::Button*)view->getChildByTag(TAG_BUTTON);
             btn->setEnabled(false);
-            //btn->setVisible(false);
+            // btn->setVisible(false);
             auto bar = (ui::LoadingBar*)view->getChildByTag(TAG_PROGRESS_BAR);
             bar->setPercent(0);
             bar->setVisible(true);
@@ -164,7 +170,7 @@ struct DownloaderTest : public TestCase
             }
             auto btn = (ui::Button*)view->getChildByTag(TAG_BUTTON);
             btn->setEnabled(false);
-            //btn->setVisible(false);
+            // btn->setVisible(false);
             auto bar = (ui::LoadingBar*)view->getChildByTag(TAG_PROGRESS_BAR);
             bar->setPercent(0);
             bar->setVisible(true);
@@ -185,7 +191,7 @@ struct DownloaderTest : public TestCase
             }
             auto btn = (ui::Button*)view->getChildByTag(TAG_BUTTON);
             btn->setEnabled(false);
-            //btn->setVisible(false);
+            // btn->setVisible(false);
             auto bar = (ui::LoadingBar*)view->getChildByTag(TAG_PROGRESS_BAR);
             bar->setPercent(0);
             bar->setVisible(true);
@@ -208,7 +214,8 @@ struct DownloaderTest : public TestCase
             bar->setVisible(true);
             bar->setEnabled(true);
             auto path = FileUtils::getInstance()->getWritablePath() + "CppTests/DownloaderTest/" + sNameList[3];
-            auto task = this->downloader->createDownloadFileTask(sURLList[3], path, sNameList[3], "1CF78E3F23A2B1A6806D8719A5771D34", false);
+            auto task =
+                this->downloader->createDownloadFileTask(sURLList[3], path, sNameList[3], sBigFileDigest, false);
         });
         bottomRightView->setName(sNameList[3]);
         bottomRightView->setAnchorPoint(Vec2(0, 1));
@@ -222,12 +229,13 @@ struct DownloaderTest : public TestCase
             float percent = float(task.progressInfo.totalBytesReceived * 100) / task.progressInfo.totalBytesExpected;
             bar->setPercent(percent);
             char buf[128];
-            sprintf(buf, "%.1f%%[total %d KB]", percent, int(task.progressInfo.totalBytesExpected / 1024));
+            fmt::format_to_z(buf, "{:.1f}%[total {} KB]", percent, int(task.progressInfo.totalBytesExpected / 1024));
 
             auto status = (Label*)view->getChildByTag(TAG_STATUS);
             status->setString(buf);
 
-            sbtoa(task.progressInfo.speedInBytes, buf, 128);
+            auto ret = format_byte_per_sec(task.progressInfo.speedInBytes, buf, 128);
+            *ret.out = '\0';
             AXLOGI("[{}%] speed: {}/s", percent, buf);
         };
 
@@ -301,10 +309,10 @@ struct DownloaderTest : public TestCase
         };
 
         // define failed callback
-        downloader->onTaskError = [this](const ax::network::DownloadTask& task, int errorCode,
-                                         int errorCodeInternal, std::string_view errorStr) {
+        downloader->onTaskError = [this](const ax::network::DownloadTask& task, int errorCode, int errorCodeInternal,
+                                         std::string_view errorStr) {
             AXLOGW("Failed to download : {}, identifier({}) error code({}), internal error code({}) desc({})",
-                task.requestURL, task.identifier, errorCode, errorCodeInternal, errorStr);
+                   task.requestURL, task.identifier, errorCode, errorCodeInternal, errorStr);
             auto view   = this->getChildByName(task.identifier);
             auto status = (Label*)view->getChildByTag(TAG_STATUS);
             status->setString(errorStr.length() ? errorStr : "Download failed.");
@@ -340,10 +348,11 @@ struct DownloaderMultiTask : public TestCase
         // add 64 download task at same time.
         for (int i = 0; i < 64; i++)
         {
-            sprintf(name, "%d_%s", i, sNameList[0]);
-            sprintf(path, "%sCppTests/DownloaderTest/%s", FileUtils::getInstance()->getWritablePath().c_str(), name);
+            auto namesv = fmt::format_to_z(name, "{}_{}", i, sNameList[0]);
+            auto pathsv = fmt::format_to_z(path, "{}CppTests/DownloaderTest/{}",
+                                           FileUtils::getInstance()->getWritablePath().c_str(), name);
             AXLOGI("downloader task create: {}", name);
-            this->downloader->createDownloadFileTask(sURLList[0], path, name);
+            this->downloader->createDownloadFileTask(sURLList[0], pathsv, namesv);
         }
 
         downloader->onFileTaskSuccess =
@@ -351,9 +360,9 @@ struct DownloaderMultiTask : public TestCase
 
         downloader->onTaskError =
             ([](const network::DownloadTask& task, int errorCode, int errorCodeInternal, std::string_view errorStr) {
-                AXLOGI("downloader task failed : {}, identifier({}) error code({}), internal error code({}) desc({})",
-                    task.requestURL, task.identifier, errorCode, errorCodeInternal, errorStr);
-            });
+            AXLOGI("downloader task failed : {}, identifier({}) error code({}), internal error code({}) desc({})",
+                   task.requestURL, task.identifier, errorCode, errorCodeInternal, errorStr);
+        });
     }
 };
 

@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SINE_FORCE_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_SINE_FORCE_AFFECTOR_H__
+#pragma once
 
 #include "PUBaseForceAffector.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -42,8 +41,8 @@ public:
 
     static PUSineForceAffector* create();
 
-    virtual void preUpdateAffector(float deltaTime) override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void preUpdateAffector(float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /**
      */
@@ -55,7 +54,7 @@ public:
     float getFrequencyMax() const;
     void setFrequencyMax(const float frequencyMax);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUSineForceAffector();
     virtual ~PUSineForceAffector();
@@ -66,6 +65,4 @@ protected:
     float _frequencyMax;
     float _frequency;
 };
-}
-
-#endif
+}  // namespace ax

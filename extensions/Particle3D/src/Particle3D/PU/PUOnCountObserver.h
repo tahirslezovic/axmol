@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_ON_COUNT_OBSERVER_H__
-#define __AX_PU_PARTICLE_3D_ON_COUNT_OBSERVER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUObserver.h"
 #include <vector>
 #include <string>
@@ -54,11 +53,11 @@ public:
     static const PUComparisionOperator DEFAULT_COMPARE;
     /**
      */
-    virtual void notifyStart() override;
+    void notifyStart() override;
 
     /**
      */
-    virtual bool observe(PUParticle3D* particle, float timeElapsed) override;
+    bool observe(PUParticle3D* particle, float timeElapsed) override;
 
     /**
      */
@@ -70,12 +69,10 @@ public:
     PUComparisionOperator getCompare() const { return _compare; };
     void setCompare(PUComparisionOperator op) { _compare = op; };
 
-    virtual void copyAttributesTo(PUObserver* observer) override;
+    void copyAttributesTo(PUObserver* observer) override;
 
     PUOnCountObserver();
-    virtual ~PUOnCountObserver(){};
+    virtual ~PUOnCountObserver() {};
 };
 
-}
-
-#endif
+}  // namespace ax

@@ -24,10 +24,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_MATERIAL_MANAGER_H__
-#define __AX_PU_PARTICLE_3D_MATERIAL_MANAGER_H__
-#include "math/Math.h"
-#include "base/Types.h"
+#pragma once
+#include "axmol/math/Math.h"
+#include "axmol/base/Types.h"
 #include <vector>
 #include "extensions/ExtensionExport.h"
 
@@ -42,10 +41,10 @@ public:
     std::string fileName;
     std::string name;
     bool isEnabledLight;
-    Vec4 ambientColor;
-    Vec4 diffuseColor;
-    Vec4 specularColor;
-    Vec4 emissiveColor;
+    Color ambientColor;
+    Color diffuseColor;
+    Color specularColor;
+    Color emissiveColor;
     float shininess;
 
     BlendFunc blendFunc;
@@ -53,7 +52,7 @@ public:
     bool depthWrite;
 
     std::string textureFile;
-    backend::SamplerAddressMode wrapMode;
+    rhi::SamplerAddressMode wrapMode;
 };
 
 class AX_EX_DLL PUMaterialCache
@@ -74,6 +73,4 @@ protected:
     MaterialVector _materialMap;
 };
 
-}
-
-#endif
+}  // namespace ax

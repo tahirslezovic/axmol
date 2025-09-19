@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SPHERE_SURFACE_EMITTER_H__
-#define __AX_PU_PARTICLE_3D_SPHERE_SURFACE_EMITTER_H__
+#pragma once
 
 #include "Particle3D/PU/PUEmitter.h"
 
@@ -46,22 +45,20 @@ public:
 
     /**
      */
-    virtual void initParticlePosition(PUParticle3D* particle) override;
+    void initParticlePosition(PUParticle3D* particle) override;
 
     /**
      */
-    virtual void initParticleDirection(PUParticle3D* particle) override;
+    void initParticleDirection(PUParticle3D* particle) override;
 
-    virtual PUSphereSurfaceEmitter* clone() override;
-    virtual void copyAttributesTo(PUEmitter* emitter) override;
+    PUSphereSurfaceEmitter* clone() override;
+    void copyAttributesTo(PUEmitter* emitter) override;
 
     PUSphereSurfaceEmitter();
-    virtual ~PUSphereSurfaceEmitter(){};
+    virtual ~PUSphereSurfaceEmitter() {};
 
 protected:
     float _radius;
     Vec3 _randomVector;
 };
-}
-
-#endif
+}  // namespace ax

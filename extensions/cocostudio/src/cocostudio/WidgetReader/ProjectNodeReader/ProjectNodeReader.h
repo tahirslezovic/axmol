@@ -22,10 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__ProjectNodeReader__
-#define __cocos2d_libs__ProjectNodeReader__
+#pragma once
 
-#include "base/Object.h"
+#include "axmol/base/Object.h"
 #include "cocostudio/CocosStudioExport.h"
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
 
@@ -48,5 +47,3 @@ public:
     ax::Node* createNodeWithFlatBuffers(const flatbuffers::Table* nodeOptions);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__ProjectNodeReader__) */

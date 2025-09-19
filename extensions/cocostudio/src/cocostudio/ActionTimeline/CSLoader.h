@@ -22,15 +22,14 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__CSLoader__
-#define __cocos2d_libs__CSLoader__
+#pragma once
 
 #include "cocostudio/DictionaryHelper.h"
 #include "cocostudio/CocosStudioExport.h"
 
-#include "base/ObjectFactory.h"
-#include "base/Data.h"
-#include "ui/UIWidget.h"
+#include "axmol/base/ObjectFactory.h"
+#include "axmol/base/Data.h"
+#include "axmol/ui/UIWidget.h"
 
 #include "flatbuffers/flatbuffers.h"
 
@@ -174,6 +173,4 @@ protected:
     std::string _csBuildID;
 };
 
-}
-
-#endif /* defined(__cocos2d_libs__CSLoader__) */
+}  // namespace ax

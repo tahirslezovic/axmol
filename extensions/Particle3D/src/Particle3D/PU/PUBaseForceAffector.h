@@ -24,10 +24,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_BASE_FORCE_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_BASE_FORCE_AFFECTOR_H__
+#pragma once
 
-#include "math/Math.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUAffector.h"
 
 namespace ax
@@ -56,7 +55,7 @@ public:
     ForceApplication getForceApplication() const;
     void setForceApplication(ForceApplication forceApplication);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUBaseForceAffector();
     virtual ~PUBaseForceAffector();
@@ -66,6 +65,4 @@ protected:
     Vec3 _scaledVector;
     ForceApplication _forceApplication;
 };
-}
-
-#endif
+}  // namespace ax

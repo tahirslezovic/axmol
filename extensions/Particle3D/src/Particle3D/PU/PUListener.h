@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_LISTENER_H__
-#define __AX_PU_PARTICLE_3D_LISTENER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include <vector>
 #include <string>
 #include "extensions/ExtensionExport.h"
@@ -54,6 +53,4 @@ public:
     virtual void particleExpired(PUParticleSystem3D* particleSystem, PUParticle3D* particle) = 0;
 };
 
-}
-
-#endif
+}  // namespace ax

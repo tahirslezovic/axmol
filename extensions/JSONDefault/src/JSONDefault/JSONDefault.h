@@ -24,10 +24,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-#ifndef __SUPPORT_JSONDEFAULT_H__
-#define __SUPPORT_JSONDEFAULT_H__
+#pragma once
 
-#include "platform/PlatformMacros.h"
+#include "axmol/platform/PlatformMacros.h"
 #include "extensions/ExtensionMacros.h"
 #include <string>
 
@@ -257,5 +256,3 @@ protected:
 NS_AX_EXT_END
 // end of extensions group
 /** @} */
-
-#endif  // __SUPPORT_JSONDEFAULT_H__

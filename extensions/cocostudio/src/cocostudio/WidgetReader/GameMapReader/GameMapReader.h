@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__GameMapReader__
-#define __cocos2d_libs__GameMapReader__
+#pragma once
 
 #include "cocostudio/CocosStudioExport.h"
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
@@ -48,5 +47,3 @@ public:
     ax::Node* createNodeWithFlatBuffers(const flatbuffers::Table* gameMapOptions);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__GameMapReader__) */

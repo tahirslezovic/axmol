@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_FLOCK_CENTERING_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_FLOCK_CENTERING_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 
@@ -37,10 +36,10 @@ class AX_EX_DLL PUFlockCenteringAffector : public PUAffector
 public:
     static PUFlockCenteringAffector* create();
 
-    virtual void preUpdateAffector(float deltaTime) override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void preUpdateAffector(float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUFlockCenteringAffector();
     virtual ~PUFlockCenteringAffector();
@@ -50,6 +49,4 @@ protected:
     Vec3 _average;
     float _count;
 };
-}
-
-#endif
+}  // namespace ax

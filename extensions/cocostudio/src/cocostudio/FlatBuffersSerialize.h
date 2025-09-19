@@ -22,16 +22,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__FlatBuffersSerialize__
-#define __cocos2d_libs__FlatBuffersSerialize__
+#pragma once
 
 #include <string>
 #include <vector>
 
 #include "extensions/ExtensionMacros.h"
 #include "CocosStudioExport.h"
-#include "platform/PlatformMacros.h"
-#include "ui/UIWidget.h"
+#include "axmol/platform/PlatformMacros.h"
+#include "axmol/ui/UIWidget.h"
 
 #include "pugixml/pugixml.hpp"
 
@@ -160,5 +159,3 @@ private:
     std::string _csdVersion;
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__FlatBuffersSerialize__) */

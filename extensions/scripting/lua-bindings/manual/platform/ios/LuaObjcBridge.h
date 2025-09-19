@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __LUA_OBJC_BRIDGE_H_
-#define __LUA_OBJC_BRIDGE_H_
+#pragma once
 
 #include "lua-bindings/manual/LuaBridge.h"
 
@@ -57,8 +56,7 @@ protected:
 
     static void pushValue(lua_State* L, void* val);
 };
-}
+}  // namespace ax
 
 // end group
 /// @}
-#endif  // __LUA_OBJC_BRIDGE_H_

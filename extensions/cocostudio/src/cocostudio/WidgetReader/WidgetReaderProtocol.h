@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TestCpp__WidgetReaderProtocol__
-#define __TestCpp__WidgetReaderProtocol__
+#pragma once
 
 #include "cocostudio/DictionaryHelper.h"
 #include "cocostudio/CocosStudioExport.h"
@@ -63,5 +62,3 @@ public:
                                  pugi::xml_node objectData);  // cocos2d-x-3.3rc1@libccs19 spec
 };
 }  // namespace cocostudio
-
-#endif /* defined(__TestCpp__WidgetReaderProtocol__) */

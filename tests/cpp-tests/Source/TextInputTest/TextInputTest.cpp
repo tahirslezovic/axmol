@@ -68,7 +68,7 @@ KeyboardNotificationLayer::KeyboardNotificationLayer() : _trackNode(0)
 void KeyboardNotificationLayer::keyboardWillShow(IMEKeyboardNotificationInfo& info)
 {
     AXLOGD("TextInputTest:keyboardWillShowAt(origin:{},{}, size:{},{})", info.end.origin.x, info.end.origin.y,
-          info.end.size.width, info.end.size.height);
+           info.end.size.width, info.end.size.height);
 
     if (!_trackNode)
     {
@@ -77,7 +77,7 @@ void KeyboardNotificationLayer::keyboardWillShow(IMEKeyboardNotificationInfo& in
 
     auto rectTracked = getRect(_trackNode);
     AXLOGD("TextInputTest:trackingNodeAt(origin:{},{}, size:{},{})", rectTracked.origin.x, rectTracked.origin.y,
-          rectTracked.size.width, rectTracked.size.height);
+           rectTracked.size.width, rectTracked.size.height);
 
     // if the keyboard area doesn't intersect with the tracking node area, nothing need to do.
     if (!rectTracked.intersectsRect(info.end))
@@ -169,7 +169,7 @@ void TextFieldTTFDefaultTest::onEnter()
     KeyboardNotificationLayer::onEnter();
 
     // add TextFieldTTF
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto pTextField = TextFieldTTF::textFieldWithPlaceHolder("<click here for input>", FONT_NAME, FONT_SIZE);
     addChild(pTextField);
@@ -191,7 +191,7 @@ void TextFieldTTFDefaultTest::onEnter()
 
 std::string TextFieldTTFActionTest::subtitle() const
 {
-    return "CCTextFieldTTF with action and char limit test";
+    return "TextFieldTTF with action and char limit test";
 }
 
 void TextFieldTTFActionTest::onClickTrackNode(bool bClicked, const Vec2& touchPos)
@@ -222,7 +222,7 @@ void TextFieldTTFActionTest::onEnter()
     _action = false;
 
     // add TextFieldTTF
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     _textField = TextFieldTTF::textFieldWithPlaceHolder("<click here for input>", FONT_NAME, FONT_SIZE);
     addChild(_textField);
@@ -285,7 +285,7 @@ bool TextFieldTTFActionTest::onTextFieldInsertText(TextFieldTTF* sender, const c
     // create a insert text sprite and do some action
     auto label = Label::createWithSystemFont(text, FONT_NAME, FONT_SIZE);
     this->addChild(label);
-    Color3B color(226, 121, 7);
+    Color32 color(226, 121, 7);
     label->setColor(color);
 
     // move the sprite from top to position
@@ -295,7 +295,7 @@ bool TextFieldTTFActionTest::onTextFieldInsertText(TextFieldTTF* sender, const c
         endPos.x += sender->getContentSize().width / 2;
     }
     auto inputTextSize = label->getContentSize();
-    Vec2 beginPos(endPos.x, Director::getInstance()->getWinSize().height - inputTextSize.height * 2);
+    Vec2 beginPos(endPos.x, Director::getInstance()->getLogicalSize().height - inputTextSize.height * 2);
 
     float duration = 0.5;
     label->setPosition(beginPos);
@@ -321,7 +321,7 @@ bool TextFieldTTFActionTest::onTextFieldDeleteBackward(TextFieldTTF* sender, con
     auto labelSize     = label->getContentSize();
     beginPos.x += (textfieldSize.width - labelSize.width) / 2.0f;
 
-    auto winSize = Director::getInstance()->getWinSize();
+    auto winSize = Director::getInstance()->getLogicalSize();
     Vec2 endPos(-winSize.width / 4.0f, winSize.height * (0.5 + (float)rand() / (2.0f * RAND_MAX)));
 
     float duration       = 1;
@@ -362,7 +362,7 @@ void TextFieldTTFSecureTextEntryTest::onEnter()
     KeyboardNotificationLayer::onEnter();
 
     // add TextFieldTTF
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto pTextField = TextFieldTTF::textFieldWithPlaceHolder("<click here for input>", FONT_NAME, FONT_SIZE);
     addChild(pTextField);
@@ -413,7 +413,7 @@ void TextFieldTTSetCursorFromPoint::onEnter()
     KeyboardNotificationLayer::onEnter();
 
     // add TextFieldTTF
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto pTextField = TextFieldTTF::textFieldWithPlaceHolder("<click here for input>", FONT_NAME, FONT_SIZE);
     addChild(pTextField);

@@ -24,12 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_PLANE_COLLIDER_H__
-#define __AX_PU_PARTICLE_3D_PLANE_COLLIDER_H__
+#pragma once
 
 #include "PUBaseCollider.h"
 #include "Particle3D/PU/PUPlane.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -42,8 +41,8 @@ public:
 
     static PUPlaneCollider* create();
 
-    virtual void notifyRescaled(const Vec3& scale) override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void notifyRescaled(const Vec3& scale) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /** Returns the normal of the plane
      */
@@ -57,7 +56,7 @@ public:
      */
     void calculateDirectionAfterCollision(PUParticle3D* particle, float timeElapsed);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUPlaneCollider();
     virtual ~PUPlaneCollider();
@@ -67,6 +66,4 @@ protected:
     Vec3 _predictedPosition;
     PUPlane _plane;
 };
-}
-
-#endif
+}  // namespace ax

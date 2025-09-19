@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef SCRIPT_LUA_PLATFORM_ANDROID_JNI_JAVA_dev_axmol_lib_AXLUA_JAVA_BRIDEG_H
-#define SCRIPT_LUA_PLATFORM_ANDROID_JNI_JAVA_dev_axmol_lib_AXLUA_JAVA_BRIDEG_H
+#pragma once
 #if defined(__ANDROID__)
 
 #    include <jni.h>
@@ -36,10 +35,7 @@ extern "C" {
  * Method:    callLuaFunctionWithString
  * Signature: (ILjava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_dev_axmol_lib_LuaBridge_callLuaFunctionWithString(JNIEnv*,
-                                                                                             jclass,
-                                                                                             jint,
-                                                                                             jstring);
+JNIEXPORT jint JNICALL Java_dev_axmol_lib_LuaBridge_callLuaFunctionWithString(JNIEnv*, jclass, jint, jstring);
 
 /*
  * Class:     Java_dev_axmol_lib_LuaBridge
@@ -47,9 +43,9 @@ JNIEXPORT jint JNICALL Java_dev_axmol_lib_LuaBridge_callLuaFunctionWithString(JN
  * Signature: (Ljava/lang/String;Ljava/lang/String;)I
  */
 JNIEXPORT jint JNICALL Java_dev_axmol_lib_LuaBridge_callLuaGlobalFunctionWithString(JNIEnv* env,
-                                                                                                   jclass,
-                                                                                                   jstring,
-                                                                                                   jstring);
+                                                                                    jclass,
+                                                                                    jstring,
+                                                                                    jstring);
 
 /*
  * Class:     Java_dev_axmol_lib_LuaBridge
@@ -70,4 +66,3 @@ JNIEXPORT jint JNICALL Java_dev_axmol_lib_LuaBridge_releaseLuaFunction(JNIEnv* e
 #endif
 
 /// @endcond
-#endif  // SCRIPT_LUA_PLATFORM_ANDROID_JNI_JAVA_dev_axmol_lib_AXLUA_JAVA_BRIDEG_H

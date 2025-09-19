@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_DO_STOP_SYSTEM_EVENT_HANDLER_H__
-#define __AX_PU_PARTICLE_3D_DO_STOP_SYSTEM_EVENT_HANDLER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUEventHandler.h"
 #include <vector>
 #include <string>
@@ -48,12 +47,10 @@ public:
 
     /**
      */
-    virtual void handle(PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
+    void handle(PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
 
     PUDoStopSystemEventHandler() : PUEventHandler() {}
-    virtual ~PUDoStopSystemEventHandler(){};
+    virtual ~PUDoStopSystemEventHandler() {};
 };
 
-}
-
-#endif
+}  // namespace ax

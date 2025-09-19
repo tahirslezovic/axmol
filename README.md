@@ -2,7 +2,7 @@
 
 # Axmol Engine
 
-## A Multi-platform Engine for Mobile, Desktop and Xbox.
+## A Multi-platform Engine for Desktop, XBOX (UWP), WebAssembly and Mobile games.
 
 [Axmol Engine](https://axmol.dev) is an open-source, C++ multi-platform engine designed for mobile devices, desktop, and Xbox, well-suited for 2D game development. It was launched in November 2019 as a fork of Cocos2d-x v4.0.
 
@@ -31,9 +31,19 @@ Please [visit our Wiki](https://github.com/axmolengine/axmol/wiki) to know more 
 
 ***
 
+## 📢 Branches
+
+> **Important Notice**  
+> - **`dev` branch**: Serves as the **v3** development branch. It is under active development and may contain unstable or experimental features.  
+> - **`release/2.x` branch**: Serves as the **stable production branch**. It is recommended for production use to ensure stability and compatibility.  
+>
+> Use the `dev` branch if you want to contribute to v3 development or test new features. For production deployment, please use the `release/2.x` branch.
+
+***
+
 ## ⚡️Building
 
-* [Download the latest release](https://github.com/axmolengine/axmol/releases) / [Mirror](https://gitee.com/simdsoft/axmol)
+* Download it: [Latest Release](https://github.com/axmolengine/axmol/releases) / [SourceForge Mirror](https://sourceforge.net/projects/axmol-engine.mirror) / [Gitee Mirror](https://gitee.com/simdsoft/axmol) 
 * [How to install](docs/DevSetup.md)
 
 If you have a Cocos2d-x project, migrating to Axmol Engine is easy. We have prepared a [Migration Guide](https://github.com/axmolengine/axmol/wiki/Cocos2d%E2%80%90x-migration-guide).
@@ -59,13 +69,14 @@ Axmol Engine has iterated and improved over the Cocos2d-x v4.0 base. Now is fast
 * C++
 * Lua
 
-**Renderer backends**:
+**Renderer RHI**:
 * Metal for macOS, iOS and tvOS
 * OpenGL 3.3+ for Linux, macOS and Win32
 * OpenGL ES 2.0+ for Android
 * OpenGL ES 3.0+ for iOS and tvOS
 * ANGLE GLES 3.0+ for Win32 and UWP
 * WebGL 2.0 (OpenGL ES 3.0): WASM
+* D3D11 for Win32 and UWP (since axmol-v3)
 
 **Architectures**:
 * iOS/tvOS (x64, arm64)
@@ -74,11 +85,11 @@ Axmol Engine has iterated and improved over the Cocos2d-x v4.0 base. Now is fast
 * Linux (x64)
 * OSX (x64, arm64)
 * UWP (x64, arm64)
-* Wasm32
+* Wasm32, Wasm64(since axmol-v3)
 
 **Supported 2D physics engines** ([more info here](https://github.com/axmolengine/axmol/wiki/2D-Physics-Engines-Information)):
 * Box2D
-* Chipmunk2D (Will be removed in axmol-v3)
+* ~~Chipmunk2D~~ (Removed in `dev` (v3))
 
 **Supported 3D physics engines**:
 * Bullet Physics SDK
@@ -97,12 +108,15 @@ Axmol Engine has iterated and improved over the Cocos2d-x v4.0 base. Now is fast
 
 Some highlights:
 
+- Added **D3D11** render support (axmol-v3)
+- **Add HiDPI support for Windows/Linux/WebAssembly desktop platforms** (axmol-v3)
 - **New MediaPlayer**: render video as texture2D using MediaEngine. [More info in our Wiki](https://github.com/axmolengine/axmol/wiki/Media-Player).
 - Windows video player support (based on Microsoft Media Foundation)
 - **WebAssembly support** (by @nowasm) - Preview: [Axmol tests](https://axmol.netlify.app/wasm/cpp-tests/cpp-tests)
 - **Universal Windows Platform** (UWP) support for Xbox consoles
 - **Apple M1 and Android x64 support** (by @pietpukkel)
 - **Windows x64 build support**
+- **Powerful cross-platform build system**
 - Improved Windows workflow, supporting linking with engine prebuilt libs. Please read the [Windows workflow guide](https://github.com/axmolengine/axmol/issues/564).
 - Refactored AudioEngine, OpenAL for all platforms:
     - [OpenAL Soft](https://github.com/kcat/openal-soft) (pass `-DAX_USE_ALSOFT=ON` to CMake to force enabling it)
@@ -123,6 +137,7 @@ Some highlights:
 - Using SAX parser for .plist files
 - ASTC 4x4 / 6x6 / 8x8 support (if hardware decoding is not supported, then software decoding is used)
 - ETC2 RGB / RGBA support (if hardware decoding is not supported, then software decoding is used)
+- Migrate VR rendering support from the legacy project and enhance it (axmol-v3)
  
 Please read the [full list of changes since Cocos2d-x v4.0](CHANGELOG.md). 
 
@@ -168,7 +183,7 @@ In order to see some of our community works, please check our Axmol Showcase: [M
 ## Reference links
 
 - [1kiss](https://github.com/simdsoft/1kiss): A cross-platform one step build powershell script, with auto setup general dependent tools.
-- [axslcc](https://github.com/axmolengine/axslcc): A fork of `glslcc`, for Axmol new shader workflow tool.
+- [axslcc](https://github.com/axmolengine/axslcc): The axmol new shader workflow tool, forked from `glslcc`.
 - [Official Cocos2d-x](https://github.com/cocos2d/cocos2d-x)
 
 ## Axmol Stats

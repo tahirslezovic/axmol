@@ -23,11 +23,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__CCEventListenerAssetsManagerEx__
-#define __cocos2d_libs__CCEventListenerAssetsManagerEx__
+#pragma once
 
-#include "base/EventListener.h"
-#include "base/EventListenerCustom.h"
+#include "axmol/base/EventListener.h"
+#include "axmol/base/EventListenerCustom.h"
 #include "extensions/ExtensionMacros.h"
 #include "extensions/ExtensionExport.h"
 
@@ -63,8 +62,8 @@ public:
                                                 const std::function<void(EventAssetsManagerEx*)>& callback);
 
     /// Overrides
-    virtual bool checkAvailable() override;
-    virtual EventListenerAssetsManagerEx* clone() override;
+    bool checkAvailable() override;
+    EventListenerAssetsManagerEx* clone() override;
 
     /** Constructor */
     EventListenerAssetsManagerEx();
@@ -83,5 +82,3 @@ protected:
 };
 
 NS_AX_EXT_END
-
-#endif /* defined(__cocos2d_libs__CCEventListenerAssetsManagerEx__) */

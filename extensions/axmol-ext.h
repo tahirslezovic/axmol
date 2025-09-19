@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AXMOL_EXT_H__
-#define __AXMOL_EXT_H__
+#pragma once
 
 #include "ExtensionMacros.h"
 
@@ -32,11 +31,7 @@
 
 // Physics integration
 #include "physics-nodes/src/physics-nodes/PhysicsDebugNode.h"
-#include "physics-nodes/src/physics-nodes/PhysicsDebugNodeBox2D.h"
-#include "physics-nodes/src/physics-nodes/PhysicsDebugNodeChipmunk2D.h"
 #include "physics-nodes/src/physics-nodes/PhysicsSprite.h"
-#include "physics-nodes/src/physics-nodes/PhysicsSpriteBox2D.h"
-#include "physics-nodes/src/physics-nodes/PhysicsSpriteChipmunk2D.h"
 
 #include "assets-manager/src/assets-manager/AssetsManager.h"
 #include "assets-manager/src/assets-manager/AssetsManagerEx.h"
@@ -48,5 +43,3 @@
 #include "Particle3D/src/Particle3D/Particle3DRender.h"
 #include "Particle3D/src/Particle3D/ParticleSystem3D.h"
 #include "Particle3D/src/Particle3D/PU/PUParticleSystem3D.h"
-
-#endif /* __AXMOL_EXT_H__ */

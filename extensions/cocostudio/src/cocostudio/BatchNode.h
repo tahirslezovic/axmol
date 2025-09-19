@@ -21,11 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
+#pragma once
 
-#ifndef __CCBATCHNODE_H__
-#define __CCBATCHNODE_H__
-
-#include "2d/Node.h"
+#include "axmol/2d/Node.h"
 #include "ArmatureDefine.h"
 #include "CocosStudioExport.h"
 
@@ -55,21 +53,16 @@ public:
     ~BatchNode();
     /**
      */
-    virtual bool init() override;
+    bool init() override;
     using Node::addChild;
-    virtual void addChild(ax::Node* pChild, int zOrder, int tag) override;
-    virtual void addChild(ax::Node* pChild, int zOrder, std::string_view name) override;
-    virtual void removeChild(ax::Node* child, bool cleanup) override;
-    virtual void visit(ax::Renderer* renderer,
-                       const ax::Mat4& parentTransform,
-                       uint32_t parentFlags) override;
-    virtual void draw(ax::Renderer* renderer, const ax::Mat4& transform, uint32_t flags) override;
+    void addChild(ax::Node* pChild, int zOrder, int tag) override;
+    void addChild(ax::Node* pChild, int zOrder, std::string_view name) override;
+    void removeChild(ax::Node* child, bool cleanup) override;
+    virtual void visit(ax::Renderer* renderer, const ax::Mat4& parentTransform, uint32_t parentFlags) override;
+    void draw(ax::Renderer* renderer, const ax::Mat4& transform, uint32_t flags) override;
 
 protected:
     void generateGroupCommand();
-
 };
 
 }  // namespace cocostudio
-
-#endif /*__CCBATCHNODE_H__*/

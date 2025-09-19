@@ -24,6 +24,8 @@
 
 #include "TextureCacheTest.h"
 
+#include "axmol/tlx/format.hpp"
+
 using namespace ax;
 
 TextureCacheTests::TextureCacheTests()
@@ -32,9 +34,7 @@ TextureCacheTests::TextureCacheTests()
     ADD_TEST_CASE(TextureCacheUnbindTest);
 }
 
-TextureCacheTest::TextureCacheTest() : _numberOfSprites(20), _numberOfLoadedSprites(0)
-{
-}
+TextureCacheTest::TextureCacheTest() : _numberOfSprites(20), _numberOfLoadedSprites(0) {}
 
 TextureCacheTest::~TextureCacheTest()
 {
@@ -46,8 +46,8 @@ void TextureCacheTest::loadingCallBack(ax::Texture2D* texture)
 {
     ++_numberOfLoadedSprites;
     char tmp[10];
-    sprintf(tmp, "%%%d", (int)(((float)_numberOfLoadedSprites / _numberOfSprites) * 100));
-    _labelPercent->setString(tmp);
+    auto percentText = fmt::format_to_z(tmp, "{}%", (int)(((float)_numberOfLoadedSprites / _numberOfSprites) * 100));
+    _labelPercent->setString(percentText);
 
     if (_numberOfLoadedSprites == _numberOfSprites)
     {
@@ -60,7 +60,7 @@ void TextureCacheTest::loadingCallBack(ax::Texture2D* texture)
 void TextureCacheTest::onEnter()
 {
     TestCase::onEnter();
-    auto size = Director::getInstance()->getWinSize();
+    auto size = Director::getInstance()->getLogicalSize();
 
     _labelLoading = Label::createWithTTF("loading...", "fonts/arial.ttf", 15);
     _labelPercent = Label::createWithTTF("%0", "fonts/arial.ttf", 15);
@@ -116,7 +116,7 @@ void TextureCacheTest::onEnter()
 
 void TextureCacheTest::addSprite()
 {
-    auto size = Director::getInstance()->getWinSize();
+    auto size = Director::getInstance()->getLogicalSize();
 
     // create sprites
 
@@ -182,9 +182,7 @@ void TextureCacheTest::addSprite()
     this->addChild(s15);
 }
 
-TextureCacheUnbindTest::TextureCacheUnbindTest()
-{
-}
+TextureCacheUnbindTest::TextureCacheUnbindTest() {}
 
 TextureCacheUnbindTest::~TextureCacheUnbindTest()
 {
@@ -196,7 +194,7 @@ void TextureCacheUnbindTest::onEnter()
 {
     TestCase::onEnter();
 
-    auto size = Director::getInstance()->getWinSize();
+    auto size = Director::getInstance()->getLogicalSize();
 
     Label* nothing = Label::createWithTTF("There should be\nnothing below", "fonts/arial.ttf", 15);
     nothing->setPosition(Vec2(size.width / 4, 5 * size.height / 6));
@@ -219,7 +217,7 @@ void TextureCacheUnbindTest::onEnter()
 
 void TextureCacheUnbindTest::textureLoadedA(Texture2D* texture)
 {
-    auto size = Director::getInstance()->getWinSize();
+    auto size = Director::getInstance()->getLogicalSize();
     auto s    = Sprite::create("Images/texture2048x2048.png");
     s->setScale(0.15);
     s->setPosition(size.width / 4, size.height / 2);
@@ -228,7 +226,7 @@ void TextureCacheUnbindTest::textureLoadedA(Texture2D* texture)
 
 void TextureCacheUnbindTest::textureLoadedB(Texture2D* texture)
 {
-    auto size = Director::getInstance()->getWinSize();
+    auto size = Director::getInstance()->getLogicalSize();
     auto s    = Sprite::create("Images/texture2048x2048.png");
     s->setScale(0.15);
     s->setPosition(3 * size.width / 4, size.height / 2);

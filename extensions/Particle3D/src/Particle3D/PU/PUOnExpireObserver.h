@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_ON_EXPIRE_OBSERVER_H__
-#define __AX_PU_PARTICLE_3D_ON_EXPIRE_OBSERVER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUObserver.h"
 #include <vector>
 #include <string>
@@ -46,12 +45,10 @@ public:
 
     /**
      */
-    virtual bool observe(PUParticle3D* particle, float timeElapsed) override;
+    bool observe(PUParticle3D* particle, float timeElapsed) override;
 
     PUOnExpireObserver() : PUObserver() {}
-    virtual ~PUOnExpireObserver(){};
+    virtual ~PUOnExpireObserver() {};
 };
 
-}
-
-#endif
+}  // namespace ax

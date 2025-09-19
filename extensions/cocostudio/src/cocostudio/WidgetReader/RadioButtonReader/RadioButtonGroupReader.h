@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __X365LIBS__RadioButtonGroupReader__
-#define __X365LIBS__RadioButtonGroupReader__
+#pragma once
 
 #include "cocostudio/WidgetReader/WidgetReader.h"
 #include "cocostudio/CocosStudioExport.h"
@@ -49,5 +48,3 @@ public:
     // int getResourceType(std::string_view key);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__X365LIBS__RadioButtonGroupReader__) */

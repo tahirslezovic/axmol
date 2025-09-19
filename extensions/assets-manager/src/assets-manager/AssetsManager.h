@@ -23,14 +23,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AssetsManager__
-#define __AssetsManager__
+#pragma once
 
 #include <string>
 
 #include <mutex>
 
-#include "2d/Node.h"
+#include "axmol/2d/Node.h"
 #include "extensions/ExtensionMacros.h"
 #include "extensions/ExtensionExport.h"
 
@@ -207,7 +206,7 @@ private:
 class AssetsManagerDelegateProtocol
 {
 public:
-    virtual ~AssetsManagerDelegateProtocol(){};
+    virtual ~AssetsManagerDelegateProtocol() {};
 
 public:
     /* @brief Call back function for error
@@ -230,5 +229,3 @@ public:
 };
 
 NS_AX_EXT_END
-
-#endif /* defined(__AssetsManager__) */

@@ -24,12 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_TEXTURE_ROTATOR_H__
-#define __AX_PU_PARTICLE_3D_TEXTURE_ROTATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 #include "Particle3D/PU/PUDynamicAttribute.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -44,7 +43,7 @@ public:
 
     static PUTextureRotator* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /** Returns an indication whether the 2D rotation speed is the same for all particles in this
         particle technique, or whether the 2D rotation speed of the particle itself is used.
@@ -80,9 +79,9 @@ public:
     float calculateRotationSpeed(PUParticle3D* particle);
 
     /** @copydoc ParticleAffector::_initParticleForEmission */
-    virtual void initParticleForEmission(PUParticle3D* particle) override;
+    void initParticleForEmission(PUParticle3D* particle) override;
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUTextureRotator();
     virtual ~PUTextureRotator();
@@ -98,6 +97,4 @@ protected:
      */
     PUDynamicAttributeHelper _dynamicAttributeHelper;
 };
-}
-
-#endif
+}  // namespace ax

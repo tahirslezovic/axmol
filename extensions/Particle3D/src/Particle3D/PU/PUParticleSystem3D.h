@@ -24,12 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_SYSTEM_3D_H__
-#define __AX_PU_PARTICLE_SYSTEM_3D_H__
+#pragma once
 
-#include "2d/Node.h"
-#include "base/Protocols.h"
-#include "math/Math.h"
+#include "axmol/2d/Node.h"
+#include "axmol/base/Protocols.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/ParticleSystem3D.h"
 #include <vector>
 #include <map>
@@ -108,7 +107,7 @@ struct AX_EX_DLL PUParticle3D : public Particle3D
     Vec3 rotationAxis;
     /** Current and original colour */
 
-    Vec4 originalColor;
+    Color originalColor;
 
     /** The zRotationSpeed is used in combination with zRotation and defines tha actual rotationspeed
         in 2D. */
@@ -208,7 +207,7 @@ struct AX_EX_DLL PUParticle3D : public Particle3D
 class AX_EX_DLL PUParticleSystem3D : public ParticleSystem3D
 {
 public:
-    typedef hlookup::string_map<ParticlePool> ParticlePoolMap;
+    typedef axstd::string_map<ParticlePool> ParticlePoolMap;
 
     static const float DEFAULT_WIDTH;
     static const float DEFAULT_HEIGHT;
@@ -222,32 +221,32 @@ public:
     static PUParticleSystem3D* create(std::string_view filePath);
     static PUParticleSystem3D* create(std::string_view filePath, std::string_view materialPath);
 
-    virtual void draw(Renderer* renderer, const Mat4& transform, uint32_t flags) override;
+    void draw(Renderer* renderer, const Mat4& transform, uint32_t flags) override;
 
-    virtual void update(float delta) override;
+    void update(float delta) override;
     void forceUpdate(float delta);
 
     /**
      * particle system play control
      */
-    virtual void startParticleSystem() override;
+    void startParticleSystem() override;
 
     /**
      * stop particle
      */
-    virtual void stopParticleSystem() override;
+    void stopParticleSystem() override;
 
     /**
      * pause particle
      */
-    virtual void pauseParticleSystem() override;
+    void pauseParticleSystem() override;
 
     /**
      * resume particle
      */
-    virtual void resumeParticleSystem() override;
+    void resumeParticleSystem() override;
 
-    virtual int getAliveParticleCount() const override;
+    int getAliveParticleCount() const override;
 
     /**
      * Returns the velocity scale, defined in the particle system, but passed to the technique for convenience.
@@ -420,6 +419,4 @@ protected:
     PUParticleSystem3D* _parentParticleSystem;
 };
 
-}
-
-#endif
+}  // namespace ax

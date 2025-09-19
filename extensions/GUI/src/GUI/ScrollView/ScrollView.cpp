@@ -25,13 +25,13 @@
  ****************************************************************************/
 
 #include "ScrollView.h"
-#include "platform/Device.h"
-#include "2d/ActionInstant.h"
-#include "2d/ActionInterval.h"
-#include "2d/ActionTween.h"
-#include "base/Director.h"
-#include "base/EventDispatcher.h"
-#include "renderer/Renderer.h"
+#include "axmol/platform/Device.h"
+#include "axmol/2d/ActionInstant.h"
+#include "axmol/2d/ActionInterval.h"
+#include "axmol/2d/ActionTween.h"
+#include "axmol/base/Director.h"
+#include "axmol/base/EventDispatcher.h"
+#include "axmol/renderer/Renderer.h"
 
 #include <algorithm>
 
@@ -39,15 +39,15 @@ NS_AX_EXT_BEGIN
 
 #define SCROLL_DEACCEL_RATE 0.95f
 #define SCROLL_DEACCEL_DIST 1.0f
-#define BOUNCE_DURATION 0.15f
-#define INSET_RATIO 0.2f
-#define MOVE_INCH 7.0f / 160.0f
-#define BOUNCE_BACK_FACTOR 0.35f
+#define BOUNCE_DURATION     0.15f
+#define INSET_RATIO         0.2f
+#define MOVE_INCH           7.0f / 160.0f
+#define BOUNCE_BACK_FACTOR  0.35f
 
 static float convertDistanceFromPointToInch(float pointDis)
 {
-    auto glView  = Director::getInstance()->getGLView();
-    float factor = (glView->getScaleX() + glView->getScaleY()) / 2;
+    auto renderView = Director::getInstance()->getRenderView();
+    float factor    = (renderView->getScaleX() + renderView->getScaleY()) / 2;
     return pointDis * factor / Device::getDPI();
 }
 
@@ -566,51 +566,53 @@ void ScrollView::addChild(Node* child, int zOrder, std::string_view name)
 void ScrollView::beforeDraw()
 {
 
-    //ScrollView don't support drawing in 3D space
-     //_beforeDrawCommand.init(_globalZOrder);
-     //_beforeDrawCommand.func = AX_CALLBACK_0(ScrollView::onBeforeDraw, this);
-     Director::getInstance()->getRenderer()->addCallbackCommand(AX_CALLBACK_0(ScrollView::onBeforeDraw, this),
-                                                                _globalZOrder);
- }
+    // ScrollView don't support drawing in 3D space
+    //_beforeDrawCommand.init(_globalZOrder);
+    //_beforeDrawCommand.func = AX_CALLBACK_0(ScrollView::onBeforeDraw, this);
+    _director->getRenderer()->addCallbackCommand(AX_CALLBACK_0(ScrollView::onBeforeDraw, this), _globalZOrder);
+}
 
 /**
  * clip this view so that outside of the visible bounds can be hidden.
  */
 void ScrollView::onBeforeDraw()
 {
-
     if (_clippingToBounds)
     {
         _scissorRestored = false;
-        Rect frame = getViewRect();
-        auto glview = Director::getInstance()->getGLView();
+        Rect frame       = getViewRect();
+        auto renderView  = Director::getInstance()->getRenderView();
 
-            if (glview->isScissorEnabled()) {
-                _scissorRestored = true;
-                _parentScissorRect = glview->getScissorRect();
-                //set the intersection of _parentScissorRect and frame as the new scissor rect
-                if (frame.intersectsRect(_parentScissorRect)) {
-                    float x = MAX(frame.origin.x, _parentScissorRect.origin.x);
-                    float y = MAX(frame.origin.y, _parentScissorRect.origin.y);
-                    float xx = MIN(frame.origin.x + frame.size.width, _parentScissorRect.origin.x + _parentScissorRect.size.width);
-                    float yy = MIN(frame.origin.y + frame.size.height, _parentScissorRect.origin.y + _parentScissorRect.size.height);
-                    glview->setScissorInPoints(x, y, xx - x, yy - y);
-                }
+        if (renderView->isScissorEnabled())
+        {
+            _scissorRestored   = true;
+            _parentScissorRect = renderView->getScissorInPoints();
+            // set the intersection of _parentScissorRect and frame as the new scissor rect
+            if (frame.intersectsRect(_parentScissorRect))
+            {
+                float x = MAX(frame.origin.x, _parentScissorRect.origin.x);
+                float y = MAX(frame.origin.y, _parentScissorRect.origin.y);
+                float xx =
+                    MIN(frame.origin.x + frame.size.width, _parentScissorRect.origin.x + _parentScissorRect.size.width);
+                float yy = MIN(frame.origin.y + frame.size.height,
+                               _parentScissorRect.origin.y + _parentScissorRect.size.height);
+                renderView->setScissorInPoints(x, y, xx - x, yy - y);
             }
-            else {
+        }
+        else
+        {
 
-                  Director::getInstance()->getRenderer()->setScissorTest(true);
-                glview->setScissorInPoints(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
-            }
-
+            Director::getInstance()->getRenderer()->setScissorTest(true);
+            renderView->setScissorInPoints(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+        }
     }
 }
 
 void ScrollView::afterDraw()
 {
-    
-     Director::getInstance()->getRenderer()->addCallbackCommand(AX_CALLBACK_0(ScrollView::onAfterDraw, this),
-                                                                _globalZOrder);
+
+    Director::getInstance()->getRenderer()->addCallbackCommand(AX_CALLBACK_0(ScrollView::onAfterDraw, this),
+                                                               _globalZOrder);
 }
 
 /**
@@ -622,15 +624,17 @@ void ScrollView::onAfterDraw()
 
     if (_clippingToBounds)
     {
-        auto glview = Director::getInstance()->getGLView();
-        
-        if (_scissorRestored) {//restore the parent's scissor rect
-            glview->setScissorInPoints(_parentScissorRect.origin.x, _parentScissorRect.origin.y, _parentScissorRect.size.width, _parentScissorRect.size.height);
+        auto renderView = Director::getInstance()->getRenderView();
+
+        if (_scissorRestored)
+        {  // restore the parent's scissor rect
+            renderView->setScissorInPoints(_parentScissorRect.origin.x, _parentScissorRect.origin.y,
+                                           _parentScissorRect.size.width, _parentScissorRect.size.height);
         }
-        else {
+        else
+        {
             Director::getInstance()->getRenderer()->setScissorTest(false);
         }
-        
     }
 }
 

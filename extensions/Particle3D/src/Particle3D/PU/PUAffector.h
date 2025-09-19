@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_AFFECTOR_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/Particle3DAffector.h"
 #include <vector>
 #include <string>
@@ -144,6 +143,4 @@ protected:
     float _mass;
 };
 
-}
-
-#endif
+}  // namespace ax

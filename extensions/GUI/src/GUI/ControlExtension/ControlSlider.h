@@ -28,8 +28,7 @@
  * Converted to c++ / cocos2d-x by Angus C
  */
 
-#ifndef __CCCONTROL_SLIDER_H__
-#define __CCCONTROL_SLIDER_H__
+#pragma once
 
 #include "Control.h"
 #include "Invocation.h"
@@ -113,11 +112,11 @@ public:
                                  Sprite* thumbSprite,
                                  Sprite* selectedThumbSprite);
 
-    virtual void needsLayout() override;
+    void needsLayout() override;
 
     virtual void setMaximumValue(float val);
-    virtual void setEnabled(bool enabled) override;
-    virtual bool isTouchInside(Touch* touch) override;
+    void setEnabled(bool enabled) override;
+    bool isTouchInside(Touch* touch) override;
     Vec2 locationFromTouch(Touch* touch);
     virtual void setValue(float val);
     virtual void setMinimumValue(float val);
@@ -127,9 +126,9 @@ protected:
     void sliderMoved(Vec2 location);
     void sliderEnded(Vec2 location);
 
-    virtual bool onTouchBegan(Touch* touch, Event* pEvent) override;
-    virtual void onTouchMoved(Touch* pTouch, Event* pEvent) override;
-    virtual void onTouchEnded(Touch* pTouch, Event* pEvent) override;
+    bool onTouchBegan(Touch* touch, Event* pEvent) override;
+    void onTouchMoved(Touch* pTouch, Event* pEvent) override;
+    void onTouchEnded(Touch* pTouch, Event* pEvent) override;
 
     /** Returns the value for the given location. */
     float valueForLocation(Vec2 location);
@@ -161,5 +160,3 @@ protected:
 /// @}
 
 NS_AX_EXT_END
-
-#endif

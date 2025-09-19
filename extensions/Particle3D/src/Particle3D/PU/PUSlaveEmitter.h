@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SLAVE_EMITTER_H__
-#define __AX_PU_PARTICLE_3D_SLAVE_EMITTER_H__
+#pragma once
 
 #include "Particle3D/PU/PUEmitter.h"
 #include "Particle3D/PU/PUListener.h"
@@ -52,41 +51,41 @@ public:
 
     /** See ParticleEmitter.
      */
-    virtual void initParticlePosition(PUParticle3D* particle) override;
+    void initParticlePosition(PUParticle3D* particle) override;
 
     /** See ParticleEmitter.
      */
-    virtual void initParticleDirection(PUParticle3D* particle) override;
+    void initParticleDirection(PUParticle3D* particle) override;
 
     /** See ParticleEmitter.
      */
-    virtual void prepare() override;
+    void prepare() override;
 
     /** See ParticleEmitter.
      */
-    virtual void unPrepare() override;
+    void unPrepare() override;
 
     /** See ParticleEmitter.
      */
-    virtual void notifyStart() override;
+    void notifyStart() override;
 
     /** Initialise the emitted particle. This means that its position is set.
      */
-    virtual void particleEmitted(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
+    void particleEmitted(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
 
     /** No implementation.
      */
-    virtual void particleExpired(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
+    void particleExpired(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
 
     /**
      */
     void setMasterEmitterName(std::string_view masterEmitterName);
 
-    virtual PUSlaveEmitter* clone() override;
-    virtual void copyAttributesTo(PUEmitter* emitter) override;
+    PUSlaveEmitter* clone() override;
+    void copyAttributesTo(PUEmitter* emitter) override;
 
     PUSlaveEmitter();
-    virtual ~PUSlaveEmitter(){};
+    virtual ~PUSlaveEmitter() {};
 
 protected:
     PUParticle3D* _masterParticle;
@@ -96,6 +95,4 @@ protected:
     Vec3 _masterDirection;
     bool _masterEmitterNameSet;
 };
-}
-
-#endif
+}  // namespace ax

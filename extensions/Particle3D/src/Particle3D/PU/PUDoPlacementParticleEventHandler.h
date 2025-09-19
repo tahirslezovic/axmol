@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_DO_PLACEMENT_PARTICLE_EVENT_HANDLER_H__
-#define __AX_PU_PARTICLE_3D_DO_PLACEMENT_PARTICLE_EVENT_HANDLER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUListener.h"
 #include "Particle3D/PU/PUEventHandler.h"
 #include <vector>
@@ -123,17 +122,17 @@ public:
         is not found, other ParticleTechniques are searched. The ParticleEmitter is 'forced' to emit the
         requested number of particles.
     */
-    virtual void handle(PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
+    void handle(PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
 
     /** Initialise the emitted particle. This means that its position is set.
      */
-    virtual void particleEmitted(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
+    void particleEmitted(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
 
     /** No implementation.
      */
-    virtual void particleExpired(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
+    void particleExpired(PUParticleSystem3D* particleSystem, PUParticle3D* particle) override;
 
-    virtual void copyAttributesTo(PUEventHandler* eventHandler) override;
+    void copyAttributesTo(PUEventHandler* eventHandler) override;
 
     PUDoPlacementParticleEventHandler();
     virtual ~PUDoPlacementParticleEventHandler();
@@ -187,6 +186,4 @@ protected:
     bool _inheritParticleDepth;
 };
 
-}
-
-#endif
+}  // namespace ax

@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_MESH_SURFACE_EMITTER_H__
-#define __AX_PU_PARTICLE_MESH_SURFACE_EMITTER_H__
+#pragma once
 
 #include "Particle3D/PU/PUEmitter.h"
 
@@ -59,7 +58,7 @@ public:
     Vec3 en3;            // Normal of edge v3-v1
 
     /** Constructor **/
-    PUTriangle(){};
+    PUTriangle() {};
 
     /** Calculate the (square) surface of the triangle **/
     void calculateSquareSurface();
@@ -215,26 +214,26 @@ public:
 
     /** Build the data if the mesh name has been set.
      */
-    virtual void prepare() override;
+    void prepare() override;
 
     /** Reverse it.
      */
-    virtual void unPrepare() override;
+    void unPrepare() override;
 
     /** Determine a particle position on the mesh surface.
      */
-    virtual void initParticlePosition(PUParticle3D* particle) override;
+    void initParticlePosition(PUParticle3D* particle) override;
 
     /** See ParticleEmitter.
      */
-    virtual unsigned short calculateRequestedParticles(float timeElapsed) override;
+    unsigned short calculateRequestedParticles(float timeElapsed) override;
 
     /** Determine the particle direction.
      */
-    virtual void initParticleDirection(PUParticle3D* particle) override;
+    void initParticleDirection(PUParticle3D* particle) override;
 
-    virtual PUMeshSurfaceEmitter* clone() override;
-    virtual void copyAttributesTo(PUEmitter* emitter) override;
+    PUMeshSurfaceEmitter* clone() override;
+    void copyAttributesTo(PUEmitter* emitter) override;
 
     PUMeshSurfaceEmitter();
     virtual ~PUMeshSurfaceEmitter();
@@ -249,6 +248,4 @@ protected:
     bool _directionSet;
 };
 
-}
-
-#endif
+}  // namespace ax

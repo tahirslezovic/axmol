@@ -24,13 +24,12 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_SCRIPT_TRANSLATOR_H__
-#define __AX_PU_SCRIPT_TRANSLATOR_H__
+#pragma once
 
 #include <iostream>
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUScriptCompiler.h"
 
 namespace ax
@@ -666,7 +665,7 @@ public:
      */
     bool getVector4(PUAbstractNodeList::const_iterator i,
                     PUAbstractNodeList::const_iterator end,
-                    Vec4* result,
+                    Color* result,
                     int maxEntries = 4);
 
     /** Parse Quaternion
@@ -746,6 +745,4 @@ public:
 
     virtual bool isParticleSystemTranslator() const { return false; }
 };
-}
-
-#endif /* defined(__ssaafsdf__CCScriptTranslator__) */
+}  // namespace ax

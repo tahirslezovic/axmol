@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_FORCE_FIELD_H__
-#define __AX_PU_PARTICLE_3D_FORCE_FIELD_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "PUNoise.h"
 
 namespace ax
@@ -45,7 +44,7 @@ public:
     PUForceFieldCalculationFactory()
         : _octaves(2), _frequency(1.0f), _amplitude(1.0f), _persistence(1.0f), _worldSize(DEFAULT_WORLDSIZE)
     {}
-    virtual ~PUForceFieldCalculationFactory(){};
+    virtual ~PUForceFieldCalculationFactory() {};
 
     /** Generates the force field
     @remarks
@@ -102,8 +101,8 @@ protected:
 class PURealTimeForceFieldCalculationFactory : public PUForceFieldCalculationFactory
 {
 public:
-    PURealTimeForceFieldCalculationFactory() : PUForceFieldCalculationFactory(){};
-    virtual ~PURealTimeForceFieldCalculationFactory(){};
+    PURealTimeForceFieldCalculationFactory() : PUForceFieldCalculationFactory() {};
+    virtual ~PURealTimeForceFieldCalculationFactory() {};
 
     /** Override from ForceFieldCalculationFactory
      */
@@ -206,6 +205,4 @@ protected:
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 
-}
-
-#endif
+}  // namespace ax

@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __ARMATURENODEREADER_H_
-#define __ARMATURENODEREADER_H_
+#pragma once
 
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
 #include "cocostudio/WidgetReader/NodeReaderDefine.h"
@@ -59,5 +58,3 @@ public:
 private:
     std::string getArmatureName(std::string_view exporJsonPath);
 };
-
-#endif /* defined(__ARMATURENODEREADER_H_) */

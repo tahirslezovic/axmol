@@ -56,13 +56,13 @@ bool WebViewTest::init()
         this->addChild(spriteHello);
 
         TextField* urlTextField = TextField::create("Input a URL here", "Arial", 20);
-        urlTextField->setPlaceHolderColor(Color3B::RED);
+        urlTextField->setPlaceHolderColor(Color32::RED);
         urlTextField->setPosition(Vec2(winSize / 2) + Vec2(-80, _webView->getContentSize().height / 2 +
                                                                     urlTextField->getContentSize().height / 2 + 10));
         this->addChild(urlTextField);
 
         Text* httpLabel = Text::create("https:// ", "Arial", 20);
-        httpLabel->setTextColor(Color4B::GREEN);
+        httpLabel->setTextColor(Color32::GREEN);
         httpLabel->setAnchorPoint(Vec2(1.0, 0.5));
         httpLabel->setPosition(urlTextField->getPosition() - Vec2(urlTextField->getContentSize().width / 2, 0));
         this->addChild(httpLabel);

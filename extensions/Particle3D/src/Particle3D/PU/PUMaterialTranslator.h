@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_MATERIAL_TRANSLATOR_H__
-#define __AX_PU_PARTICLE_3D_MATERIAL_TRANSLATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUScriptCompiler.h"
@@ -50,24 +49,22 @@ protected:
 class PUMaterialTechniqueTranslator : public PUScriptTranslator
 {
 public:
-    PUMaterialTechniqueTranslator(){};
+    PUMaterialTechniqueTranslator() {};
     virtual void translate(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
 class PUMaterialPassTranslator : public PUScriptTranslator
 {
 public:
-    PUMaterialPassTranslator(){};
+    PUMaterialPassTranslator() {};
     virtual void translate(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
 class PUMaterialTextureUnitTranslator : public PUScriptTranslator
 {
 public:
-    PUMaterialTextureUnitTranslator(){};
+    PUMaterialTextureUnitTranslator() {};
     virtual void translate(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
-}
-
-#endif /* defined(__cocos2d_libs__CCParticle3DTechniqueTranslator__) */
+}  // namespace ax

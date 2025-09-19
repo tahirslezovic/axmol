@@ -24,16 +24,14 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "TriggerBase.h"
-#include "base/EventCustom.h"
+#include "axmol/base/EventCustom.h"
 
 using namespace ax;
 using namespace cocostudio;
 
 void sendEvent(unsigned int event)
 {
-    char buf[10];
-    sprintf(buf, "%u", event);
-    std::string custom_event_name(buf);
+    std::string custom_event_name = fmt::to_string(event);
 
     EventCustom eventCustom(custom_event_name);
     TriggerMng::getInstance()->dispatchEvent(&eventCustom);

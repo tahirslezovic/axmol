@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __CCARMATUREDEFINE_H__
-#define __CCARMATUREDEFINE_H__
+#pragma once
 
-#define VERSION_COMBINED 0.30f
+#define VERSION_COMBINED              0.30f
 #define VERSION_CHANGE_ROTATION_RANGE 1.0f
-#define VERSION_COLOR_READING 1.1f
+#define VERSION_COLOR_READING         1.1f
 
 #ifndef AUTO_ADD_SPRITE_FRAME_NAME_PREFIX
 #    define AUTO_ADD_SPRITE_FRAME_NAME_PREFIX 0
@@ -58,5 +57,3 @@ namespace cocostudio
 const char* armatureVersion();
 
 }
-
-#endif /*__CCARMATUREDEFINE_H__*/

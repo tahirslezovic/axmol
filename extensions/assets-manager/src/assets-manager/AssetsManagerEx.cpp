@@ -24,8 +24,8 @@
  ****************************************************************************/
 #include "AssetsManagerEx.h"
 #include "EventListenerAssetsManagerEx.h"
-#include "base/UTF8.h"
-#include "base/Director.h"
+#include "axmol/base/text_utils.h"
+#include "axmol/base/Director.h"
 
 #include <stdio.h>
 
@@ -107,10 +107,9 @@ voidpf AssetManagerEx_opendisk_file_func(voidpf opaque, voidpf stream, uint32_t 
 
     if (pos != std::string::npos && pos != 0)
     {
-        const size_t bufferSize = 5;
-        char extensionBuffer[bufferSize];
-        snprintf(&extensionBuffer[0], bufferSize, ".z%02u", number_disk + 1);
-        diskFilename.replace(pos, std::min((size_t)4, zipFileInfo->zipFileName.size() - pos), extensionBuffer);
+        char buf[5];
+        auto ext = fmt::format_to_z(buf, ".z{:02d}", number_disk + 1);
+        diskFilename.replace(pos, std::min((size_t)4, zipFileInfo->zipFileName.size() - pos), ext);
         return AssetManagerEx_open_file_func(opaque, diskFilename.c_str(), mode);
     }
 
@@ -483,7 +482,7 @@ bool AssetsManagerEx::decompress(std::string_view zip)
             if (!fsOut)
             {
                 AXLOGD("AssetsManagerEx : can not create decompress destination file {} (errno: {})\n", fullPath,
-                      errno);
+                       errno);
                 unzCloseCurrentFile(zipfile);
                 unzClose(zipfile);
                 return false;
@@ -561,16 +560,14 @@ void AssetsManagerEx::decompressDownloadedZip(std::string_view customId, std::st
         delete dataInner;
     };
 
-    Director::getInstance()->getJobSystem()->enqueue(
-        [this, asyncData]() {
+    Director::getInstance()->getJobSystem()->enqueue([this, asyncData]() {
         // Decompress all compressed files
         if (decompress(asyncData->zipFile))
         {
             asyncData->succeed = true;
         }
         _fileUtils->removeFile(asyncData->zipFile);
-    },
-        [decompressFinished, asyncData]() { decompressFinished(asyncData); });
+    }, [decompressFinished, asyncData]() { decompressFinished(asyncData); });
 }
 
 void AssetsManagerEx::dispatchUpdateEvent(EventAssetsManagerEx::EventCode code,
@@ -765,8 +762,8 @@ void AssetsManagerEx::startUpdate()
         _totalWaitToDownload = _totalToDownload = (int)_downloadUnits.size();
         this->batchDownload();
 
-        std::string msg = fmt::format(
-            "Resuming from previous unfinished update, {} files remains to be finished.", _totalToDownload);
+        std::string msg =
+            fmt::format("Resuming from previous unfinished update, {} files remains to be finished.", _totalToDownload);
         dispatchUpdateEvent(EventAssetsManagerEx::EventCode::UPDATE_PROGRESSION, "", msg);
     }
     else
@@ -787,7 +784,7 @@ void AssetsManagerEx::startUpdate()
         _tempManifest = _remoteManifest;
 
         // Check difference between local manifest and remote manifest
-        hlookup::string_map<Manifest::AssetDiff> diff_map = _localManifest->genDiff(_remoteManifest);
+        axstd::string_map<Manifest::AssetDiff> diff_map = _localManifest->genDiff(_remoteManifest);
         if (diff_map.empty())
         {
             updateSucceed();

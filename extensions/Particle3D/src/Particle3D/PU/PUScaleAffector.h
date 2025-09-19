@@ -24,12 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SCALE_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_SCALE_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 #include "Particle3D/PU/PUDynamicAttribute.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -45,7 +44,7 @@ public:
 
     static PUScaleAffector* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /**
      */
@@ -76,7 +75,7 @@ public:
     bool isSinceStartSystem() const { return _sinceStartSystem; };
     void setSinceStartSystem(bool sinceStartSystem) { _sinceStartSystem = sinceStartSystem; };
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUScaleAffector();
     virtual ~PUScaleAffector();
@@ -100,6 +99,4 @@ protected:
 
     float _latestTimeElapsed;
 };
-}
-
-#endif
+}  // namespace ax

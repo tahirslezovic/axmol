@@ -22,14 +22,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__Particle3DReader__
-#define __cocos2d_libs__Particle3DReader__
+#pragma once
 
 #if defined(AX_ENABLE_EXT_PARTICLE3D)
 
-#include "cocostudio/CocosStudioExport.h"
-#include "cocostudio/WidgetReader/NodeReaderProtocol.h"
-#include "cocostudio/WidgetReader/NodeReaderDefine.h"
+#    include "cocostudio/CocosStudioExport.h"
+#    include "cocostudio/WidgetReader/NodeReaderProtocol.h"
+#    include "cocostudio/WidgetReader/NodeReaderDefine.h"
 
 namespace cocostudio
 {
@@ -51,6 +50,4 @@ public:
 };
 }  // namespace cocostudio
 
-#endif // defined(AX_ENABLE_EXT_PARTICLE3D)
-
-#endif /* defined(__cocos2d_libs__Particle3DReader__) */
+#endif  // defined(AX_ENABLE_EXT_PARTICLE3D)

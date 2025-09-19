@@ -22,22 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __AX_EXTENTIONS_CCCOMBASE_H__
-#define __AX_EXTENTIONS_CCCOMBASE_H__
+#pragma once
 
 #include <string>
 #include "DictionaryHelper.h"
 #include "CocosStudioExport.h"
-#include "base/ObjectFactory.h"
+#include "axmol/base/ObjectFactory.h"
 #include "CocoLoader.h"
 
-#define DECLARE_CLASS_COMPONENT_INFO           \
-public:                                        \
+#define DECLARE_CLASS_COMPONENT_INFO      \
+public:                                   \
     static ax::ObjectFactory::TInfo Type; \
     static ax::Object* createInstance(void);
 
-#define IMPLEMENT_CLASS_COMPONENT_INFO(className)                                 \
-    ax::Object* className::createInstance(void) { return className::create(); } \
+#define IMPLEMENT_CLASS_COMPONENT_INFO(className) \
+    ax::Object* className::createInstance(void)   \
+    {                                             \
+        return className::create();               \
+    }                                             \
     ax::ObjectFactory::TInfo className::Type(#className, &className::createInstance);
 
 #define CREATE_CLASS_COMPONENT_INFO(className) ax::ObjectFactory::TInfo(#className, &className::createInstance)
@@ -54,5 +56,3 @@ struct CCS_DLL SerData
         _cocoLoader = NULL;
     }
 };
-
-#endif

@@ -2,6 +2,7 @@
  Copyright (c) 2012 cocos2d-x.org
  Copyright (c) 2013-2016 Chukong Technologies Inc.
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2019-present Axmol Engine contributors (see AUTHORS.md)
 
  https://axmol.dev/
 
@@ -31,6 +32,8 @@
 
 #include "../testResource.h"
 #include "cocostudio/CocosStudioExtension.h"
+
+#include "axmol/tlx/format.hpp"
 
 using namespace ax;
 
@@ -157,7 +160,7 @@ Sprite1::Sprite1()
     listener->onTouchesEnded = AX_CALLBACK_2(Sprite1::onTouchesEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
     addNewSpriteWithCoords(Vec2(s.width / 2, s.height / 2));
 }
 
@@ -226,7 +229,7 @@ SpriteBatchNode1::SpriteBatchNode1()
     auto BatchNode = SpriteBatchNode::create("Images/grossini_dance_atlas.png", 50);
     addChild(BatchNode, 0, kTagSpriteBatchNode);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
     addNewSpriteWithCoords(Vec2(s.width / 2, s.height / 2));
 }
 
@@ -301,7 +304,7 @@ SpriteColorOpacity::SpriteColorOpacity()
     auto sprite7 = Sprite::create("Images/grossini_dance_atlas.png", Rect(85 * 2, 121 * 1, 85, 121));
     auto sprite8 = Sprite::create("Images/grossini_dance_atlas.png", Rect(85 * 3, 121 * 1, 85, 121));
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
     sprite1->setPosition(Vec2((s.width / 5) * 1, (s.height / 3) * 1));
     sprite2->setPosition(Vec2((s.width / 5) * 2, (s.height / 3) * 1));
     sprite3->setPosition(Vec2((s.width / 5) * 3, (s.height / 3) * 1));
@@ -386,7 +389,7 @@ SpriteColorOpacityHSVHSL::SpriteColorOpacityHSVHSL()
     auto sprite7 = Sprite::create("Images/grossini_dance_atlas.png", Rect(85 * 2, 121 * 1, 85, 121));
     auto sprite8 = Sprite::create("Images/grossini_dance_atlas.png", Rect(85 * 3, 121 * 1, 85, 121));
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
     sprite1->setPosition(Vec2((s.width / 5) * 1, (s.height / 3) * 1));
     sprite2->setPosition(Vec2((s.width / 5) * 2, (s.height / 3) * 1));
     sprite3->setPosition(Vec2((s.width / 5) * 3, (s.height / 3) * 1));
@@ -400,17 +403,17 @@ SpriteColorOpacityHSVHSL::SpriteColorOpacityHSVHSL()
     auto action_back = action->reverse();
     auto fade        = RepeatForever::create(Sequence::create(action, action_back, nullptr));
 
-    auto col          = HSV(0, 1, 1, 1).toColor3B();
+    auto col          = HSV(0, 1, 1, 1).toColor32();
     auto tintred      = TintBy::create(2, col.r, col.g, col.b);
     auto tintred_back = tintred->reverse();
     auto red          = RepeatForever::create(Sequence::create(tintred, tintred_back, nullptr));
 
-    col                 = HSV(120, 1, 1, 1).toColor3B();
+    col                 = HSV(120, 1, 1, 1).toColor32();
     auto tintgreen      = TintBy::create(2, col.r, col.g, col.b);
     auto tintgreen_back = tintgreen->reverse();
     auto green          = RepeatForever::create(Sequence::create(tintgreen, tintgreen_back, nullptr));
 
-    col                = HSV(240, 1, 1, 1).toColor3B();
+    col                = HSV(240, 1, 1, 1).toColor32();
     auto tintblue      = TintBy::create(2, col.r, col.g, col.b);
     auto tintblue_back = tintblue->reverse();
     auto blue          = RepeatForever::create(Sequence::create(tintblue, tintblue_back, nullptr));
@@ -424,17 +427,17 @@ SpriteColorOpacityHSVHSL::SpriteColorOpacityHSVHSL()
     action_back = action->reverse();
     fade        = RepeatForever::create(Sequence::create(action, action_back, nullptr));
 
-    col          = HSL(0, 1, .7, 1).toColor3B();
+    col          = HSL(0, 1, .7, 1).toColor32();
     tintred      = TintBy::create(2, col.r, col.g, col.b);
     tintred_back = tintred->reverse();
     red          = RepeatForever::create(Sequence::create(tintred, tintred_back, nullptr));
 
-    col            = HSL(120, 1, .7, 1).toColor3B();
+    col            = HSL(120, 1, .7, 1).toColor32();
     tintgreen      = TintBy::create(2, col.r, col.g, col.b);
     tintgreen_back = tintgreen->reverse();
     green          = RepeatForever::create(Sequence::create(tintgreen, tintgreen_back, nullptr));
 
-    col           = HSL(240, 1, .7, 1).toColor3B();
+    col           = HSL(240, 1, .7, 1).toColor32();
     tintblue      = TintBy::create(2, col.r, col.g, col.b);
     tintblue_back = tintblue->reverse();
     blue          = RepeatForever::create(Sequence::create(tintblue, tintblue_back, nullptr));
@@ -503,7 +506,7 @@ SpriteBatchNodeColorOpacity::SpriteBatchNodeColorOpacity()
     auto sprite7 = Sprite::createWithTexture(batch->getTexture(), Rect(85 * 2, 121 * 1, 85, 121));
     auto sprite8 = Sprite::createWithTexture(batch->getTexture(), Rect(85 * 3, 121 * 1, 85, 121));
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
     sprite1->setPosition(Vec2((s.width / 5) * 1, (s.height / 3) * 1));
     sprite2->setPosition(Vec2((s.width / 5) * 2, (s.height / 3) * 1));
     sprite3->setPosition(Vec2((s.width / 5) * 3, (s.height / 3) * 1));
@@ -582,7 +585,7 @@ SpriteZOrder::SpriteZOrder()
 {
     _dir = 1;
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     float step = s.width / 11;
     for (int i = 0; i < 5; i++)
@@ -603,7 +606,7 @@ SpriteZOrder::SpriteZOrder()
     addChild(sprite, -1, kTagSprite1);
     sprite->setPosition(Vec2(s.width / 2, s.height / 2 - 20));
     sprite->setScaleX(6);
-    sprite->setColor(Color3B::RED);
+    sprite->setColor(Color32::RED);
 
     schedule(AX_CALLBACK_1(SpriteZOrder::reorderSprite, this), 1, "reorder_key");
 }
@@ -649,7 +652,7 @@ SpriteBatchNodeZOrder::SpriteBatchNodeZOrder()
     auto batch = SpriteBatchNode::create("Images/grossini_dance_atlas.png", 1);
     addChild(batch, 0, kTagSpriteBatchNode);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     float step = s.width / 11;
     for (int i = 0; i < 5; i++)
@@ -670,7 +673,7 @@ SpriteBatchNodeZOrder::SpriteBatchNodeZOrder()
     batch->addChild(sprite, -1, kTagSprite1);
     sprite->setPosition(Vec2(s.width / 2, s.height / 2 - 20));
     sprite->setScaleX(6);
-    sprite->setColor(Color3B::RED);
+    sprite->setColor(Color32::RED);
 
     schedule(AX_CALLBACK_1(SpriteBatchNodeZOrder::reorderSprite, this), 1, "reorder_key");
 }
@@ -771,7 +774,7 @@ std::string SpriteBatchNodeReorder::subtitle() const
 
 SpriteBatchNodeReorderIssue744::SpriteBatchNodeReorderIssue744()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     // Testing issue #744
     // http://code.google.com/p/cocos2d-iphone/issues/detail?id=744
@@ -867,7 +870,7 @@ std::string SpriteBatchNodeReorderIssue766::subtitle() const
 //------------------------------------------------------------------
 SpriteBatchNodeReorderIssue767::SpriteBatchNodeReorderIssue767()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/ghosts.plist", "animations/ghosts.png");
     Node* aParent;
@@ -998,7 +1001,7 @@ SpriteZVertex::SpriteZVertex()
     _dir  = 1;
     _time = 0;
 
-    auto s     = Director::getInstance()->getWinSize();
+    auto s     = Director::getInstance()->getLogicalSize();
     float step = s.width / 12;
 
     auto node = Node::create();
@@ -1085,7 +1088,7 @@ SpriteBatchNodeZVertex::SpriteBatchNodeZVertex()
     //        getGLProgram()->setUniformLocationWith1f(alphaValueLocation, 0.0f);
     //    }
 
-    auto s     = Director::getInstance()->getWinSize();
+    auto s     = Director::getInstance()->getLogicalSize();
     float step = s.width / 12;
 
     // small capacity. Testing resizing.
@@ -1136,7 +1139,7 @@ std::string SpriteBatchNodeZVertex::subtitle() const
 
 SpriteAnchorPoint::SpriteAnchorPoint()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto rotate = RotateBy::create(10, 360);
     auto action = RepeatForever::create(rotate);
@@ -1189,7 +1192,7 @@ std::string SpriteAnchorPoint::subtitle() const
 
 SpriteWithoutVertexAnchorPoint::SpriteWithoutVertexAnchorPoint()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto rotate = RotateBy::create(10, 360);
     auto action = RepeatForever::create(rotate);
@@ -1223,7 +1226,7 @@ SpriteWithoutVertexAnchorPoint::SpriteWithoutVertexAnchorPoint()
         addChild(sprite, i);
 
         auto lb = Label::createWithSystemFont("This is a text", "", 16);
-        lb->setColor(Color3B::WHITE);
+        lb->setColor(Color32::WHITE);
         sprite->addChild(lb, i);
     }
 }
@@ -1246,7 +1249,7 @@ std::string SpriteWithoutVertexAnchorPoint::subtitle() const
 
 SpriteVertexAnchorPoint::SpriteVertexAnchorPoint()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto rotate = RotateBy::create(10, 360);
     auto action = RepeatForever::create(rotate);
@@ -1280,7 +1283,7 @@ SpriteVertexAnchorPoint::SpriteVertexAnchorPoint()
         addChild(sprite, i);
 
         auto lb = Label::createWithSystemFont("This is a text", "", 16);
-        lb->setColor(Color3B::WHITE);
+        lb->setColor(Color32::WHITE);
         sprite->addChild(lb, i);
     }
 }
@@ -1307,7 +1310,7 @@ SpriteBatchNodeAnchorPoint::SpriteBatchNodeAnchorPoint()
     auto batch = SpriteBatchNode::create("Images/grossini_dance_atlas.png", 1);
     addChild(batch, 0, kTagSpriteBatchNode);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto rotate = RotateBy::create(10, 360);
     auto action = RepeatForever::create(rotate);
@@ -1360,7 +1363,7 @@ std::string SpriteBatchNodeAnchorPoint::subtitle() const
 void SpriteAnchorPointFromFile::onEnter()
 {
     SpriteTestDemo::onEnter();
-    auto screen = Director::getInstance()->getWinSize();
+    auto screen = Director::getInstance()->getLogicalSize();
 
     auto rotate   = RotateBy::create(10, 360);
     auto action   = RepeatForever::create(rotate);
@@ -1372,7 +1375,7 @@ void SpriteAnchorPointFromFile::onEnter()
     Sprite* sprite;
     for (int i = 0; i < 10; i++)
     {
-        sprintf(str, "grossini_dance_%02d.png", i + 1);
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", i + 1);
         sprite = Sprite::createWithSpriteFrameName(str);
 
         sprite->setPosition(Vec2(screen.width / 6 * (i % 5 + 1), screen.height * 2 / 3 - screen.height * (i / 5) / 3));
@@ -1389,7 +1392,7 @@ void SpriteAnchorPointFromFile::onEnter()
     Vector<SpriteFrame*> animFrames(5);
     for (int i = 9; i < 14; i++)
     {
-        sprintf(str, "grossini_dance_%02d.png", i + 1);
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", i + 1);
         animFrames.pushBack(cache->getSpriteFrameByName(str));
     }
     auto animation = Animation::createWithSpriteFrames(animFrames, 0.3f);
@@ -1426,7 +1429,7 @@ Sprite6::Sprite6()
     addChild(batch, 0, kTagSpriteBatchNode);
     batch->setIgnoreAnchorPointForPosition(true);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     batch->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     batch->setContentSize(Size(s.width, s.height));
@@ -1472,7 +1475,7 @@ std::string Sprite6::title() const
 //------------------------------------------------------------------
 SpriteFlip::SpriteFlip()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto sprite1 = Sprite::create("Images/grossini_dance_atlas.png", Rect(85 * 1, 121 * 1, 85, 121));
     sprite1->setPosition(Vec2(s.width / 2 - 100, s.height / 2));
@@ -1519,7 +1522,7 @@ SpriteBatchNodeFlip::SpriteBatchNodeFlip()
     auto batch = SpriteBatchNode::create("Images/grossini_dance_atlas.png", 10);
     addChild(batch, 0, kTagSpriteBatchNode);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto sprite1 = Sprite::createWithTexture(batch->getTexture(), Rect(85 * 1, 121 * 1, 85, 121));
     sprite1->setPosition(Vec2(s.width / 2 - 100, s.height / 2));
@@ -1565,7 +1568,7 @@ std::string SpriteBatchNodeFlip::subtitle() const
 
 SpriteAliased::SpriteAliased()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto sprite1 = Sprite::create("Images/grossini_dance_atlas.png", Rect(85 * 1, 121 * 1, 85, 121));
     sprite1->setPosition(Vec2(s.width / 2 - 100, s.height / 2));
@@ -1628,7 +1631,7 @@ SpriteBatchNodeAliased::SpriteBatchNodeAliased()
     auto batch = SpriteBatchNode::create("Images/grossini_dance_atlas.png", 10);
     addChild(batch, 0, kTagSpriteBatchNode);
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto sprite1 = Sprite::createWithTexture(batch->getTexture(), Rect(85 * 1, 121 * 1, 85, 121));
     sprite1->setPosition(Vec2(s.width / 2 - 100, s.height / 2));
@@ -1707,7 +1710,7 @@ SpriteNewTexture::~SpriteNewTexture()
 
 void SpriteNewTexture::addNewSprite()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto p = Vec2(AXRANDOM_0_1() * s.width, AXRANDOM_0_1() * s.height);
 
@@ -1813,7 +1816,7 @@ SpriteBatchNodeNewTexture::~SpriteBatchNodeNewTexture()
 
 void SpriteBatchNodeNewTexture::addNewSprite()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto p = Vec2(AXRANDOM_0_1() * s.width, AXRANDOM_0_1() * s.height);
 
@@ -1876,7 +1879,7 @@ std::string SpriteBatchNodeNewTexture::subtitle() const
 void SpriteFrameTest::onEnter()
 {
     SpriteTestDemo::onEnter();
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     // IMPORTANT:
     // The sprite frames will be cached AND RETAINED, and they won't be released unless you call
@@ -1901,7 +1904,7 @@ void SpriteFrameTest::onEnter()
     char str[100] = {0};
     for (int i = 1; i < 15; i++)
     {
-        sprintf(str, "grossini_dance_%02d.png", i);
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", i);
         auto frame = cache->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -1923,14 +1926,14 @@ void SpriteFrameTest::onEnter()
     Vector<SpriteFrame*> moreFrames(20);
     for (int i = 1; i < 15; i++)
     {
-        sprintf(str, "grossini_dance_gray_%02d.png", i);
+        fmt::format_to_z(str, "grossini_dance_gray_{:02d}.png", i);
         auto frame = cache->getSpriteFrameByName(str);
         moreFrames.pushBack(frame);
     }
 
     for (int i = 1; i < 5; i++)
     {
-        sprintf(str, "grossini_blue_%02d.png", i);
+        fmt::format_to_z(str, "grossini_blue_{:02d}.png", i);
         auto frame = cache->getSpriteFrameByName(str);
         moreFrames.pushBack(frame);
     }
@@ -2017,7 +2020,7 @@ void SpriteFrameTest::flipSprites(float dt)
 void SpriteFrameAliasNameTest::onEnter()
 {
     SpriteTestDemo::onEnter();
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     // IMPORTANT:
     // The sprite frames will be cached AND RETAINED, and they won't be released unless you call
@@ -2057,7 +2060,7 @@ void SpriteFrameAliasNameTest::onEnter()
     for (int i = 1; i < 15; i++)
     {
         // Obtain frames by alias name
-        sprintf(str, "dance_%02d", i);
+        fmt::format_to_z(str, "dance_{:02d}", i);
         auto frame = cache->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -2093,7 +2096,7 @@ std::string SpriteFrameAliasNameTest::subtitle() const
 void SpriteFramesFromFileContent::onEnter()
 {
     SpriteTestDemo::onEnter();
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     Data plist_content = FileUtils::getInstance()->getDataFromFile(sheetName() + ".plist");
     Data image_content = FileUtils::getInstance()->getDataFromFile(sheetName() + ".png");
@@ -2121,7 +2124,7 @@ void SpriteFramesFromFileContent::onEnter()
     char str[100] = {0};
     for (int i = 1; i < 15; i++)
     {
-        sprintf(str, "grossini_dance_%02d.png", i);
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", i);
         auto frame = cache->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -2179,7 +2182,7 @@ void SpriteOffsetAnchorRotation::onEnter()
 {
     SpriteTestDemo::onEnter();
 
-    auto s     = Director::getInstance()->getWinSize();
+    auto s     = Director::getInstance()->getLogicalSize();
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
     cache->addSpriteFramesWithFile("animations/grossini_gray.plist", "animations/grossini_gray.png");
@@ -2216,7 +2219,7 @@ void SpriteOffsetAnchorRotation::onEnter()
         char str[100] = {0};
         for (int i = 0; i < 14; i++)
         {
-            sprintf(str, "grossini_dance_%02d.png", (i + 1));
+            fmt::format_to_z(str, "grossini_dance_{:02d}.png", (i + 1));
             auto frame = cache->getSpriteFrameByName(str);
             animFrames.pushBack(frame);
         }
@@ -2255,7 +2258,7 @@ std::string SpriteOffsetAnchorRotation::subtitle() const
 
 SpriteBatchNodeOffsetAnchorRotation::SpriteBatchNodeOffsetAnchorRotation()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -2296,7 +2299,7 @@ SpriteBatchNodeOffsetAnchorRotation::SpriteBatchNodeOffsetAnchorRotation()
         char str[100] = {0};
         for (int k = 0; k < 14; k++)
         {
-            sprintf(str, "grossini_dance_%02d.png", (k + 1));
+            fmt::format_to_z(str, "grossini_dance_{:02d}.png", (k + 1));
             auto frame = cache->getSpriteFrameByName(str);
             animFrames.pushBack(frame);
         }
@@ -2335,7 +2338,7 @@ std::string SpriteBatchNodeOffsetAnchorRotation::subtitle() const
 
 SpriteOffsetAnchorScale::SpriteOffsetAnchorScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -2373,7 +2376,7 @@ SpriteOffsetAnchorScale::SpriteOffsetAnchorScale()
         char str[100] = {0};
         for (int i = 0; i < 14; i++)
         {
-            sprintf(str, "grossini_dance_%02d.png", (i + 1));
+            fmt::format_to_z(str, "grossini_dance_{:02d}.png", (i + 1));
             auto frame = cache->getSpriteFrameByName(str);
             animFrames.pushBack(frame);
         }
@@ -2415,7 +2418,7 @@ std::string SpriteOffsetAnchorScale::subtitle() const
 //------------------------------------------------------------------
 SpriteBatchNodeOffsetAnchorScale::SpriteBatchNodeOffsetAnchorScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -2456,7 +2459,7 @@ SpriteBatchNodeOffsetAnchorScale::SpriteBatchNodeOffsetAnchorScale()
         char str[100] = {0};
         for (int k = 0; k < 14; k++)
         {
-            sprintf(str, "grossini_dance_%02d.png", (k + 1));
+            fmt::format_to_z(str, "grossini_dance_{:02d}.png", (k + 1));
             auto frame = cache->getSpriteFrameByName(str);
             animFrames.pushBack(frame);
         }
@@ -2499,7 +2502,7 @@ std::string SpriteBatchNodeOffsetAnchorScale::subtitle() const
 
 SpriteAnimationSplit::SpriteAnimationSplit()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto texture = Director::getInstance()->getTextureCache()->addImage("animations/dragon_animation.png");
 
@@ -2551,7 +2554,7 @@ std::string SpriteAnimationSplit::title() const
 //------------------------------------------------------------------
 SpriteHybrid::SpriteHybrid()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     // parents
     auto parent1 = Node::create();
@@ -2570,8 +2573,8 @@ SpriteHybrid::SpriteHybrid()
     for (int i = 0; i < 250; i++)
     {
         const int spriteIdx = random(1, 14);
-        char str[25]  = {0};
-        sprintf(str, "grossini_dance_%02d.png", spriteIdx);
+        char str[25]        = {0};
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", spriteIdx);
         auto frame  = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
         auto sprite = Sprite::createWithSpriteFrame(frame);
         parent1->addChild(sprite, i, i);
@@ -2643,7 +2646,7 @@ std::string SpriteHybrid::title() const
 
 SpriteBatchNodeChildren::SpriteBatchNodeChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     // parents
     auto batch = SpriteBatchNode::create("animations/grossini.png", 50);
@@ -2670,7 +2673,7 @@ SpriteBatchNodeChildren::SpriteBatchNodeChildren()
     char str[100] = {0};
     for (int i = 1; i < 15; i++)
     {
-        sprintf(str, "grossini_dance_%02d.png", i);
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", i);
         auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -2711,7 +2714,7 @@ std::string SpriteBatchNodeChildren::title() const
 //------------------------------------------------------------------
 SpriteBatchNodeChildrenZ::SpriteBatchNodeChildrenZ()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     // parents
     SpriteBatchNode* batch;
@@ -2807,7 +2810,7 @@ std::string SpriteBatchNodeChildrenZ::title() const
 
 SpriteChildrenVisibility::SpriteChildrenVisibility()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini.plist");
 
@@ -2877,7 +2880,7 @@ std::string SpriteChildrenVisibility::title() const
 //------------------------------------------------------------------
 SpriteChildrenVisibilityIssue665::SpriteChildrenVisibilityIssue665()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini.plist");
 
@@ -2953,7 +2956,7 @@ std::string SpriteChildrenVisibilityIssue665::subtitle() const
 //------------------------------------------------------------------
 SpriteChildrenAnchorPoint::SpriteChildrenAnchorPoint()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini.plist");
 
@@ -3066,7 +3069,7 @@ std::string SpriteChildrenAnchorPoint::subtitle() const
 //------------------------------------------------------------------
 SpriteBatchNodeChildrenAnchorPoint::SpriteBatchNodeChildrenAnchorPoint()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini.plist");
 
@@ -3179,7 +3182,7 @@ std::string SpriteBatchNodeChildrenAnchorPoint::subtitle() const
 //------------------------------------------------------------------
 SpriteBatchNodeChildrenScale::SpriteBatchNodeChildrenScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini_family.plist");
 
@@ -3281,7 +3284,7 @@ std::string SpriteBatchNodeChildrenScale::subtitle() const
 //------------------------------------------------------------------
 SpriteChildrenChildren::SpriteChildrenChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/ghosts.plist");
 
@@ -3366,7 +3369,7 @@ std::string SpriteChildrenChildren::subtitle() const
 
 SpriteBatchNodeChildrenChildren::SpriteBatchNodeChildrenChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/ghosts.plist");
 
@@ -3383,8 +3386,6 @@ SpriteBatchNodeChildrenChildren::SpriteBatchNodeChildrenChildren()
     //
 
     aParent = SpriteBatchNode::create("animations/ghosts.png");
-    // TODO: minggo
-    //    aParent->getTexture()->generateMipmap();
     addChild(aParent);
 
     // parent
@@ -3453,7 +3454,7 @@ std::string SpriteBatchNodeChildrenChildren::subtitle() const
 
 SpriteBatchNodeSkewNegativeScaleChildren::SpriteBatchNodeSkewNegativeScaleChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -3513,7 +3514,7 @@ std::string SpriteBatchNodeSkewNegativeScaleChildren::subtitle() const
 
 SpriteSkewNegativeScaleChildren::SpriteSkewNegativeScaleChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -3577,7 +3578,7 @@ std::string SpriteSkewNegativeScaleChildren::subtitle() const
 
 SpriteNilTexture::SpriteNilTexture()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     Sprite* sprite = nullptr;
 
@@ -3585,14 +3586,14 @@ SpriteNilTexture::SpriteNilTexture()
 
     sprite = Sprite::create();
     sprite->setTextureRect(Rect(0, 0, 300, 300));
-    sprite->setColor(Color3B::RED);
+    sprite->setColor(Color32::RED);
     sprite->setOpacity(128);
     sprite->setPosition(Vec2(3 * s.width / 4, s.height / 2));
     addChild(sprite, 100);
 
     sprite = Sprite::create();
     sprite->setTextureRect(Rect(0.0f, 0.0f, 300.0f, 300.0f));
-    sprite->setColor(Color3B::BLUE);
+    sprite->setColor(Color32::BLUE);
     sprite->setOpacity(128);
     sprite->setPosition(Vec2(1 * s.width / 4, s.height / 2));
     addChild(sprite, 100);
@@ -3641,7 +3642,7 @@ public:
 //------------------------------------------------------------------
 SpriteSubclass::SpriteSubclass()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/ghosts.plist");
     auto aParent = SpriteBatchNode::create("animations/ghosts.png");
@@ -3687,7 +3688,7 @@ AnimationCacheTest::AnimationCacheTest()
     char str[100] = {0};
     for (int i = 1; i < 15; i++)
     {
-        sprintf(str, "grossini_dance_%02d.png", i);
+        fmt::format_to_z(str, "grossini_dance_{:02d}.png", i);
         auto frame = frameCache->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -3704,7 +3705,7 @@ AnimationCacheTest::AnimationCacheTest()
 
     for (int i = 1; i < 15; i++)
     {
-        sprintf(str, "grossini_dance_gray_%02d.png", i);
+        fmt::format_to_z(str, "grossini_dance_gray_{:02d}.png", i);
         auto frame = frameCache->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -3721,7 +3722,7 @@ AnimationCacheTest::AnimationCacheTest()
 
     for (int i = 1; i < 4; i++)
     {
-        sprintf(str, "grossini_blue_%02d.png", i);
+        fmt::format_to_z(str, "grossini_blue_{:02d}.png", i);
         auto frame = frameCache->getSpriteFrameByName(str);
         animFrames.pushBack(frame);
     }
@@ -3751,7 +3752,7 @@ AnimationCacheTest::AnimationCacheTest()
     auto frame    = frameCache->getSpriteFrameByName("grossini_dance_01.png");
     grossini->setSpriteFrame(frame);
 
-    auto winSize = Director::getInstance()->getWinSize();
+    auto winSize = Director::getInstance()->getLogicalSize();
     grossini->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
     addChild(grossini);
 
@@ -3813,7 +3814,7 @@ AnimationCacheFile::AnimationCacheFile()
     auto frame = frameCache->getSpriteFrameByName("grossini_dance_01.png");
     grossini->setSpriteFrame(frame);
 
-    auto winSize = Director::getInstance()->getWinSize();
+    auto winSize = Director::getInstance()->getLogicalSize();
 
     grossini->setPosition(Vec2(winSize.width / 2, winSize.height / 2));
 
@@ -3851,9 +3852,9 @@ SpriteBatchBug1217::SpriteBatchBug1217()
     auto s2 = Sprite::createWithTexture(bn->getTexture(), Rect(0.0f, 0.0f, 57.0f, 57.0f));
     auto s3 = Sprite::createWithTexture(bn->getTexture(), Rect(0.0f, 0.0f, 57.0f, 57.0f));
 
-    s1->setColor(Color3B(255, 0, 0));
-    s2->setColor(Color3B(0, 255, 0));
-    s3->setColor(Color3B(0, 0, 255));
+    s1->setColor(Color32(255, 0, 0));
+    s2->setColor(Color32(0, 255, 0));
+    s3->setColor(Color32(0, 0, 255));
 
     s1->setPosition(Vec2(20.0f, 200.0f));
     s2->setPosition(Vec2(100.0f, 0.0f));
@@ -3884,7 +3885,7 @@ std::string SpriteBatchBug1217::subtitle() const
 //
 SpriteOffsetAnchorSkew::SpriteOffsetAnchorSkew()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -3922,7 +3923,7 @@ SpriteOffsetAnchorSkew::SpriteOffsetAnchorSkew()
         char tmp[50];
         for (int j = 0; j < 14; j++)
         {
-            sprintf(tmp, "grossini_dance_%02d.png", j + 1);
+            fmt::format_to_z(tmp, "grossini_dance_{:02d}.png", j + 1);
             auto frame = cache->getSpriteFrameByName(tmp);
             animFrames.pushBack(frame);
         }
@@ -3964,7 +3965,7 @@ std::string SpriteOffsetAnchorSkew::subtitle() const
 //
 SpriteBatchNodeOffsetAnchorSkew::SpriteBatchNodeOffsetAnchorSkew()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4005,7 +4006,7 @@ SpriteBatchNodeOffsetAnchorSkew::SpriteBatchNodeOffsetAnchorSkew()
         char tmp[50];
         for (int j = 0; j < 14; j++)
         {
-            sprintf(tmp, "grossini_dance_%02d.png", j + 1);
+            fmt::format_to_z(tmp, "grossini_dance_{:02d}.png", j + 1);
             auto frame = cache->getSpriteFrameByName(tmp);
             animFrames.pushBack(frame);
         }
@@ -4047,7 +4048,7 @@ std::string SpriteBatchNodeOffsetAnchorSkew::subtitle() const
 //
 SpriteOffsetAnchorSkewScale::SpriteOffsetAnchorSkewScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4085,7 +4086,7 @@ SpriteOffsetAnchorSkewScale::SpriteOffsetAnchorSkewScale()
         char tmp[50];
         for (int j = 0; j < 14; j++)
         {
-            sprintf(tmp, "grossini_dance_%02d.png", j + 1);
+            fmt::format_to_z(tmp, "grossini_dance_{:02d}.png", j + 1);
             auto frame = cache->getSpriteFrameByName(tmp);
             animFrames.pushBack(frame);
         }
@@ -4133,7 +4134,7 @@ std::string SpriteOffsetAnchorSkewScale::subtitle() const
 
 SpriteBatchNodeOffsetAnchorSkewScale::SpriteBatchNodeOffsetAnchorSkewScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4174,7 +4175,7 @@ SpriteBatchNodeOffsetAnchorSkewScale::SpriteBatchNodeOffsetAnchorSkewScale()
         char tmp[50];
         for (int j = 0; j < 14; j++)
         {
-            sprintf(tmp, "grossini_dance_%02d.png", j + 1);
+            fmt::format_to_z(tmp, "grossini_dance_{:02d}.png", j + 1);
             auto frame = cache->getSpriteFrameByName(tmp);
             animFrames.pushBack(frame);
         }
@@ -4223,7 +4224,7 @@ std::string SpriteBatchNodeOffsetAnchorSkewScale::subtitle() const
 //
 SpriteOffsetAnchorFlip::SpriteOffsetAnchorFlip()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4261,7 +4262,7 @@ SpriteOffsetAnchorFlip::SpriteOffsetAnchorFlip()
         char tmp[50];
         for (int j = 0; j < 14; j++)
         {
-            sprintf(tmp, "grossini_dance_%02d.png", i + 1);
+            fmt::format_to_z(tmp, "grossini_dance_{:02d}.png", i + 1);
             auto frame = cache->getSpriteFrameByName(tmp);
             animFrames.pushBack(frame);
         }
@@ -4302,7 +4303,7 @@ std::string SpriteOffsetAnchorFlip::subtitle() const
 
 SpriteBatchNodeOffsetAnchorFlip::SpriteBatchNodeOffsetAnchorFlip()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4343,7 +4344,7 @@ SpriteBatchNodeOffsetAnchorFlip::SpriteBatchNodeOffsetAnchorFlip()
         char tmp[50];
         for (int j = 0; j < 14; j++)
         {
-            sprintf(tmp, "grossini_dance_%02d.png", i + 1);
+            fmt::format_to_z(tmp, "grossini_dance_{:02d}.png", i + 1);
             auto frame = cache->getSpriteFrameByName(tmp);
             animFrames.pushBack(frame);
         }
@@ -4498,7 +4499,7 @@ void SpriteBatchNodeReorderSameIndex::reorderSprite(float dt)
 /// SpriteBatchNodeReorderOneChild
 SpriteBatchNodeReorderOneChild::SpriteBatchNodeReorderOneChild()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/ghosts.plist");
 
@@ -4512,7 +4513,6 @@ SpriteBatchNodeReorderOneChild::SpriteBatchNodeReorderOneChild()
     aParent = SpriteBatchNode::create("animations/ghosts.png");
 
     _batchNode = aParent;
-    //[[aParent texture] generateMipmap];
     addChild(aParent);
 
     // parent
@@ -4586,7 +4586,7 @@ std::string SpriteBatchNodeReorderOneChild::title() const
 //
 SpriteOffsetAnchorRotationalSkew::SpriteOffsetAnchorRotationalSkew()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4625,7 +4625,7 @@ SpriteOffsetAnchorRotationalSkew::SpriteOffsetAnchorRotationalSkew()
         for (int i = 0; i < 14; i++)
         {
             char pngName[30];
-            snprintf(pngName, 30, "grossini_dance_%02d.png", (i + 1));
+            fmt::format_to_z(pngName, "grossini_dance_{:02d}.png", (i + 1));
             auto frame = cache->getSpriteFrameByName(pngName);
             animFrames.pushBack(frame);
         }
@@ -4666,7 +4666,7 @@ std::string SpriteOffsetAnchorRotationalSkew::subtitle() const
 //
 SpriteBatchNodeOffsetAnchorRotationalSkew::SpriteBatchNodeOffsetAnchorRotationalSkew()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4708,7 +4708,7 @@ SpriteBatchNodeOffsetAnchorRotationalSkew::SpriteBatchNodeOffsetAnchorRotational
         for (int j = 0; j < 14; j++)
         {
             char pngName[30];
-            snprintf(pngName, 30, "grossini_dance_%02d.png", (j + 1));
+            fmt::format_to_z(pngName, "grossini_dance_{:02d}.png", (j + 1));
             auto frame = cache->getSpriteFrameByName(pngName);
             animFrames.pushBack(frame);
         }
@@ -4749,7 +4749,7 @@ std::string SpriteBatchNodeOffsetAnchorRotationalSkew::subtitle() const
 //
 SpriteOffsetAnchorRotationalSkewScale::SpriteOffsetAnchorRotationalSkewScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4788,7 +4788,7 @@ SpriteOffsetAnchorRotationalSkewScale::SpriteOffsetAnchorRotationalSkewScale()
         for (int j = 0; j < 14; j++)
         {
             char pngName[30];
-            snprintf(pngName, 30, "grossini_dance_%02d.png", (j + 1));
+            fmt::format_to_z(pngName, "grossini_dance_{:02d}.png", (j + 1));
             auto frame = cache->getSpriteFrameByName(pngName);
             animFrames.pushBack(frame);
         }
@@ -4834,7 +4834,7 @@ std::string SpriteOffsetAnchorRotationalSkewScale::subtitle() const
 // SpriteBatchNodeOffsetAnchorRotationalSkewScale
 SpriteBatchNodeOffsetAnchorRotationalSkewScale::SpriteBatchNodeOffsetAnchorRotationalSkewScale()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4876,7 +4876,7 @@ SpriteBatchNodeOffsetAnchorRotationalSkewScale::SpriteBatchNodeOffsetAnchorRotat
         for (int j = 0; j < 14; j++)
         {
             char pngName[30];
-            snprintf(pngName, 30, "grossini_dance_%02d.png", (j + 1));
+            fmt::format_to_z(pngName, "grossini_dance_{:02d}.png", (j + 1));
             auto frame = cache->getSpriteFrameByName(pngName);
             animFrames.pushBack(frame);
         }
@@ -4924,7 +4924,7 @@ std::string SpriteBatchNodeOffsetAnchorRotationalSkewScale::subtitle() const
 //
 SpriteRotationalSkewNegativeScaleChildren::SpriteRotationalSkewNegativeScaleChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -4991,7 +4991,7 @@ std::string SpriteRotationalSkewNegativeScaleChildren::subtitle() const
 //
 SpriteBatchNodeRotationalSkewNegativeScaleChildren::SpriteBatchNodeRotationalSkewNegativeScaleChildren()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("animations/grossini.plist");
@@ -5056,7 +5056,7 @@ std::string SpriteBatchNodeRotationalSkewNegativeScaleChildren::subtitle() const
 
 SpriteCullTest1::SpriteCullTest1()
 {
-    Size s        = Director::getInstance()->getWinSize();
+    Size s        = Director::getInstance()->getLogicalSize();
     auto grossini = Sprite::create("Images/grossini.png");
 
     grossini->setPosition(s.width / 2, s.height / 2);
@@ -5093,7 +5093,7 @@ std::string SpriteCullTest1::subtitle() const
 
 SpriteCullTest2::SpriteCullTest2()
 {
-    Size s        = Director::getInstance()->getWinSize();
+    Size s        = Director::getInstance()->getLogicalSize();
     auto grossini = Sprite::create("Images/grossini.png");
 
     grossini->setPosition(s.width / 2, s.height / 2);
@@ -5131,7 +5131,7 @@ std::string SpriteCullTest2::subtitle() const
 //------------------------------------------------------------------
 Sprite3DRotationTest::Sprite3DRotationTest()
 {
-    Size s = Director::getInstance()->getWinSize();
+    Size s = Director::getInstance()->getLogicalSize();
 
     // Create reference sprite that's rotating based on there anchor point
     auto s1 = Sprite::create("Images/grossini.png");
@@ -5156,13 +5156,11 @@ Sprite3DRotationTest::Sprite3DRotationTest()
 
     addChild(sprite2);
 
-    schedule(
-        [&](float dt) {
-            rotation.y += 1;
-            sprite1->setRotation3D(rotation);
-            sprite2->setRotation3D(rotation);
-        },
-        "update_key");
+    schedule([&](float dt) {
+        rotation.y += 1;
+        sprite1->setRotation3D(rotation);
+        sprite2->setRotation3D(rotation);
+    }, "update_key");
 }
 
 //------------------------------------------------------------------
@@ -5211,7 +5209,7 @@ SpriteSlice9Test1::SpriteSlice9Test1()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini_family.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini.plist");
 
-    Size s = Director::getInstance()->getWinSize();
+    Size s = Director::getInstance()->getLogicalSize();
 
     for (int i = 2; i > 0; --i)
     {
@@ -5276,7 +5274,7 @@ SpriteSlice9Test2::SpriteSlice9Test2()
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini_family.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/grossini.plist");
 
-    Size s = Director::getInstance()->getWinSize();
+    Size s = Director::getInstance()->getLogicalSize();
 
     for (int i = 2; i > 0; i--)
     {
@@ -5339,7 +5337,7 @@ SpriteSlice9Test2::SpriteSlice9Test2()
 //------------------------------------------------------------------
 SpriteSlice9Test3::SpriteSlice9Test3()
 {
-    Size s = Director::getInstance()->getWinSize();
+    Size s = Director::getInstance()->getLogicalSize();
 
     for (int i = 2; i > 0; --i)
     {
@@ -5403,7 +5401,7 @@ SpriteSlice9Test3::SpriteSlice9Test3()
 //------------------------------------------------------------------
 SpriteSlice9Test4::SpriteSlice9Test4()
 {
-    Size s = Director::getInstance()->getWinSize();
+    Size s = Director::getInstance()->getLogicalSize();
 
     for (int i = 2; i > 0; --i)
     {
@@ -5905,7 +5903,7 @@ void Issue17119::update(float dt)
 SpriteWithImageDataTest1::SpriteWithImageDataTest1()
 {
     Size s = Director::getInstance()->getVisibleSize();
-    
+
     ax::Data imageData = FileUtils::getInstance()->getDataFromFile("Images/grossini.png");
 
     Sprite* sprite = Sprite::create(imageData, "sprite_image_key_test_1");
@@ -5986,12 +5984,12 @@ void ZwoptexGenericTest::onEnter()
 {
     ZwoptexTest::onEnter();
 
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("zwoptex/grossini.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("zwoptex/grossini-generic.plist");
 
-    auto layer1 = LayerColor::create(Color4B(255, 0, 0, 255), 85, 121);
+    auto layer1 = LayerColor::create(Color32(255, 0, 0, 255), 85, 121);
     layer1->setPosition(Vec2(s.width / 2 - 80 - (85.0f * 0.5f), s.height / 2 - (121.0f * 0.5f)));
     addChild(layer1);
 
@@ -6003,7 +6001,7 @@ void ZwoptexGenericTest::onEnter()
     sprite1->setFlippedX(false);
     sprite1->setFlippedY(false);
 
-    auto layer2 = LayerColor::create(Color4B(255, 0, 0, 255), 85, 121);
+    auto layer2 = LayerColor::create(Color32(255, 0, 0, 255), 85, 121);
     layer2->setPosition(Vec2(s.width / 2 + 80 - (85.0f * 0.5f), s.height / 2 - (121.0f * 0.5f)));
     addChild(layer2);
 
@@ -6070,8 +6068,8 @@ void ZwoptexGenericTest::flipSprites(float dt)
 
     char str1[32] = {0};
     char str2[32] = {0};
-    sprintf(str1, "grossini_dance_%02d.png", spriteFrameIndex);
-    sprintf(str2, "grossini_dance_generic_%02d.png", spriteFrameIndex);
+    fmt::format_to_z(str1, "grossini_dance_{:02d}.png", spriteFrameIndex);
+    fmt::format_to_z(str2, "grossini_dance_generic_{:02d}.png", spriteFrameIndex);
     sprite1->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(str1));
     sprite2->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(str2));
 }

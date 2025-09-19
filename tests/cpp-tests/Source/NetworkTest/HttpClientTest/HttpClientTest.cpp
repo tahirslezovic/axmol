@@ -29,7 +29,7 @@
 using namespace ax;
 using namespace ax::network;
 
-#define CHROME_UA                                                                                                   \
+#define CHROME_UA                                                                                               \
     "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 " \
     "Safari/537.36"
 
@@ -41,7 +41,7 @@ HttpClientTests::HttpClientTests()
 
 HttpClientTest::HttpClientTest() : _labelStatusCode(nullptr)
 {
-    auto winSize = Director::getInstance()->getWinSize();
+    auto winSize = Director::getInstance()->getLogicalSize();
 
     auto httpClient = HttpClient::getInstance();
 
@@ -53,9 +53,9 @@ HttpClientTest::HttpClientTest() : _labelStatusCode(nullptr)
     const int MARGIN = 40;
     const int SPACE  = 35;
 
-    const int LEFT  = winSize.width / 4 * 1;
-    const int CENTER  = winSize.width / 2;
-    const int RIGHT = winSize.width / 4 * 3;
+    const int LEFT   = winSize.width / 4 * 1;
+    const int CENTER = winSize.width / 2;
+    const int RIGHT  = winSize.width / 4 * 3;
 
     auto menuRequest = Menu::create();
     menuRequest->setPosition(Vec2::ZERO);
@@ -175,7 +175,7 @@ void HttpClientTest::onMenuPatchTestClicked(Object* sender)
         request->setResponseCallback(AX_CALLBACK_2(HttpClientTest::onHttpRequestCompleted, this));
 
         // write the body data
-        const char* bodyData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+        const char* bodyData = "visitor=axmol&TestSuite=Extensions Test/NetworkTest";
         request->setRequestData(bodyData, strlen(bodyData));
         request->setTag("PATCH Binary test1");
         HttpClient::getInstance()->send(request);
@@ -193,7 +193,7 @@ void HttpClientTest::onMenuPatchTestClicked(Object* sender)
         request->setResponseCallback(AX_CALLBACK_2(HttpClientTest::onHttpRequestCompleted, this));
 
         // write the post data
-        const char* bodyData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+        const char* bodyData = "visitor=axmol&TestSuite=Extensions Test/NetworkTest";
         request->setRequestData(bodyData, strlen(bodyData));
         request->setTag("PATCH Binary test2");
         HttpClient::getInstance()->send(request);
@@ -215,7 +215,7 @@ void HttpClientTest::onMenuPostTestClicked(ax::Object* sender)
         request->setResponseCallback(AX_CALLBACK_2(HttpClientTest::onHttpRequestCompleted, this));
 
         // write the post data
-        const char* postData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+        const char* postData = "visitor=axmol&TestSuite=Extensions Test/NetworkTest";
         request->setRequestData(postData, strlen(postData));
         request->setTag("POST test1");
         HttpClient::getInstance()->send(request);
@@ -231,7 +231,7 @@ void HttpClientTest::onMenuPostTestClicked(ax::Object* sender)
         request->setResponseCallback(AX_CALLBACK_2(HttpClientTest::onHttpRequestCompleted, this));
 
         // write the post data
-        const char* postData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+        const char* postData = "visitor=axmol&TestSuite=Extensions Test/NetworkTest";
         request->setRequestData(postData, strlen(postData));
         request->setTag("POST test2");
         HttpClient::getInstance()->send(request);
@@ -270,7 +270,7 @@ void HttpClientTest::onMenuPutTestClicked(Object* sender)
         request->setResponseCallback(AX_CALLBACK_2(HttpClientTest::onHttpRequestCompleted, this));
 
         // write the post data
-        const char* postData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+        const char* postData = "visitor=axmol&TestSuite=Extensions Test/NetworkTest";
         request->setRequestData(postData, strlen(postData));
         request->setTag("PUT Binary test1");
         HttpClient::getInstance()->send(request);
@@ -288,7 +288,7 @@ void HttpClientTest::onMenuPutTestClicked(Object* sender)
         request->setResponseCallback(AX_CALLBACK_2(HttpClientTest::onHttpRequestCompleted, this));
 
         // write the post data
-        const char* postData = "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
+        const char* postData = "visitor=axmol&TestSuite=Extensions Test/NetworkTest";
         request->setRequestData(postData, strlen(postData));
         request->setTag("PUT Binary test2");
         HttpClient::getInstance()->send(request);
@@ -341,10 +341,10 @@ void HttpClientTest::onHttpRequestCompleted(HttpClient* sender, HttpResponse* re
         AXLOGI("{} completed", tag.data());
     }
 
-    int32_t statusCode    = response->getResponseCode();
-    char statusString[64] = {};
-    sprintf(statusString, "HTTP Status Code: %d, tag = %s", statusCode, tag.data());
-    _labelStatusCode->setString(statusString);
+    int32_t statusCode = response->getResponseCode();
+    char tmp[64]       = {};
+    auto statusStr     = fmt::format_to_z(tmp, "HTTP Status Code: {}, tag = {}", statusCode, tag.data());
+    _labelStatusCode->setString(statusStr);
     AXLOGI("response code: {}", statusCode);
 
     if (response->getResponseCode() != 200)
@@ -357,17 +357,17 @@ void HttpClientTest::onHttpRequestCompleted(HttpClient* sender, HttpResponse* re
     // dump data
     auto buffer = response->getResponseData();
     buffer->push_back('\0');  // to c_str
-   AXLOGI("Http Test, dump data: {}", buffer->data());
-   AXLOGI("\n");
+    AXLOGI("Http Test, dump data: {}", buffer->data());
+    AXLOGI("\n");
     if (response->getHttpRequest()->getReferenceCount() != 2)
     {
-       AXLOGI("request ref count not 2, is {}", response->getHttpRequest()->getReferenceCount());
+        AXLOGI("request ref count not 2, is {}", response->getHttpRequest()->getReferenceCount());
     }
 }
 
 HttpClientClearRequestsTest::HttpClientClearRequestsTest() : _labelStatusCode(nullptr)
 {
-    auto winSize = Director::getInstance()->getWinSize();
+    auto winSize = Director::getInstance()->getLogicalSize();
 
     const int MARGIN = 40;
     const int SPACE  = 35;
@@ -417,7 +417,7 @@ void HttpClientClearRequestsTest::onMenuCancelAllClicked(ax::Object* sender)
     {
         HttpRequest* request = new HttpRequest();
         std::stringstream url;
-        url << "https://cocos2d-x.org/images/logo.png?id=" << std::to_string(i);
+        url << "https://axmol.dev/assets/img/logo.png?id=" << std::to_string(i);
         request->setUrl(url.str());
         request->setRequestType(HttpRequest::Type::GET);
         request->setResponseCallback(AX_CALLBACK_2(HttpClientClearRequestsTest::onHttpRequestCompleted, this));
@@ -446,7 +446,7 @@ void HttpClientClearRequestsTest::onMenuCancelSomeClicked(ax::Object* sender)
     {
         HttpRequest* request = new HttpRequest();
         std::stringstream url;
-        url << "https://cocos2d-x.org/images/logo.png?id=" << std::to_string(i);
+        url << "https://axmol.dev/assets/img/logo.png?id=" << std::to_string(i);
         request->setUrl(url.str());
         request->setRequestType(HttpRequest::Type::GET);
         request->setResponseCallback(AX_CALLBACK_2(HttpClientClearRequestsTest::onHttpRequestCompleted, this));
@@ -492,15 +492,16 @@ void HttpClientClearRequestsTest::onHttpRequestCompleted(HttpClient* sender, Htt
         AXLOGD("{} completed", tag.data());
     }
 
-    int32_t statusCode    = response->getResponseCode();
-    char statusString[64] = {};
-    sprintf(statusString, "HTTP Status Code: %d, tag = %s", statusCode, tag.data());
-    _labelStatusCode->setString(statusString);
+    int32_t statusCode = response->getResponseCode();
+    char tmp[64]       = {};
+    auto statusStr     = fmt::format_to_z(tmp, "HTTP Status Code: {}, tag = {}", statusCode, tag);
+    _labelStatusCode->setString(statusStr);
     AXLOGD("response code: {}", statusCode);
 
     _totalProcessedRequests++;
-    sprintf(statusString, "Got %d of %d expected http requests", _totalProcessedRequests, _totalExpectedRequests);
-    _labelTrakingData->setString(statusString);
+    statusStr =
+        fmt::format_to_z(tmp, "Got {} of {} expected http requests", _totalProcessedRequests, _totalExpectedRequests);
+    _labelTrakingData->setString(statusStr);
 
     if (!response->isSucceed())
     {

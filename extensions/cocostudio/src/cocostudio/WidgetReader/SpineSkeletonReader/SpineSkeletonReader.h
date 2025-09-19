@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef SPINESKELETONREADER_H
-#define SPINESKELETONREADER_H
+#pragma once
 
 #include "cocostudio/CocosStudioExport.h"
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
@@ -54,5 +53,3 @@ public:
 }  // namespace cocostudio
 
 #endif
-
-#endif /* defined(__cocos2d_libs__SpriteReader__) */

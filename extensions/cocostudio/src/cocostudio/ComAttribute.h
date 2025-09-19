@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __AX_EXTENTIONS_CCCOMATTRIBUTE_H__
-#define __AX_EXTENTIONS_CCCOMATTRIBUTE_H__
+#pragma once
 
 #include "ComBase.h"
-#include "2d/Component.h"
-#include "base/Value.h"
+#include "axmol/2d/Component.h"
+#include "axmol/base/Value.h"
 #include "CocosStudioExport.h"
 
 namespace cocostudio
@@ -49,8 +48,8 @@ public:
     const static std::string COMPONENT_NAME;
 
     static ComAttribute* create(void);
-    virtual bool init() override;
-    virtual bool serialize(void* r) override;
+    bool init() override;
+    bool serialize(void* r) override;
 
     void setInt(std::string_view key, int value);
     void setFloat(std::string_view key, float value);
@@ -68,5 +67,3 @@ private:
 };
 
 }  // namespace cocostudio
-
-#endif  // __AX_EXTENTIONS_CCCOMATTRIBUTE_H__

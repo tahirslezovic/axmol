@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_COLOR_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_COLOR_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 #include <map>
 
 namespace ax
@@ -37,8 +36,8 @@ namespace ax
 class AX_EX_DLL PUColorAffector : public PUAffector
 {
 public:
-    typedef std::map<float, Vec4> ColorMap;
-    typedef std::map<float, Vec4>::iterator ColorMapIterator;
+    typedef std::map<float, Color> ColorMap;
+    typedef std::map<float, Color>::iterator ColorMapIterator;
     enum ColorOperation
     {
         CAO_MULTIPLY,
@@ -50,11 +49,11 @@ public:
 
     static PUColorAffector* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /**
      */
-    void addColor(float timeFraction, const Vec4& color);
+    void addColor(float timeFraction, const Color& color);
 
     /**
      */
@@ -72,7 +71,7 @@ public:
      */
     void setColorOperation(const ColorOperation& colorOperation);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUColorAffector();
     virtual ~PUColorAffector();
@@ -86,6 +85,4 @@ protected:
     ColorMap _colorMap;
     ColorOperation _colorOperation;
 };
-}
-
-#endif
+}  // namespace ax

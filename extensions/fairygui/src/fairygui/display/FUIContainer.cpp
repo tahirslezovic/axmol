@@ -1,5 +1,5 @@
 #include "FUIContainer.h"
-#include "base/StencilStateManager.h"
+#include "axmol/base/StencilStateManager.h"
 #include "utils/ToolSet.h"
 #include "GComponent.h"
 
@@ -286,7 +286,7 @@ void FUIContainer::setCameraMask(unsigned short mask, bool applyChildren)
 }
 
 #if COCOS2D_VERSION >= 0x00040000
-void FUIContainer::setProgramStateRecursively(Node* node, backend::ProgramState* programState)
+void FUIContainer::setProgramStateRecursively(Node* node, rhi::ProgramState* programState)
 {
     _originalStencilProgramState[node] = node->getProgramState();
     node->setProgramState(programState);
@@ -310,8 +310,8 @@ void FUIContainer::restoreAllProgramStates()
 
 void FUIContainer::onBeforeVisitScissor()
 {
-    auto glView = Director::getInstance()->getGLView();
-    _rectClippingSupport->_scissorOldState = glView->isScissorEnabled();
+    auto renderView                        = Director::getInstance()->getRenderView();
+    _rectClippingSupport->_scissorOldState = renderView->isScissorEnabled();
     Rect clippingRect = getClippingRect();
     if (false == _rectClippingSupport->_scissorOldState)
     {
@@ -323,11 +323,11 @@ void FUIContainer::onBeforeVisitScissor()
     }
     else
     {
-        _rectClippingSupport->_clippingOldRect = glView->getScissorRect();
+        _rectClippingSupport->_clippingOldRect = renderView->getScissorInPoints();
         clippingRect = ToolSet::intersection(clippingRect, _rectClippingSupport->_clippingOldRect);
     }
 
-    glView->setScissorInPoints(clippingRect.origin.x,
+    renderView->setScissorInPoints(clippingRect.origin.x,
         clippingRect.origin.y,
         clippingRect.size.width,
         clippingRect.size.height);
@@ -337,8 +337,9 @@ void FUIContainer::onAfterVisitScissor()
 {
     if (_rectClippingSupport->_scissorOldState)
     {
-        auto glView = Director::getInstance()->getGLView();
-        glView->setScissorInPoints(_rectClippingSupport->_clippingOldRect.origin.x,
+        auto renderView = Director::getInstance()->getRenderView();
+        renderView->setScissorInPoints(
+            _rectClippingSupport->_clippingOldRect.origin.x,
             _rectClippingSupport->_clippingOldRect.origin.y,
             _rectClippingSupport->_clippingOldRect.size.width,
             _rectClippingSupport->_clippingOldRect.size.height);
@@ -409,8 +410,8 @@ void FUIContainer::visit(ax::Renderer * renderer, const ax::Mat4 & parentTransfo
         if (alphaThreshold < 1)
         {
 #if COCOS2D_VERSION >= 0x00040000
-            auto* program = backend::Program::getBuiltinProgram(backend::ProgramType::POSITION_TEXTURE_COLOR_ALPHA_TEST);
-            auto programState = new backend::ProgramState(program);
+            auto* program = axpm->getBuiltinProgram(rhi::ProgramType::POSITION_TEXTURE_COLOR_ALPHA_TEST);
+            auto programState = new rhi::ProgramState(program);
             auto alphaLocation = programState->getUniformLocation("u_alpha_value");
             programState->setUniform(alphaLocation, &alphaThreshold, sizeof(alphaThreshold));
             setProgramStateRecursively(_stencilClippingSupport->_stencil, programState);

@@ -23,15 +23,14 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef COCOS2DX_SCRIPT_LUA_COCOS2DX_SUPPORT_GENERATED_LUA_COCOS2DX_MANUAL_H
-#define COCOS2DX_SCRIPT_LUA_COCOS2DX_SUPPORT_GENERATED_LUA_COCOS2DX_MANUAL_H
+#pragma once
 
 #include "tolua++.h"
 
 #include "lua-bindings/manual/base/LuaScriptHandlerMgr.h"
-#include "base/EventListenerAcceleration.h"
-#include "base/EventListenerCustom.h"
-#include "2d/Node.h"
+#include "axmol/base/EventListenerAcceleration.h"
+#include "axmol/base/EventListenerCustom.h"
+#include "axmol/2d/Node.h"
 
 namespace ax
 {
@@ -121,10 +120,9 @@ class LuaNode :public ax::Node
 public:
     virtual ~LuaNode() {}
 
-    virtual void draw(ax::Renderer *renderer, const ax::Mat4& transform, uint32_t flags) override;
+    void draw(ax::Renderer *renderer, const ax::Mat4& transform, uint32_t flags) override;
 };
 
 TOLUA_API int tolua_luanode_open(lua_State* tolua_S);
 TOLUA_API int register_luanode_manual(lua_State* tolua_S);
 
-#endif // #ifndef COCOS2DX_SCRIPT_LUA_COCOS2DX_SUPPORT_GENERATED_LUA_COCOS2DX_MANUAL_H

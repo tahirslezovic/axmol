@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __ActionObject_H__
-#define __ActionObject_H__
+#pragma once
 
 #include "ActionNode.h"
-#include "2d/ActionInstant.h"
+#include "axmol/2d/ActionInstant.h"
 #include "DictionaryHelper.h"
 #include "CocosStudioExport.h"
 
@@ -187,5 +186,3 @@ protected:
 };
 
 }  // namespace cocostudio
-
-#endif

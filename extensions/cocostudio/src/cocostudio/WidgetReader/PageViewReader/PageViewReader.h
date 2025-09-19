@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TestCpp__PageViewReader__
-#define __TestCpp__PageViewReader__
+#pragma once
 
 #include "cocostudio/WidgetReader/LayoutReader/LayoutReader.h"
 #include "cocostudio/CocosStudioExport.h"
@@ -51,5 +50,3 @@ public:
     int getResourceType(std::string_view key);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__TestCpp__PageViewReader__) */

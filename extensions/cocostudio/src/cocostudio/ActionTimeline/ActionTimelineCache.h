@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __CCTIMELINE_ACTION_CACHE_H__
-#define __CCTIMELINE_ACTION_CACHE_H__
+#pragma once
 
 #include <unordered_map>
-#include "base/Map.h"
-#include "base/Data.h"
+#include "axmol/base/Map.h"
+#include "axmol/base/Data.h"
 
 #include "cocostudio/DictionaryHelper.h"
 #include "TimelineMacro.h"
@@ -126,10 +125,8 @@ protected:
     typedef std::function<Frame*(const rapidjson::Value& json)> FrameCreateFunc;
     typedef std::pair<std::string, FrameCreateFunc> Pair;
 
-    hlookup::string_map<FrameCreateFunc> _funcs;
+    axstd::string_map<FrameCreateFunc> _funcs;
     ax::StringMap<ActionTimeline*> _animationActions;
 };
 
 NS_TIMELINE_END
-
-#endif /*__CCTIMELINE_ACTION_CACHE_H__*/

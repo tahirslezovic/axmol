@@ -22,13 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __AX_EXTENTIONS_CCCOMCONTROLLER_H__
-#define __AX_EXTENTIONS_CCCOMCONTROLLER_H__
+#pragma once
 
 #include "ComBase.h"
 #include "InputDelegate.h"
 #include "CocosStudioExport.h"
-#include "2d/Component.h"
+#include "axmol/2d/Component.h"
 
 namespace cocostudio
 {
@@ -51,30 +50,28 @@ public:
      */
     virtual ~ComController();
 
-    virtual bool init() override;
+    bool init() override;
 
     /**
      * @lua NA
      */
-    virtual void onEnter() override;
+    void onEnter() override;
 
     /**
      * @lua NA
      */
-    virtual void onExit() override;
+    void onExit() override;
 
     /**
      * @lua NA
      */
-    virtual void onAdd() override;
+    void onAdd() override;
 
     /**
      * @lua NA
      */
-    virtual void onRemove() override;
-    virtual void update(float delta) override;
+    void onRemove() override;
+    void update(float delta) override;
 };
 
 }  // namespace cocostudio
-
-#endif  // __AX_EXTENTIONS_CCCOMCONTROLLER_H__

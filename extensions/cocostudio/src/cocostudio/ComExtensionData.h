@@ -22,12 +22,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__CCObjectExtensionData__
-#define __cocos2d_libs__CCObjectExtensionData__
+#pragma once
 
 #include <string>
 #include "ComBase.h"
-#include "2d/Component.h"
+#include "axmol/2d/Component.h"
 #include "CocosStudioExport.h"
 
 namespace cocostudio
@@ -49,21 +48,21 @@ public:
     /**
      * @lua NA
      */
-    virtual void onEnter() override;
+    void onEnter() override;
     /**
      * @lua NA
      */
-    virtual void onExit() override;
+    void onExit() override;
     /**
      * @lua NA
      */
-    virtual void onAdd() override;
+    void onAdd() override;
     /**
      * @lua NA
      */
-    virtual void onRemove() override;
+    void onRemove() override;
     static ComExtensionData* create();
-    virtual bool init() override;
+    bool init() override;
 
     virtual void setCustomProperty(std::string_view customProperty) { _customProperty = customProperty; }
     virtual std::string getCustomProperty() const { return _customProperty; };
@@ -80,5 +79,3 @@ protected:
     cocostudio::timeline::ActionTimelineData* _timelineData;
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__CCObjectExtensionData__) */

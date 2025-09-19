@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_ALIGN_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_ALIGN_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 
@@ -40,8 +39,8 @@ public:
 
     static PUAlignAffector* create();
 
-    virtual void firstParticleUpdate(PUParticle3D* particle, float deltaTime) override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void firstParticleUpdate(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /** See setResize().
      */
@@ -52,7 +51,7 @@ public:
     */
     void setResize(bool resize);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUAlignAffector();
     virtual ~PUAlignAffector();
@@ -61,6 +60,4 @@ protected:
     bool _resize;
     PUParticle3D* _previousParticle;
 };
-}
-
-#endif
+}  // namespace ax

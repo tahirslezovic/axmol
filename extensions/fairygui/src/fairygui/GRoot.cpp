@@ -24,7 +24,7 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "GRoot.h"
-#include "AudioEngine.h"
+#include "axmol/audio/AudioEngine.h"
 #include "UIConfig.h"
 #include "UIPackage.h"
 
@@ -167,7 +167,7 @@ void GRoot::createModalLayer()
 {
     _modalLayer = GGraph::create();
     _modalLayer->retain();
-    _modalLayer->drawRect(getWidth(), getHeight(), 0, Color4F::WHITE, UIConfig::modalLayerColor);
+    _modalLayer->drawRect(getWidth(), getHeight(), 0, ax::Color::WHITE, UIConfig::modalLayerColor);
     _modalLayer->addRelation(this, RelationType::Size);
 }
 
@@ -561,7 +561,7 @@ bool GRoot::initWithScene(ax::Scene* scene, int zOrder)
     _inputProcessor->setCaptureCallback(AX_CALLBACK_1(GRoot::onTouchEvent, this));
 
 #if defined(AX_PLATFORM_PC) && AX_TARGET_PLATFORM != AX_PLATFORM_WINRT
-    _windowSizeListener = Director::getInstance()->getEventDispatcher()->addCustomEventListener(GLViewImpl::EVENT_WINDOW_RESIZED, AX_CALLBACK_0(GRoot::onWindowSizeChanged, this));
+    _windowSizeListener = Director::getInstance()->getEventDispatcher()->addCustomEventListener(RenderViewImpl::EVENT_WINDOW_RESIZED, AX_CALLBACK_0(GRoot::onWindowSizeChanged, this));
 #endif
     onWindowSizeChanged();
 
@@ -572,7 +572,7 @@ bool GRoot::initWithScene(ax::Scene* scene, int zOrder)
 
 void GRoot::onWindowSizeChanged()
 {
-    const ax::Size& rs = Director::getInstance()->getGLView()->getDesignResolutionSize();
+    const ax::Size& rs = Director::getInstance()->getRenderView()->getDesignResolutionSize();
     setSize(rs.width, rs.height);
 
     updateContentScaleLevel();

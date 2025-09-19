@@ -26,18 +26,17 @@
 #ifndef _TESTS_H_
 #define _TESTS_H_
 
-#include "Box2DTest/Box2dTest.h"
-#include "Box2DTestBed/Box2DTestBed.h"
+#include "feature-detect.h"
 
-#include "ChipmunkTest/ChipmunkTest.h"
-#if defined(AX_PLATFORM_PC) || defined(__EMSCRIPTEN__)
-#    include "ChipmunkTestBed/ChipmunkTestBed.h"
+#include "Box2DTest/Box2dTest.h"
+#if AX_ENABLE_EXT_IMGUI && defined(AX_PLATFORM_PC)
+#    include "Box2DTestBed/Box2DTestBed.h"
 #endif
 
 #if (AX_TARGET_PLATFORM != AX_PLATFORM_MARMALADE)
 #    include "ClippingNodeTest/ClippingNodeTest.h"
 #endif
-#include "NewAudioEngineTest/NewAudioEngineTest.h"
+#include "AudioEngineTest/AudioEngineTest.h"
 #if (AX_TARGET_PLATFORM != AX_PLATFORM_EMSCRIPEN)
 #    if (AX_TARGET_PLATFORM != AX_PLATFORM_MARMALADE)
 // bada don't support libcurl
@@ -55,7 +54,7 @@
 #endif
 
 #if defined(AX_ENABLE_EXT_EFFEKSEER)
-#include "EffekseerTest/EffekseerTest.h"
+#    include "EffekseerTest/EffekseerTest.h"
 #endif
 
 // sort them alphabetically. thanks
@@ -79,7 +78,7 @@
 #include "FontTest/FontTest.h"
 #include "InputTest/MouseTest.h"
 #include "IntervalTest/IntervalTest.h"
-#include "LabelTest/LabelTestNew.h"
+#include "LabelTest/LabelTest.h"
 #include "LayerTest/LayerTest.h"
 #include "LightTest/LightTest.h"
 #include "MaterialSystemTest/MaterialSystemTest.h"
@@ -87,8 +86,8 @@
 #include "MotionStreakTest/MotionStreakTest.h"
 #include "MultiTouchTest/MultiTouchTest.h"
 #include "NavMeshTest/NavMeshTest.h"
-#include "NewEventDispatcherTest/NewEventDispatcherTest.h"
-#include "NewRendererTest/NewRendererTest.h"
+#include "EventDispatcherTest/EventDispatcherTest.h"
+#include "RendererTest/RendererTest.h"
 #include "NodeTest/NodeTest.h"
 #include "OpenURLTest/OpenURLTest.h"
 #include "ParallaxTest/ParallaxTest.h"
@@ -121,7 +120,10 @@
 #include "VibrateTest/VibrateTest.h"
 #include "SpriteFrameCacheTest/SpriteFrameCacheTest.h"
 #include "ZipTest/ZipTests.h"
-#if defined(AX_PLATFORM_PC) || (AX_TARGET_PLATFORM == AX_PLATFORM_ANDROID) || defined(__EMSCRIPTEN__)
+#if AX_ENABLE_EXT_IMGUI
 #    include "ImGuiTest/ImGuiTest.h"
+#endif
+#ifdef AX_ENABLE_VR
+#    include "VRTest/VRTest.h"
 #endif
 #endif

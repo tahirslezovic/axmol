@@ -24,10 +24,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_BEHAVIOUR_MANAGER_H__
-#define __AX_PU_PARTICLE_3D_BEHAVIOUR_MANAGER_H__
+#pragma once
 
-#include "base/Object.h"
+#include "axmol/base/Object.h"
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUBehaviour.h"
 #include "Particle3D/PU/PUSlaveBehaviourTranslator.h"
@@ -52,6 +51,4 @@ protected:
     PUSlaveBehaviourTranslator _slaveBehaviourTranslator;
 };
 
-}
-
-#endif
+}  // namespace ax

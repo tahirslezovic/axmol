@@ -22,12 +22,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__ComAudioReader__
-#define __cocos2d_libs__ComAudioReader__
+#pragma once
 
-#include "base/Object.h"
-#include "2d/Component.h"
-#include "2d/Node.h"
+#include "axmol/base/Object.h"
+#include "axmol/2d/Component.h"
+#include "axmol/2d/Node.h"
 #include "cocostudio/CocosStudioExport.h"
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
 
@@ -50,5 +49,3 @@ public:
     ax::Node* createNodeWithFlatBuffers(const flatbuffers::Table* nodeOptions);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__ComAudioReader__) */

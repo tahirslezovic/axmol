@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "axmol.h"
+#include "axmol/axmol.h"
 
 /**
 @brief    The axmol Application.
@@ -38,7 +38,7 @@ public:
     AppDelegate();
     ~AppDelegate() override;
 
-    void initGLContextAttrs() override;
+    void initGfxContextAttrs() override;
 
     /**
     @brief    Implement Director and Scene init code here.

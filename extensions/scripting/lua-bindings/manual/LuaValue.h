@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_LUA_VALUE_H_
-#define __AX_LUA_VALUE_H_
+#pragma once
 
 #include <string>
 #include <map>
@@ -35,8 +34,8 @@ extern "C" {
 #include "lua.h"
 }
 
-#include "base/Types.h"
-#include "base/Object.h"
+#include "axmol/base/Types.h"
+#include "axmol/base/Object.h"
 
 #if AX_TARGET_PLATFORM == AX_PLATFORM_BLACKBERRY
 using std::memcpy;
@@ -277,8 +276,7 @@ inline std::string_view axlua_tosv(lua_State* L, int arg)
     return std::string_view{s, l};
 }
 
-}
+}  // namespace ax
 
 // end group
 /// @}
-#endif  // __AX_LUA_VALUE_H_

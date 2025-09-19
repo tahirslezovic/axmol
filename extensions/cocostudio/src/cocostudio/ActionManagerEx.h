@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __ActionMANAGER_H__
-#define __ActionMANAGER_H__
+#pragma once
 
 #include "ActionObject.h"
 #include "DictionaryHelper.h"
@@ -123,5 +122,3 @@ protected:
 };
 
 }  // namespace cocostudio
-
-#endif

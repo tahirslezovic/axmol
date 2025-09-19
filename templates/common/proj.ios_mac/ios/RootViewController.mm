@@ -26,8 +26,8 @@
  ****************************************************************************/
 
 #import "RootViewController.h"
-#import "axmol.h"
-#import "platform/ios/EAGLView-ios.h"
+#import "axmol/axmol.h"
+#import "axmol/platform/ios/EARenderView-ios.h"
 
 @implementation RootViewController
 
@@ -43,25 +43,9 @@ customization that is not appropriate for viewDidLoad.
 */
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-    // Initialize the EAGLView
-    EAGLView* eaglView = [EAGLView viewWithFrame:[UIScreen mainScreen].bounds
-                                         pixelFormat:(__bridge NSString*)ax::GLViewImpl::_pixelFormat
-                                         depthFormat:ax::GLViewImpl::_depthFormat
-                                  preserveBackbuffer:NO
-                                          sharegroup:nil
-                                       multiSampling:ax::GLViewImpl::_multisamplingCount > 0 ? YES : NO
-                                     numberOfSamples:ax::GLViewImpl::_multisamplingCount];
-
-    // uncumment if you want disable multiple touches
-// #if !defined(AX_TARGET_OS_TVOS)
-//     [eaglView setMultipleTouchEnabled:NO];
-// #endif
-
-    // Set EAGLView as view of RootViewController
-    self.view = eaglView;
-}
+// - (void)loadView
+// {
+// }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -95,19 +79,6 @@ customization that is not appropriate for viewDidLoad.
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-
-    auto glView = ax::Director::getInstance()->getGLView();
-
-    if (glView)
-    {
-        EAGLView* eaglView = (__bridge EAGLView*)glView->getEAGLView();
-
-        if (eaglView)
-        {
-            CGSize s = CGSizeMake([eaglView getWidth], [eaglView getHeight]);
-            ax::Application::getInstance()->applicationScreenSizeChanged((int)s.width, (int)s.height);
-        }
-    }
 }
 
 // fix not hide status on ios7

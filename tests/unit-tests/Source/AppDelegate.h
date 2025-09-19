@@ -26,16 +26,14 @@
  ****************************************************************************/
 #pragma once
 
-#include "axmol.h"
-
+#include "axmol/axmol.h"
 
 class TestController;
-
 
 class AppDelegate : private ax::Application
 {
 public:
-    virtual void initGLContextAttrs();
+    virtual void initGfxContextAttrs();
 
     virtual bool applicationDidFinishLaunching();
     virtual void applicationDidEnterBackground();

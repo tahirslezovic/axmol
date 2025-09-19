@@ -24,10 +24,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_SYSTEM_3D_TRANSLATOR_H__
-#define __AX_PU_PARTICLE_SYSTEM_3D_TRANSLATOR_H__
+#pragma once
 
-//#include <iostream>
+// #include <iostream>
 #include "Particle3D/PU/PUParticleSystem3D.h"
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUScriptCompiler.h"
@@ -43,15 +42,13 @@ public:
 
     void setParticleSystem3D(PUParticleSystem3D* pu) { _system = pu; };
 
-    virtual bool isParticleSystemTranslator() const override { return true; }
+    bool isParticleSystemTranslator() const override { return true; }
 
 public:
-    virtual void translate(PUScriptCompiler* compiler, PUAbstractNode* node) override;
+    void translate(PUScriptCompiler* compiler, PUAbstractNode* node) override;
 
 protected:
     PUParticleSystem3D* _system;
 };
 
-}
-
-#endif
+}  // namespace ax

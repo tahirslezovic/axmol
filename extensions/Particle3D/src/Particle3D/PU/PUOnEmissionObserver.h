@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_ON_EMISSION_OBSERVER_H__
-#define __AX_PU_PARTICLE_3D_ON_EMISSION_OBSERVER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUObserver.h"
 #include <vector>
 #include <string>
@@ -44,12 +43,10 @@ public:
     static PUOnEmissionObserver* create();
     /**
      */
-    virtual bool observe(PUParticle3D* particle, float timeElapsed) override;
+    bool observe(PUParticle3D* particle, float timeElapsed) override;
 
     PUOnEmissionObserver() : PUObserver() {}
-    virtual ~PUOnEmissionObserver(){};
+    virtual ~PUOnEmissionObserver() {};
 };
 
-}
-
-#endif
+}  // namespace ax

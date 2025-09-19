@@ -24,12 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_PLANE_H__
-#define __AX_PU_PARTICLE_3D_PLANE_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
-#include "3d/AABB.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
+#include "axmol/3d/AABB.h"
 #include <vector>
 
 namespace ax
@@ -134,6 +133,4 @@ public:
 };
 
 typedef std::vector<PUPlane> PlaneList;
-}
-
-#endif
+}  // namespace ax

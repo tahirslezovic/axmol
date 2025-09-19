@@ -23,10 +23,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PARTICLE_3D_EMITTER_H__
-#define __AX_PARTICLE_3D_EMITTER_H__
+#pragma once
 
-#include "base/Object.h"
+#include "axmol/base/Object.h"
 #include <vector>
 #include "extensions/ExtensionExport.h"
 
@@ -62,6 +61,4 @@ protected:
     bool _isEnabled;
 };
 
-}
-
-#endif
+}  // namespace ax

@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __DICTIONARYHELPER_H__
-#define __DICTIONARYHELPER_H__
+#pragma once
 
 #include "rapidjson/document-wrapper.h"
 
@@ -68,5 +67,3 @@ public:
 };
 
 }  // namespace cocostudio
-
-#endif /* defined(__CocoGUI__DictionaryHelper__) */

@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_LINEAR_FORCE_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_LINEAR_FORCE_AFFECTOR_H__
+#pragma once
 
 #include "PUBaseForceAffector.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -38,14 +37,12 @@ class AX_EX_DLL PULinearForceAffector : public PUBaseForceAffector
 public:
     static PULinearForceAffector* create();
 
-    virtual void preUpdateAffector(float deltaTime) override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void preUpdateAffector(float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
-    PULinearForceAffector(){};
-    virtual ~PULinearForceAffector(){};
+    PULinearForceAffector() {};
+    virtual ~PULinearForceAffector() {};
 };
-}
-
-#endif
+}  // namespace ax

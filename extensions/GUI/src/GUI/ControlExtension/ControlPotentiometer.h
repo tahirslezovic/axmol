@@ -26,11 +26,10 @@
  * THE SOFTWARE.
  *
  */
-#ifndef __CCCONTROLPOTENTIOMETER_H__
-#define __CCCONTROLPOTENTIOMETER_H__
+#pragma once
 
 #include "Control.h"
-#include "2d/ProgressTimer.h"
+#include "axmol/2d/ProgressTimer.h"
 #include "extensions/ExtensionExport.h"
 
 NS_AX_EXT_BEGIN
@@ -79,11 +78,11 @@ public:
     float getMaximumValue();
 
     // Overrides
-    virtual bool isTouchInside(Touch* touch) override;
+    bool isTouchInside(Touch* touch) override;
     void setEnabled(bool enabled) override;
-    virtual bool onTouchBegan(Touch* pTouch, Event* pEvent) override;
-    virtual void onTouchMoved(Touch* pTouch, Event* pEvent) override;
-    virtual void onTouchEnded(Touch* pTouch, Event* pEvent) override;
+    bool onTouchBegan(Touch* pTouch, Event* pEvent) override;
+    void onTouchMoved(Touch* pTouch, Event* pEvent) override;
+    void onTouchEnded(Touch* pTouch, Event* pEvent) override;
 
     /** Factorize the event dispatch into these methods. */
     void potentiometerBegan(Vec2 location);
@@ -118,5 +117,3 @@ protected:
 /// @}
 
 NS_AX_EXT_END
-
-#endif /* __CCCONTROLPOTENTIOMETER_H__ */

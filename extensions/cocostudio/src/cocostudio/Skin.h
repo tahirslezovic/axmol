@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __CCSKIN_H__
-#define __CCSKIN_H__
+#pragma once
 
-#include "2d/Sprite.h"
-#include "renderer/QuadCommand.h"
+#include "axmol/2d/Sprite.h"
+#include "axmol/renderer/QuadCommand.h"
 
 #include "ArmatureDefine.h"
 #include "Bone.h"
@@ -47,8 +46,8 @@ public:
      */
     Skin();
 
-    virtual bool initWithSpriteFrameName(std::string_view spriteFrameName) override;
-    virtual bool initWithFile(std::string_view filename) override;
+    bool initWithSpriteFrameName(std::string_view spriteFrameName) override;
+    bool initWithFile(std::string_view filename) override;
 
     void updateArmatureTransform();
     void updateTransform() override;
@@ -56,7 +55,7 @@ public:
     ax::Mat4 getNodeToWorldTransform() const override;
     ax::Mat4 getNodeToWorldTransformAR() const;
 
-    virtual void draw(ax::Renderer* renderer, const ax::Mat4& transform, uint32_t flags) override;
+    void draw(ax::Renderer* renderer, const ax::Mat4& transform, uint32_t flags) override;
 
     /**
      *  @lua NA
@@ -82,5 +81,3 @@ protected:
 };
 
 }  // namespace cocostudio
-
-#endif /*__CCSKIN_H__*/

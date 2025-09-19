@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__Light3DReader__
-#define __cocos2d_libs__Light3DReader__
+#pragma once
 
 #include "cocostudio/CocosStudioExport.h"
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
@@ -48,5 +47,3 @@ public:
     ax::Node* createNodeWithFlatBuffers(const flatbuffers::Table* light3DOptions);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__Sprite3DReader__) */

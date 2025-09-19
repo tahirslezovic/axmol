@@ -22,10 +22,9 @@ echo > /dev/null <<"out-null"
 #vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 # Powershell Start ----------------------------------------------------#>
 
-$myRoot = $PSScriptRoot
-$AX_ROOT = $myRoot
+$AX_ROOT = $PSScriptRoot
 
-$Global:is_axmol_engine = Test-Path $(Join-Path $AX_ROOT 'core/axmol.cpp')
+$Global:is_axmol_engine = Test-Path $(Join-Path $AX_ROOT 'axmol/axmol.cpp')
 
 function println($message) { Write-Host "axmol: $message" }
 
@@ -322,7 +321,12 @@ else {
                 $DEPENDS += 'g++'
                 $DEPENDS += 'libasound2-dev'
                 $DEPENDS += 'libxxf86vm-dev'
+
+                # vlc
                 $DEPENDS += 'libvlc-dev', 'libvlccore-dev', 'vlc'
+
+                # wayland
+                $DEPENDS += 'libwayland-dev', 'wayland-protocols', 'libwayland-cursor0', 'libwayland-egl1', 'libwayland-egl-backend-dev', 'libegl1-mesa-dev', 'libgl1-mesa-dev'
 
                 # if vlc encouter codec error, install
                 # sudo apt install ubuntu-restricted-extras
@@ -356,7 +360,10 @@ else {
                     'fontconfig',
                     'gtk3',
                     'webkit2gtk',
-                    'vlc'
+                    'vlc',
+                    'wayland',
+                    'wayland-protocols',
+                    'libglvnd'
                 )
                 sudo pacman -S --needed --noconfirm @DEPENDS
             }
@@ -367,8 +374,8 @@ else {
     }
 }
 
-$1k_script = Join-Path $myRoot '1k/1kiss.ps1'
-$prefix = Join-Path $myRoot 'tools/external'
+$1k_script = Join-Path $PSScriptRoot '1k/1kiss.ps1'
+$prefix = Join-Path $PSScriptRoot 'tools/external'
 if (!(Test-Path $prefix -PathType Container)) {
     mkdirs $prefix
 }
@@ -377,6 +384,9 @@ if (!(Test-Path $prefix -PathType Container)) {
 . $1k_script -setupOnly -prefix $prefix @args
 
 if ($updateAdt) {
+    [System.Threading.Thread]::CurrentThread.CurrentCulture = 'en-US'
+    $current_time = Get-Date -UFormat "%a %b %e %T UTC%Z %Y"
+
     # ---------- Update gradle ----------
     $gradleVer = $build_profiles['gradle']
     $aproj_source_root = Join-Path $AX_ROOT 'templates/common/proj.android'
@@ -391,8 +401,16 @@ if ($updateAdt) {
     }
 
     $gradle_settings_file = Join-Path $aproj_source_gradle_wrapper 'gradle-wrapper.properties'
-    $settings_content = [System.IO.File]::ReadAllText($gradle_settings_file)
-    $settings_content = [Regex]::Replace($settings_content, 'gradle-.+-bin.zip', "gradle-$gradleVer-bin.zip")
+    $settings_lines = Get-Content $gradle_settings_file
+    $settings_lines[0] = "#$current_time"
+    for($i = 1; $i -lt $settings_lines.Count; ++$i) {
+        $line_text = $settings_lines[$i]
+        if ($line_text -match '^distributionUrl\s*=.*') {
+            $settings_lines[$i] = [Regex]::Replace($line_text, 'gradle-.+-bin.zip', "gradle-$gradleVer-bin.zip")
+            break
+        }
+    }
+    $settings_content = $settings_lines -join "`n"
     [System.IO.File]::WriteAllText($gradle_settings_file, $settings_content)
 
     # download gradle-wrapper.jar gradlew and gradlew.bat from upstream

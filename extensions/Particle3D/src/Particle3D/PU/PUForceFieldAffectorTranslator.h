@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_FORCE_FIELD_AFFECTOR_TRANSLATOR_H__
-#define __AX_PU_PARTICLE_3D_FORCE_FIELD_AFFECTOR_TRANSLATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUScriptCompiler.h"
@@ -38,12 +37,10 @@ class PUForceFieldAffectorTranslator : public PUScriptTranslator
 {
 public:
     PUForceFieldAffectorTranslator();
-    virtual ~PUForceFieldAffectorTranslator(){};
+    virtual ~PUForceFieldAffectorTranslator() {};
 
     virtual bool translateChildProperty(PUScriptCompiler* compiler, PUAbstractNode* node);
     virtual bool translateChildObject(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
-}
-
-#endif
+}  // namespace ax

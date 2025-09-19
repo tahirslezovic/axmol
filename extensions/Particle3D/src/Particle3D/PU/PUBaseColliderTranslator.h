@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_BASE_COLLIDER_TRANSLATOR_H__
-#define __AX_PU_PARTICLE_3D_BASE_COLLIDER_TRANSLATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUScriptCompiler.h"
@@ -38,12 +37,10 @@ class AX_EX_DLL PUBaseColliderTranslator : public PUScriptTranslator
 {
 public:
     PUBaseColliderTranslator();
-    virtual ~PUBaseColliderTranslator(){};
+    virtual ~PUBaseColliderTranslator() {};
 
     virtual bool translateChildProperty(PUScriptCompiler* compiler, PUAbstractNode* node);
     virtual bool translateChildObject(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
-}
-
-#endif
+}  // namespace ax

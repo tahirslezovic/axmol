@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CCTABLEVIEW_H__
-#define __CCTABLEVIEW_H__
+#pragma once
 
 #include "ScrollView.h"
 #include "TableViewCell.h"
@@ -255,12 +254,12 @@ public:
     TableViewCell* cellAtIndex(ssize_t idx);
 
     // Overrides
-    virtual void scrollViewDidScroll(ScrollView* view) override;
-    virtual void scrollViewDidZoom(ScrollView* view) override {}
-    virtual bool onTouchBegan(Touch* pTouch, Event* pEvent) override;
-    virtual void onTouchMoved(Touch* pTouch, Event* pEvent) override;
-    virtual void onTouchEnded(Touch* pTouch, Event* pEvent) override;
-    virtual void onTouchCancelled(Touch* pTouch, Event* pEvent) override;
+    void scrollViewDidScroll(ScrollView* view) override;
+    void scrollViewDidZoom(ScrollView* view) override {}
+    bool onTouchBegan(Touch* pTouch, Event* pEvent) override;
+    void onTouchMoved(Touch* pTouch, Event* pEvent) override;
+    void onTouchEnded(Touch* pTouch, Event* pEvent) override;
+    void onTouchCancelled(Touch* pTouch, Event* pEvent) override;
 
 protected:
     ssize_t __indexFromOffset(Vec2 offset);
@@ -318,5 +317,3 @@ public:
 NS_AX_EXT_END
 // end of ui group
 /// @}
-
-#endif /* __CCTABLEVIEW_H__ */

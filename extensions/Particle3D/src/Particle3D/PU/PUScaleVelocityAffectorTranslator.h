@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SCALE_VELOCITY_AFFECTOR_TRANSLATOR_H__
-#define __AX_PU_PARTICLE_3D_SCALE_VELOCITY_AFFECTOR_TRANSLATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUScriptCompiler.h"
@@ -38,12 +37,10 @@ class PUScaleVelocityAffectorTranslator : public PUScriptTranslator
 {
 public:
     PUScaleVelocityAffectorTranslator();
-    virtual ~PUScaleVelocityAffectorTranslator(){};
+    virtual ~PUScaleVelocityAffectorTranslator() {};
 
     virtual bool translateChildProperty(PUScriptCompiler* compiler, PUAbstractNode* node);
     virtual bool translateChildObject(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
-}
-
-#endif
+}  // namespace ax

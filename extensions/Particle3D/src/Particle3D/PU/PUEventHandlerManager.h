@@ -23,10 +23,9 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __AX_PU_PARTICLE_3D_EVENT_HANDLER_MANAGER_H__
-#define __AX_PU_PARTICLE_3D_EVENT_HANDLER_MANAGER_H__
+#pragma once
 
-#include "base/Object.h"
+#include "axmol/base/Object.h"
 #include "Particle3D/PU/PUScriptTranslator.h"
 #include "Particle3D/PU/PUEventHandler.h"
 #include "Particle3D/PU/PUDoAffectorEventHandlerTranslator.h"
@@ -62,6 +61,4 @@ protected:
     PUDoStopSystemEventHandlerTranslator _doStopSystemEventHandlerTranslator;
 };
 
-}
-
-#endif
+}  // namespace ax

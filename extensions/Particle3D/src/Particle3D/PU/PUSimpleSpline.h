@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SIMPLE_SPLINE_H__
-#define __AX_PU_PARTICLE_3D_SIMPLE_SPLINE_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include <vector>
 #include "extensions/ExtensionExport.h"
 
@@ -102,6 +101,4 @@ protected:
     /// Matrix of coefficients
     Mat4 _coeffs;
 };
-}
-
-#endif
+}  // namespace ax

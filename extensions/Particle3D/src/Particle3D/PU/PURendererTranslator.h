@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_RENDERER_TRANSLATOR_H__
-#define __AX_PU_PARTICLE_3D_RENDERER_TRANSLATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PURender.h"
 #include "Particle3D/PU/PUBeamRender.h"
@@ -47,5 +46,4 @@ public:
     virtual void translate(PUScriptCompiler* compiler, PUAbstractNode* node);
 };
 
-}
-#endif /* defined(__cocos2d_libs__CCParticle3DRendererTranslator__) */
+}  // namespace ax

@@ -21,13 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-
-#ifndef __AX_EXTENTIONS_CCCOMAUDIO_H__
-#define __AX_EXTENTIONS_CCCOMAUDIO_H__
+#pragma once
 
 #include "ComBase.h"
-#include "base/Protocols.h"
-#include "2d/Component.h"
+#include "axmol/base/Protocols.h"
+#include "axmol/2d/Component.h"
 #include "CocosStudioExport.h"
 
 namespace cocostudio
@@ -50,25 +48,25 @@ public:
 public:
     static ComAudio* create();
 
-    virtual bool init() override;
+    bool init() override;
     /**
      * @lua NA
      */
-    virtual void onEnter() override;
+    void onEnter() override;
     /**
      * @lua NA
      */
-    virtual void onExit() override;
+    void onExit() override;
     /**
      * @lua NA
      */
-    virtual void onAdd() override;
+    void onAdd() override;
     /**
      * @lua NA
      */
-    virtual void onRemove() override;
+    void onRemove() override;
 
-    virtual bool serialize(void* r) override;
+    bool serialize(void* r) override;
 
 public:
     /**
@@ -109,9 +107,9 @@ public:
     /// @{
     /// @name implement Playable Protocol
     // play the effect sound path in _filePath
-    virtual void start() override;
+    void start() override;
     // stop the effect sound which started with latest start()
-    virtual void stop() override;
+    void stop() override;
     /// @} end of PlayableProtocol
 
 private:
@@ -122,5 +120,3 @@ private:
 };
 
 }  // namespace cocostudio
-
-#endif  // __AX_EXTENTIONS_CCCOMAUDIO_H__

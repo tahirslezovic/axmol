@@ -25,16 +25,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_SCRIPT_PARSER_H__
-#define __AX_PU_SCRIPT_PARSER_H__
+#pragma once
 
 #include <iostream>
 #include <string>
 #include <list>
 #include <map>
 
-#include "base/Logging.h"
-#include "base/Object.h"
+#include "axmol/base/Logging.h"
+#include "axmol/base/Object.h"
 #include "Particle3D/PU/PUScriptLexer.h"
 
 namespace ax
@@ -85,6 +84,4 @@ private:
                                                    PUScriptTokenList::const_iterator end);
 };
 
-}
-
-#endif /* defined(__cocos2d_libs__CCScriptParser__) */
+}  // namespace ax

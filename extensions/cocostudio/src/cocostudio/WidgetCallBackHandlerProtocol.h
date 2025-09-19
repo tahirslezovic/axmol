@@ -22,11 +22,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__WidgetCallBackHandlerProtocol__
-#define __cocos2d_libs__WidgetCallBackHandlerProtocol__
+#pragma once
 
 #include "CocosStudioExport.h"
-#include "ui/UIWidget.h"
+#include "axmol/ui/UIWidget.h"
 
 namespace cocostudio
 {
@@ -42,5 +41,3 @@ public:
 };
 
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__WidgetCallBackHandlerProtocol__) */

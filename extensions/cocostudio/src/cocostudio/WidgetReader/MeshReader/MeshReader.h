@@ -22,10 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__Sprite3DReader__
-#define __cocos2d_libs__Sprite3DReader__
+#pragma once
 
-#include "math/Vec2.h"
+#include "axmol/math/Vec2.h"
 #include "cocostudio/CocosStudioExport.h"
 #include "cocostudio/WidgetReader/NodeReaderProtocol.h"
 #include "cocostudio/WidgetReader/NodeReaderDefine.h"
@@ -52,5 +51,3 @@ protected:
     ax::Vec2 getVec2Attribute(pugi::xml_attribute attribute) const;
 };
 }  // namespace cocostudio
-
-#endif /* defined(__cocos2d_libs__Sprite3DReader__) */

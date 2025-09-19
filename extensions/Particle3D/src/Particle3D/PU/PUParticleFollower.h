@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_PARTICLE_FOLLOWER_H__
-#define __AX_PU_PARTICLE_3D_PARTICLE_FOLLOWER_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -42,8 +41,8 @@ public:
 
     static PUParticleFollower* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
-    virtual void firstParticleUpdate(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void firstParticleUpdate(PUParticle3D* particle, float deltaTime) override;
 
     /**
      */
@@ -55,7 +54,7 @@ public:
     float getMinDistance() const;
     void setMinDistance(float minDistance);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUParticleFollower();
     virtual ~PUParticleFollower();
@@ -66,6 +65,4 @@ protected:
     Vec3 _positionPreviousParticle;
     bool _first;
 };
-}
-
-#endif
+}  // namespace ax

@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TestCpp__TextBMFontReader__
-#define __TestCpp__TextBMFontReader__
+#pragma once
 
 #include "cocostudio/WidgetReader/WidgetReader.h"
 #include "cocostudio/CocosStudioExport.h"
@@ -49,5 +48,3 @@ public:
     ax::Node* createNodeWithFlatBuffers(const flatbuffers::Table* textBMFontOptions);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__TestCpp__TextBMFontReader__) */

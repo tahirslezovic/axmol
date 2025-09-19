@@ -33,10 +33,9 @@
  * Converted to c++ / cocos2d-x by Angus C
  */
 
-#ifndef __CCCONTROL_UTILS_H__
-#define __CCCONTROL_UTILS_H__
+#pragma once
 
-#include "2d/Sprite.h"
+#include "axmol/2d/Sprite.h"
 #include "../../ExtensionMacros.h"
 #include "extensions/ExtensionExport.h"
 
@@ -64,17 +63,6 @@ typedef struct
  * @{
  */
 
-// helper class to store Color3B's in mutable arrays
-class AX_EX_DLL Color3bObject : public Object
-{
-public:
-    Color3B value;
-    /**
-     * @lua NA
-     */
-    Color3bObject(Color3B s_value) : value(s_value) {}
-};
-
 class AX_EX_DLL ControlUtils
 {
 public:
@@ -101,5 +89,3 @@ public:
 /// @}
 
 NS_AX_EXT_END
-
-#endif

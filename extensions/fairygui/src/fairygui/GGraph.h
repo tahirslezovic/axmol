@@ -3,7 +3,7 @@
 
 #include "FairyGUIMacros.h"
 #include "GObject.h"
-#include "cocos2d.h"
+#include "axmol/axmol.h"
 
 NS_FGUI_BEGIN
 
@@ -15,14 +15,14 @@ public:
 
     CREATE_FUNC(GGraph);
 
-    void drawRect(float aWidth, float aHeight, int lineSize, const ax::Color4B& lineColor, const ax::Color4B& fillColor);
-    void drawEllipse(float aWidth, float aHeight, int lineSize, const ax::Color4B& lineColor, const ax::Color4B& fillColor);
-    void drawPolygon(int lineSize, const ax::Color4B& lineColor, const ax::Color4B& fillColor, const ax::Vec2* points, int count);
-    void drawRegularPolygon(int lineSize, const ax::Color4B& lineColor, const ax::Color4B& fillColor, int sides, float startAngle = 0, const float* distances = nullptr, int distanceCount = 0);
+    void drawRect(float aWidth, float aHeight, int lineSize, const ax::Color& lineColor, const ax::Color& fillColor);
+    void drawEllipse(float aWidth, float aHeight, int lineSize, const ax::Color& lineColor, const ax::Color& fillColor);
+    void drawPolygon(int lineSize, const ax::Color& lineColor, const ax::Color& fillColor, const ax::Vec2* points, int count);
+    void drawRegularPolygon(int lineSize, const ax::Color& lineColor, const ax::Color& fillColor, int sides, float startAngle = 0, const float* distances = nullptr, int distanceCount = 0);
     bool isEmpty() const { return _type == 0; }
 
-    ax::Color3B getColor() const;
-    void setColor(const ax::Color3B& value);
+    ax::Color32 getColor() const;
+    void setColor(const ax::Color32& value);
 
     virtual ax::Value getProp(ObjectPropID propId) override;
     virtual void setProp(ObjectPropID propId, const ax::Value& value) override;
@@ -36,8 +36,8 @@ private:
     void updateShape();
 
     int _type;
-    ax::Color4B _lineColor;
-    ax::Color4B _fillColor;
+    ax::Color _lineColor;
+    ax::Color _fillColor;
     int _lineSize;
     float* _cornerRadius;
     std::vector<ax::Vec2>* _polygonPoints;

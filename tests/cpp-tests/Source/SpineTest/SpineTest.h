@@ -26,7 +26,7 @@
 #ifndef _SPINETEST_H_
 #define _SPINETEST_H_
 
-#include "axmol.h"
+#include "axmol/axmol.h"
 #include "../BaseTest.h"
 #include <spine/spine-cocos2dx.h>
 
@@ -56,7 +56,7 @@ public:
     SpineTestLayer();
     virtual ~SpineTestLayer();
 
-    virtual bool init();
+    virtual bool init() override;
     virtual std::string title() const override;
 
 protected:

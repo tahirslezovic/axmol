@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_GEOMETRY_ROTATOR_H__
-#define __AX_PU_PARTICLE_3D_GEOMETRY_ROTATOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 #include "Particle3D/PU/PUDynamicAttribute.h"
@@ -43,9 +42,9 @@ public:
 
     static PUGeometryRotator* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
     /** @copydoc ParticleAffector::_initParticleForEmission */
-    virtual void initParticleForEmission(PUParticle3D* particle) override;
+    void initParticleForEmission(PUParticle3D* particle) override;
 
     /** Returns the rotation speed. This is the speed controlled by the affector. Besides
         the default rotation speed, it is also possible to use the particles own rotation speed.
@@ -77,7 +76,7 @@ public:
      */
     void resetRotationAxis();
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUGeometryRotator();
     virtual ~PUGeometryRotator();
@@ -99,6 +98,4 @@ protected:
      */
     PUDynamicAttributeHelper _dynamicAttributeHelper;
 };
-}
-
-#endif
+}  // namespace ax

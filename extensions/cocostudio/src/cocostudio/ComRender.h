@@ -22,11 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __AX_EXTENTIONS_CCCOMRENDER_H__
-#define __AX_EXTENTIONS_CCCOMRENDER_H__
+#pragma once
 
 #include "ComBase.h"
-#include "2d/Component.h"
+#include "axmol/2d/Component.h"
 #include "CocosStudioExport.h"
 
 namespace cocostudio
@@ -45,20 +44,20 @@ public:
     /**
      * @lua NA
      */
-    virtual void onEnter() override;
+    void onEnter() override;
     /**
      * @lua NA
      */
-    virtual void onExit() override;
+    void onExit() override;
     /**
      * @lua NA
      */
-    virtual void onAdd() override;
+    void onAdd() override;
     /**
      * @lua NA
      */
-    virtual void onRemove() override;
-    virtual bool serialize(void* r) override;
+    void onRemove() override;
+    bool serialize(void* r) override;
     virtual ax::Node* getNode();
     virtual void setNode(ax::Node* node);
     /**
@@ -77,4 +76,3 @@ private:
 };
 
 }  // namespace cocostudio
-#endif  // __AX_EXTENTIONS_CCCOMRENDER_H__

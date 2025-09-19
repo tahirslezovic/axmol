@@ -22,15 +22,14 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TOLUA_FIX_H_
-#define __TOLUA_FIX_H_
+#pragma once
 
 #include "tolua++.h"
 
 #include <string>
 
-#define TOLUA_REFID_PTR_MAPPING "toluafix_refid_ptr_mapping"
-#define TOLUA_REFID_TYPE_MAPPING "toluafix_refid_type_mapping"
+#define TOLUA_REFID_PTR_MAPPING      "toluafix_refid_ptr_mapping"
+#define TOLUA_REFID_TYPE_MAPPING     "toluafix_refid_type_mapping"
 #define TOLUA_REFID_FUNCTION_MAPPING "toluafix_refid_function_mapping"
 
 /**
@@ -69,8 +68,8 @@ TOLUA_API int toluafix_pushusertype_object(lua_State* L, int uid, int* p_refid, 
  * @param L the current lua_State.
  * @param refid the value of the _luaID of a Object object.
  * @return -1,if refid equals to 0 , type name found by refid equals to nil or corresponding userdata pointer equal to
- * nullptr; return -2, if the Object object pointer found by refid is nullptr; return 3, if the value corresponding to the
- * Object object pointer in the tolua_ubox is nil; otherwise return 0.
+ * nullptr; return -2, if the Object object pointer found by refid is nullptr; return 3, if the value corresponding to
+ * the Object object pointer in the tolua_ubox is nil; otherwise return 0.
  * @lua NA
  */
 TOLUA_API int toluafix_remove_ccobject_by_refid(lua_State* L, int refid);
@@ -149,13 +148,10 @@ TOLUA_API int toluafix_istable(lua_State* L, int lo, const char* type, int def, 
  */
 TOLUA_API void toluafix_stack_dump(lua_State* L, const char* label);
 
-inline void tolua_pushsv (lua_State* L, const std::string_view& v)
+inline void tolua_pushsv(lua_State* L, const std::string_view& v)
 {
     lua_pushlstring(L, !v.empty() ? v.data() : "", v.length());
 }
 
-
 // end group
 /// @}
-
-#endif  // __TOLUA_FIX_H_

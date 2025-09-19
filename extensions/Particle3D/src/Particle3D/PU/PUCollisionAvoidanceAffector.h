@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_COLLISION_AVOIDDANCE_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_COLLISION_AVOIDDANCE_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 
@@ -40,7 +39,7 @@ public:
 
     static PUCollisionAvoidanceAffector* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /** Todo
      */
@@ -50,7 +49,7 @@ public:
      */
     void setRadius(float radius);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUCollisionAvoidanceAffector();
     virtual ~PUCollisionAvoidanceAffector();
@@ -58,6 +57,4 @@ public:
 protected:
     float _radius;
 };
-}
-
-#endif
+}  // namespace ax

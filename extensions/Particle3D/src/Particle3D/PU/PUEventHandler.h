@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_EVENT_HANDLER_H__
-#define __AX_PU_PARTICLE_3D_EVENT_HANDLER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include <vector>
 #include <string>
 #include "extensions/ExtensionExport.h"
@@ -86,6 +85,4 @@ protected:
     Vec3 _eventHandlerScale;
 };
 
-}
-
-#endif
+}  // namespace ax

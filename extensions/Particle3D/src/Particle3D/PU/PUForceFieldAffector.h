@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_FORCE_FIELD_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_FORCE_FIELD_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 #include "Particle3D/PU/PUForceField.h"
@@ -51,10 +50,10 @@ public:
 
     static PUForceFieldAffector* create();
 
-    virtual void notifyStart() override;
-    virtual void preUpdateAffector(float deltaTime) override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
-    virtual void prepare() override;
+    void notifyStart() override;
+    void preUpdateAffector(float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void prepare() override;
 
     /** Get/Set Forcefield type
      */
@@ -127,7 +126,7 @@ public:
      */
     void suppressGeneration(bool suppress);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUForceFieldAffector();
     ~PUForceFieldAffector();
@@ -157,6 +156,4 @@ protected:
     Vec3 _basePosition;
     bool _suppressGeneration;  // Prevents re-generation of the complete forcefield after a change.
 };
-}
-
-#endif
+}  // namespace ax

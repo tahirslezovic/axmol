@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_INNER_PARTICLE_COLLIDER_H__
-#define __AX_PU_PARTICLE_3D_INNER_PARTICLE_COLLIDER_H__
+#pragma once
 
 #include "PUBaseCollider.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -48,9 +47,9 @@ public:
     static const float DEFAULT_ADJUSTMENT;
     static const InterParticleCollisionResponse DEFAULT_COLLISION_RESPONSE;
 
-    virtual void prepare() override;
-    virtual void unPrepare() override;
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void prepare() override;
+    void unPrepare() override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /** Todo
      */
@@ -68,7 +67,7 @@ public:
      */
     void setInterParticleCollisionResponse(InterParticleCollisionResponse interParticleCollisionResponse);
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUParticle3DInterParticleCollider();
     virtual ~PUParticle3DInterParticleCollider();
@@ -82,6 +81,4 @@ protected:
     float _adjustment;
     InterParticleCollisionResponse _interParticleCollisionResponse;
 };
-}
-
-#endif
+}  // namespace ax

@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_UTIL_H__
-#define __AX_PU_PARTICLE_3D_UTIL_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include <vector>
 
 namespace ax
@@ -40,6 +39,4 @@ public:
     static Vec3 perpendicular(const Vec3& src);
     static Vec3 randomDeviant(const Vec3& src, float angle, const Vec3& up = Vec3::ZERO);
 };
-}
-
-#endif
+}  // namespace ax

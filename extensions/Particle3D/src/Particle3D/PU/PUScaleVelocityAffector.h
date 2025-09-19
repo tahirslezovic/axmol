@@ -24,12 +24,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_SCALE_VELOCITY_AFFECTOR_H__
-#define __AX_PU_PARTICLE_3D_SCALE_VELOCITY_AFFECTOR_H__
+#pragma once
 
 #include "Particle3D/PU/PUAffector.h"
 #include "Particle3D/PU/PUDynamicAttribute.h"
-#include "base/Types.h"
+#include "axmol/base/Types.h"
 
 namespace ax
 {
@@ -42,7 +41,7 @@ public:
 
     static PUScaleVelocityAffector* create();
 
-    virtual void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
+    void updatePUAffector(PUParticle3D* particle, float deltaTime) override;
 
     /**
      */
@@ -60,7 +59,7 @@ public:
     bool isStopAtFlip() const { return _stopAtFlip; };
     void setStopAtFlip(bool stopAtFlip) { _stopAtFlip = stopAtFlip; };
 
-    virtual void copyAttributesTo(PUAffector* affector) override;
+    void copyAttributesTo(PUAffector* affector) override;
 
     PUScaleVelocityAffector();
     virtual ~PUScaleVelocityAffector();
@@ -71,6 +70,4 @@ protected:
     bool _sinceStartSystem;
     bool _stopAtFlip;
 };
-}
-
-#endif
+}  // namespace ax

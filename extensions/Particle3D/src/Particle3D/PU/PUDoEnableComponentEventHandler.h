@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_DO_ENABLE_COMPONENT_EVENT_HANDLER_H__
-#define __AX_PU_PARTICLE_3D_DO_ENABLE_COMPONENT_EVENT_HANDLER_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUParticleSystem3D.h"
 #include "Particle3D/PU/PUEventHandler.h"
 #include <vector>
@@ -76,12 +75,12 @@ public:
         DoEnableComponentEventHandler is defined, or if the ParticleEmitter/Affector is not
         found, other ParticleTechniques are searched.
     */
-    virtual void handle(PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
+    void handle(PUParticleSystem3D* particleSystem, PUParticle3D* particle, float timeElapsed) override;
 
-    virtual void copyAttributesTo(PUEventHandler* eventHandler) override;
+    void copyAttributesTo(PUEventHandler* eventHandler) override;
 
     PUDoEnableComponentEventHandler();
-    virtual ~PUDoEnableComponentEventHandler(){};
+    virtual ~PUDoEnableComponentEventHandler() {};
 
 protected:
     // Identifies the name of component
@@ -95,6 +94,4 @@ protected:
     bool _componentEnabled;
 };
 
-}
-
-#endif
+}  // namespace ax

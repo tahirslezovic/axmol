@@ -1,6 +1,7 @@
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2019-present Axmol Engine contributors (see AUTHORS.md).
 
  https://axmol.dev/
 
@@ -26,11 +27,11 @@
 
 #include <thread>
 
-#include "base/Director.h"
-#include "base/Scheduler.h"
-#include "base/UserDefault.h"
-#include "network/Downloader.h"
-#include "platform/FileUtils.h"
+#include "axmol/base/Director.h"
+#include "axmol/base/Scheduler.h"
+#include "axmol/base/UserDefault.h"
+#include "axmol/network/Downloader.h"
+#include "axmol/platform/FileUtils.h"
 
 #ifdef MINIZIP_FROM_SYSTEM
 #    include <minizip/unzip.h>
@@ -39,17 +40,19 @@
 #endif
 #include <ioapi.h>
 
+#include "axmol/tlx/format.hpp"
+
 NS_AX_EXT_BEGIN
 
 using namespace std;
 using namespace ax;
 using namespace ax::network;
 
-#define KEY_OF_VERSION "current-version-code"
+#define KEY_OF_VERSION            "current-version-code"
 #define KEY_OF_DOWNLOADED_VERSION "downloaded-version-code"
-#define TEMP_PACKAGE_FILE_NAME "cocos2dx-update-temp-package.zip"
-#define BUFFER_SIZE 8192
-#define MAX_FILENAME 512
+#define TEMP_PACKAGE_FILE_NAME    "axmol-update-temp-package.zip"
+#define BUFFER_SIZE               8192
+#define MAX_FILENAME              512
 
 class AssetManagerZipFileInfo
 {
@@ -105,10 +108,9 @@ voidpf AssetManager_opendisk_file_func(voidpf opaque, voidpf stream, uint32_t nu
 
     if (pos != std::string::npos && pos != 0)
     {
-        const size_t bufferSize = 5;
-        char extensionBuffer[bufferSize];
-        snprintf(&extensionBuffer[0], bufferSize, ".z%02u", number_disk + 1);
-        diskFilename.replace(pos, std::min((size_t)4, zipFileInfo->zipFileName.size() - pos), extensionBuffer);
+        char buf[5];
+        auto ext = fmt::format_to_z(buf, ".z{:02d}", number_disk + 1);
+        diskFilename.replace(pos, std::min((size_t)4, zipFileInfo->zipFileName.size() - pos), ext);
         return AssetManager_open_file_func(opaque, diskFilename.c_str(), mode);
     }
 
@@ -235,8 +237,7 @@ AssetsManager::AssetsManager(const char* packageUrl /* =nullptr */,
         // start download new version assets
         // 1. Urls of package and version should be valid;
         // 2. Package should be a zip file.
-        if (_versionFileUrl.empty() || _packageUrl.empty() ||
-            FileUtils::getPathExtension(_packageUrl) != ".zip")
+        if (_versionFileUrl.empty() || _packageUrl.empty() || FileUtils::getPathExtension(_packageUrl) != ".zip")
         {
             AXLOGD("no version file url, or no package url, or the package is not a zip file");
             _isDownloading = false;
@@ -280,9 +281,7 @@ void AssetsManager::checkStoragePath()
 // Multiple key names
 static std::string keyWithHash(const char* prefix, std::string_view url)
 {
-    char buf[256];
-    snprintf(buf, sizeof(buf), "%s%zd", prefix, std::hash<std::string_view>()(url));
-    return buf;
+    return fmt::format("{}{}", prefix, std::hash<std::string_view>()(url));
 }
 
 // hashed version

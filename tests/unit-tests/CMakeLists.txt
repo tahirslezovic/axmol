@@ -6,15 +6,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(AX_EXT_HINT OFF CACHE BOOL "" FORCE)
 
-
-# "too large PDB" error often occurs in unit-tests when using default "/Zi"
-if (MSVC)
-    string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
-    string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
-    string(REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO}")
-    string(REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-endif()
-
 project(${APP_NAME})
 
 if(NOT DEFINED BUILD_ENGINE_DONE)
@@ -33,7 +24,7 @@ if(NOT DEFINED BUILD_ENGINE_DONE)
     set(CMAKE_MODULE_PATH ${_AX_ROOT}/cmake/Modules/)
 
     include(AXBuildSet)
-    add_subdirectory(${_AX_ROOT}/core ${ENGINE_BINARY_PATH}/axmol/core)
+    add_subdirectory(${_AX_ROOT}/axmol ${ENGINE_BINARY_PATH}/axmol)
 endif()
 
 _1kfetch(sample-assets)
@@ -43,22 +34,22 @@ set(GAME_SOURCE
     Source/AppDelegate.cpp
     Source/TestUtils.cpp
 
-    Source/core/2d/NodeTests.cpp
+    Source/axmol/2d/NodeTests.cpp
 
-    Source/core/base/MapTests.cpp
-    Source/core/base/UTF8Tests.cpp
-    Source/core/base/UtilsTests.cpp
-    Source/core/base/ValueTests.cpp
-    Source/core/base/VectorTests.cpp
+    Source/axmol/base/MapTests.cpp
+    Source/axmol/base/UTF8Tests.cpp
+    Source/axmol/base/UtilsTests.cpp
+    Source/axmol/base/ValueTests.cpp
+    Source/axmol/base/VectorTests.cpp
 
-    Source/core/math/FastRNGTests.cpp
-    Source/core/math/MathUtilTests.cpp
+    Source/axmol/math/FastRNGTests.cpp
+    Source/axmol/math/MathUtilTests.cpp
 
-    Source/core/network/UriTests.cpp
+    Source/axmol/network/UriTests.cpp
 
-    Source/core/platform/FileUtilsTests.cpp
+    Source/axmol/platform/FileUtilsTests.cpp
 
-    Source/core/ui/UIHelperTests.cpp
+    Source/axmol/ui/UIHelperTests.cpp
 )
 
 
@@ -211,7 +202,7 @@ endif()
 if((NOT IOS) AND (NOT WINRT))
     message(STATUS "CMake precompile headers for ${APP_NAME}")
     target_precompile_headers(${APP_NAME} PRIVATE
-      "$<$<COMPILE_LANGUAGE:CXX>:axmol.h>"
+      "$<$<COMPILE_LANGUAGE:CXX>:axmol/axmol.h>"
     )
 endif()
 

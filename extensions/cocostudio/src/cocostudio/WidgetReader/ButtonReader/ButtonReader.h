@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TestCpp__ButtonReader__
-#define __TestCpp__ButtonReader__
+#pragma once
 
 #include "cocostudio/WidgetReader/WidgetReader.h"
 #include "cocostudio/CocosStudioExport.h"
@@ -52,5 +51,3 @@ public:
     int getResourceType(std::string_view key);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__TestCpp__ButtonReader__) */

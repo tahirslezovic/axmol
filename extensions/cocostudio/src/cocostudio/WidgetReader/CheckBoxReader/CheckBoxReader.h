@@ -22,8 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TestCpp__CheckBoxReader__
-#define __TestCpp__CheckBoxReader__
+#pragma once
 
 #include "cocostudio/WidgetReader/WidgetReader.h"
 #include "cocostudio/CocosStudioExport.h"
@@ -50,5 +49,3 @@ public:
     virtual int getResourceType(std::string_view key);
 };
 }  // namespace cocostudio
-
-#endif /* defined(__TestCpp__CheckBoxReader__) */

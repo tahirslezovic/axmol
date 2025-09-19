@@ -25,10 +25,12 @@
  ****************************************************************************/
 
 #include "BillBoardTest.h"
-#include "3d/BillBoard.h"
+#include "axmol/3d/BillBoard.h"
 
 #include <algorithm>
 #include "../testResource.h"
+
+#include "axmol/tlx/format.hpp"
 
 using namespace ax;
 USING_NS_AX_EXT;
@@ -75,16 +77,16 @@ BillBoardRotationTest::BillBoardRotationTest()
 
     auto jump  = JumpBy::create(1, Vec2(0.0f, 0.0f), 30, 1);
     auto scale = ScaleBy::create(2.f, 2.f, 2.f, 0.1f);
-    auto seq   = Sequence::create(jump, scale, NULL);
+    auto seq   = Sequence::create(jump, scale, nullptr);
 
     auto rot = RotateBy::create(2, Vec3(-90.0f, 0.0f, 0.0f));
-    auto act = Spawn::create(seq, rot, NULL);
+    auto act = Spawn::create(seq, rot, nullptr);
 
     auto scale2 = scale->reverse();
     auto rot2   = rot->reverse();
-    auto act2   = Spawn::create(scale2, rot2, NULL);
+    auto act2   = Spawn::create(scale2, rot2, nullptr);
 
-    auto seq2   = Sequence::create(act, act2, NULL);
+    auto seq2   = Sequence::create(act, act2, nullptr);
     auto repeat = RepeatForever::create(seq2);
     model->runAction(repeat);
 }
@@ -116,7 +118,7 @@ BillBoardTest::BillBoardTest() : _camera(nullptr)
     auto layer3D = Layer::create();
     addChild(layer3D, 0);
     _layerBillBoard = layer3D;
-    auto s          = Director::getInstance()->getWinSize();
+    auto s          = Director::getInstance()->getLogicalSize();
     if (_camera == nullptr)
     {
         _camera = Camera::createPerspective(60, (float)s.width / s.height, 1, 500);
@@ -254,11 +256,11 @@ void BillBoardTest::addNewAniBillBoardWithCoords(Vec3 p)
         _layerBillBoard->addChild(billboardAni);
 
         auto animation = Animation::create();
+        char szName1[100];
         for (int i = 1; i < 15; i++)
         {
-            char szName1[100] = {0};
-            sprintf(szName1, "Images/grossini_dance_%02d.png", i);
-            animation->addSpriteFrameWithFile(szName1);
+            auto key = fmt::format_to_z(szName1, "Images/grossini_dance_{:02d}.png", i);
+            animation->addSpriteFrameWithFile(key);
         }
         // should last 2.8 seconds. And there are 14 frames.
         animation->setDelayPerUnit(2.8f / 14.0f);

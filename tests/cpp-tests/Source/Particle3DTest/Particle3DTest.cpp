@@ -66,7 +66,7 @@ bool Particle3DTestDemo::init()
     FileUtils::getInstance()->addSearchPath("MeshRendererTest");
     // FileUtils::getInstance()->addSearchPath("Particle3D/textures");
 
-    Size size = Director::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getLogicalSize();
     _camera   = Camera::createPerspective(30.0f, size.width / size.height, 1.0f, 1000.0f);
     _camera->setPosition3D(Vec3(0.0f, 0.0f, 100.0f));
     _camera->lookAt(Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 1.0f, 0.0f));
@@ -125,8 +125,8 @@ void Particle3DTestDemo::update(float delta)
             }
         }
 
-        char str[128];
-        sprintf(str, "Particle Count: %d", count);
+        char buf[128];
+        auto str = fmt::format_to_z(buf, "Particle Count: {}", count);
         _particleLab->setString(str);
     }
 }

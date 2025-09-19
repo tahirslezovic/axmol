@@ -25,13 +25,12 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_SCRIPT_LEXER_H__
-#define __AX_PU_SCRIPT_LEXER_H__
+#pragma once
 
-#include "base/Object.h"
+#include "axmol/base/Object.h"
 #include <vector>
 #include <string>
-#include "base/Logging.h"
+#include "axmol/base/Logging.h"
 #include "extensions/ExtensionExport.h"
 
 namespace ax
@@ -80,6 +79,4 @@ private:  // Private utility operations
     bool isNewline(char c) const;
 };
 
-}
-
-#endif
+}  // namespace ax

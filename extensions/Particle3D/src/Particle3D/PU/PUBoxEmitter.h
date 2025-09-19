@@ -24,8 +24,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_BOX_EMITTER_H__
-#define __AX_PU_PARTICLE_3D_BOX_EMITTER_H__
+#pragma once
 
 #include "Particle3D/PU/PUEmitter.h"
 
@@ -57,16 +56,16 @@ public:
     float getDepth() const;
     void setDepth(const float depth);
 
-    virtual CCPUBoxEmitter* clone() override;
-    virtual void copyAttributesTo(PUEmitter* emitter) override;
+    CCPUBoxEmitter* clone() override;
+    void copyAttributesTo(PUEmitter* emitter) override;
 
     CCPUBoxEmitter();
-    virtual ~CCPUBoxEmitter(){};
+    virtual ~CCPUBoxEmitter() {};
 
 protected:
     /**
      */
-    virtual void initParticlePosition(PUParticle3D* particle) override;
+    void initParticlePosition(PUParticle3D* particle) override;
 
 protected:
     float _height;
@@ -77,6 +76,4 @@ protected:
     float _yRange;
     float _zRange;
 };
-}
-
-#endif
+}  // namespace ax

@@ -51,9 +51,9 @@ extern "C" {
 #include "lua-bindings/manual/LuaBasicConversions.h"
 #include "lua-bindings/auto/axlua_physics_auto.hpp"
 #include "lua-bindings/manual/physics/axlua_physics_manual.hpp"
-#include "lua-bindings/auto/axlua_backend_auto.hpp"
-#include "base/ZipUtils.h"
-#include "platform/FileUtils.h"
+#include "lua-bindings/auto/axlua_rhi_auto.hpp"
+#include "axmol/base/ZipUtils.h"
+#include "axmol/platform/FileUtils.h"
 
 namespace
 {
@@ -151,7 +151,7 @@ int axlua_log_with_level(lua_State* L)
         auto formated_msg = axlua_tostr(L, 2);
 
         char fmt_pos_buf[8];
-        const int fmtc     = (std::min)((argc - 2), max_fmt_count);
+        const int fmtc = (std::min)((argc - 2), max_fmt_count);
         for (int fmti = 0; fmti < fmtc; ++fmti)
         {
             auto pos     = axlua_format_pos(fmt_pos_buf, sizeof(fmt_pos_buf), fmti);
@@ -214,7 +214,7 @@ bool LuaStack::init()
 
     g_luaType.clear();
     register_all_ax_base(_state);
-    register_all_ax_backend(_state);
+    register_all_ax_rhi(_state);
     register_all_ax_manual(_state);
     register_all_ax_module_manual(_state);
     register_all_ax_math_manual(_state);
@@ -331,7 +331,7 @@ int LuaStack::executeGlobalFunction(const char* functionName)
     lua_getglobal(_state, functionName); /* query function by name, stack: function */
     if (!lua_isfunction(_state, -1))
     {
-        AXLOGD("[LUA ERROR] name '{}' does not represent a Lua function", functionName);
+        AXLOGW("[LUA WARN] name '{}' does not represent a Lua function", functionName);
         lua_pop(_state, 1);
         return 0;
     }
@@ -444,7 +444,7 @@ bool LuaStack::pushFunctionByHandler(int nHandler)
     toluafix_get_function_by_refid(_state, nHandler); /* L: ... func */
     if (!lua_isfunction(_state, -1))
     {
-        AXLOGD("[LUA ERROR] function refid '{}' does not reference a Lua function", nHandler);
+        AXLOGE("[LUA ERROR] function refid '{}' does not reference a Lua function", nHandler);
         lua_pop(_state, 1);
         return false;
     }
@@ -456,7 +456,7 @@ int LuaStack::executeFunction(int numArgs)
     int functionIndex = -(numArgs + 1);
     if (!lua_isfunction(_state, functionIndex))
     {
-        AXLOGD("value at stack [{}] is not function", functionIndex);
+        AXLOGE("value at stack [{}] is not function", functionIndex);
         lua_pop(_state, numArgs + 1);  // remove function and arguments
         return 0;
     }
@@ -481,8 +481,8 @@ int LuaStack::executeFunction(int numArgs)
     {
         if (traceback == 0)
         {
-            AXLOGD("[LUA ERROR] {}", lua_tostring(_state, -1)); /* L: ... error */
-            lua_pop(_state, 1);                                // remove error message from stack
+            AXLOGE("[LUA ERROR] {}", lua_tostring(_state, -1)); /* L: ... error */
+            lua_pop(_state, 1);                                 // remove error message from stack
         }
         else /* L: ... G error */
         {
@@ -598,8 +598,8 @@ int LuaStack::executeFunction(int handler,
         {
             if (traceCallback == 0)
             {
-                AXLOGD("[LUA ERROR] {}", lua_tostring(_state, -1)); /* L: ... error */
-                lua_pop(_state, 1);                                // remove error message from stack
+                AXLOGE("[LUA ERROR] {}", lua_tostring(_state, -1)); /* L: ... error */
+                lua_pop(_state, 1);                                 // remove error message from stack
             }
             else /* L: ... G error */
             {
@@ -772,23 +772,23 @@ int LuaStack::luaLoadBuffer(lua_State* L, const char* chunk, int chunkSize, cons
         switch (r)
         {
         case LUA_ERRSYNTAX:
-            AXLOGD("[LUA ERROR] load \"{}\", error: syntax error during pre-compilation.", chunkName);
+            AXLOGE("[LUA ERROR] load \"{}\", error: syntax error during pre-compilation.", chunkName);
             break;
 
         case LUA_ERRMEM:
-            AXLOGD("[LUA ERROR] load \"{}\", error: memory allocation error.", chunkName);
+            AXLOGE("[LUA ERROR] load \"{}\", error: memory allocation error.", chunkName);
             break;
 
         case LUA_ERRFILE:
-            AXLOGD("[LUA ERROR] load \"{}\", error: cannot open/read file.", chunkName);
+            AXLOGE("[LUA ERROR] load \"{}\", error: cannot open/read file.", chunkName);
             break;
 
         default:
-            AXLOGD("[LUA ERROR] load \"{}\", error: unknown.", chunkName);
+            AXLOGE("[LUA ERROR] load \"{}\", error: unknown.", chunkName);
         }
     }
 #endif
     return r;
 }
 
-}
+}  // namespace ax

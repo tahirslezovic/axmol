@@ -23,11 +23,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __cocos2d_libs__CCEventAssetsManagerEx__
-#define __cocos2d_libs__CCEventAssetsManagerEx__
+#pragma once
 
-#include "base/Event.h"
-#include "base/EventCustom.h"
+#include "axmol/base/Event.h"
+#include "axmol/base/EventCustom.h"
 #include "extensions/ExtensionMacros.h"
 #include "extensions/ExtensionExport.h"
 
@@ -102,5 +101,3 @@ private:
 };
 
 NS_AX_EXT_END
-
-#endif /* defined(__cocos2d_libs__CCEventAssetsManagerEx__) */

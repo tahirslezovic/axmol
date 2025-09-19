@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __CCPROCESSBASE_H__
-#define __CCPROCESSBASE_H__
+#pragma once
 
 #include "ArmatureDefine.h"
 #include "Datas.h"
@@ -129,7 +128,7 @@ protected:
     /**
      * Update(float dt) will call this handler, you can handle your logic here
      */
-    virtual void updateHandler(){};
+    virtual void updateHandler() {};
 
 protected:
     //! Scale the process speed
@@ -175,5 +174,3 @@ protected:
 };
 
 }  // namespace cocostudio
-
-#endif /*__CCPROCESSBASE_H__*/

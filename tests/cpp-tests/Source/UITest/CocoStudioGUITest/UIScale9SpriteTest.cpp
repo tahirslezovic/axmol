@@ -78,7 +78,7 @@ bool UIScale9SpriteTest::init()
         auto moveBack = moveTo->reverse();
         auto rotateBy = RotateBy::create(1.0f, 180.0f);
         auto scaleBy  = ScaleTo::create(1.0f, -2.0f);
-        auto action   = Sequence::create(moveTo, moveBack, rotateBy, scaleBy, NULL);
+        auto action   = Sequence::create(moveTo, moveBack, rotateBy, scaleBy, nullptr);
 
         Sprite* normalSprite1 = Sprite::create("cocosui/animationbuttonnormal.png");
         normalSprite1->setPosition(100, 270);
@@ -93,7 +93,7 @@ bool UIScale9SpriteTest::init()
         normalSprite2->setOpacity(100);
         normalSprite2->setContentSize(normalSprite2->getContentSize() * 2);
         this->addChild(normalSprite2);
-        normalSprite2->setColor(Color3B::GREEN);
+        normalSprite2->setColor(Color32::GREEN);
         normalSprite2->runAction(action);
 
         auto action2          = action->clone();
@@ -101,14 +101,14 @@ bool UIScale9SpriteTest::init()
         sp1->setPosition(100, 160);
         sp1->setScale(1.2f);
         sp1->setContentSize(Size(100.0f, 100.0f));
-        sp1->setColor(Color3B::GREEN);
+        sp1->setColor(Color32::GREEN);
         this->addChild(sp1);
         sp1->runAction((FiniteTimeAction*)action2);
 
         ax::ui::Scale9Sprite* sp2 = ui::Scale9Sprite::create("cocosui/animationbuttonnormal.png");
         sp2->setPosition(350.0f, 160.0f);
         sp2->setPreferredSize(sp1->getContentSize() * 1.2f);
-        sp2->setColor(Color3B::GREEN);
+        sp2->setColor(Color32::GREEN);
         sp2->setContentSize(Size(100.0f, 100.0f));
 
         this->addChild(sp2);
@@ -135,13 +135,13 @@ bool UIScale9SpriteHierarchialTest::init()
         auto rotateBy = RotateBy::create(1.0f, 180.0f);
         auto fadeOut  = FadeOut::create(2.0f);
         auto scaleTo  = ScaleTo::create(1.0f, 2.0f);
-        auto action   = Sequence::create(moveTo, moveBack, rotateBy, fadeOut, scaleTo, NULL);
+        auto action   = Sequence::create(moveTo, moveBack, rotateBy, fadeOut, scaleTo, nullptr);
 
         Sprite* normalSprite1 = Sprite::create("cocosui/animationbuttonnormal.png");
         normalSprite1->setPosition(100, 270);
         normalSprite1->setCascadeColorEnabled(true);
         normalSprite1->setCascadeOpacityEnabled(true);
-        normalSprite1->setColor(Color3B::GREEN);
+        normalSprite1->setColor(Color32::GREEN);
 
         this->addChild(normalSprite1);
         normalSprite1->runAction((FiniteTimeAction*)action->clone());
@@ -156,13 +156,13 @@ bool UIScale9SpriteHierarchialTest::init()
         sp1->setPosition(200.0f, 160.0f);
         sp1->setScale(1.2f);
         sp1->setContentSize(Size(100.0f, 100.0f));
-        sp1->setColor(Color3B::GREEN);
+        sp1->setColor(Color32::GREEN);
         this->addChild(sp1);
         sp1->runAction((FiniteTimeAction*)action2);
 
         ax::ui::Scale9Sprite* sp2 = ui::Scale9Sprite::create("cocosui/animationbuttonnormal.png");
         sp2->setPreferredSize(sp1->getContentSize() * 1.2f);
-        sp2->setColor(Color3B::GREEN);
+        sp2->setColor(Color32::GREEN);
         sp2->setFlippedX(true);
         sp2->setContentSize(Size(100.0f, 100.0f));
 
@@ -253,7 +253,7 @@ bool UIS9BatchNodeBasic::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -277,7 +277,7 @@ bool UIS9FrameNameSpriteSheet::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -303,7 +303,7 @@ bool UIS9FrameNameSpriteSheetRotated::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -327,7 +327,7 @@ bool UIS9FrameNameSpriteSheetCropped::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -353,7 +353,7 @@ bool UIS9FrameNameSpriteSheetCroppedRotated::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -379,7 +379,7 @@ bool UIS9FrameNameSpriteSheetCroppedSimple::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -406,7 +406,7 @@ bool UIS9FrameNameSpriteSheetCroppedRotatedSimple::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -433,7 +433,7 @@ bool UIS9BatchNodeScaledNoInsets::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -457,7 +457,7 @@ bool UIS9FrameNameSpriteSheetScaledNoInsets::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
@@ -480,7 +480,7 @@ bool UIS9FrameNameSpriteSheetRotatedScaledNoInsets::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -501,7 +501,7 @@ bool UIS9BatchNodeScaleWithCapInsets::init()
 {
     if (UIScene::init())
     {
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -528,7 +528,7 @@ bool UIS9FrameNameSpriteSheetInsets::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -549,7 +549,7 @@ bool UIS9FrameNameSpriteSheetInsetsScaled::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -571,11 +571,12 @@ bool UIS9FrameNameSpriteSheetRotatedInsets::init()
     if (UIScene::init())
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
-        auto blocks_with_insets = ui::Scale9Sprite::createWithSpriteFrameName("blocks9ss/blocks9r.png", Rect(32, 32, 32, 32));
+        auto blocks_with_insets =
+            ui::Scale9Sprite::createWithSpriteFrameName("blocks9ss/blocks9r.png", Rect(32, 32, 32, 32));
 
         blocks_with_insets->setPosition(Vec2(x, y));
 
@@ -591,7 +592,7 @@ bool UIS9_TexturePacker::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_ui_plist);
 
         float x = winSize.width / 4;
@@ -625,7 +626,7 @@ bool UIS9FrameNameSpriteSheetRotatedInsetsScaled::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -648,7 +649,7 @@ bool UIS9FrameNameSpriteSheetRotatedSetCapInsetLater::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -672,7 +673,7 @@ bool UIS9CascadeOpacityAndColor::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
         auto rgba    = Layer::create();
@@ -687,9 +688,9 @@ bool UIS9CascadeOpacityAndColor::init()
         rgba->addChild(blocks_scaled_with_insets);
         auto actions = Sequence::create(FadeIn::create(1), TintTo::create(1, 0, 255, 0), TintTo::create(1, 255, 0, 255),
                                         CallFunc::create([=]() {
-                                            rgba->setCascadeColorEnabled(false);
-                                            rgba->setCascadeOpacityEnabled(false);
-                                        }),
+            rgba->setCascadeColorEnabled(false);
+            rgba->setCascadeOpacityEnabled(false);
+        }),
                                         nullptr);
         auto repeat  = RepeatForever::create(actions);
         rgba->runAction(repeat);
@@ -704,7 +705,7 @@ bool UIS9ZOrder::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -714,7 +715,7 @@ bool UIS9ZOrder::init()
         this->addChild(blocks_scaled_with_insets);
 
         Sprite* normalSprite = Sprite::createWithSpriteFrameName("blocks9ss/blocks9r.png");
-        normalSprite->setColor(Color3B::RED);
+        normalSprite->setColor(Color32::RED);
         blocks_scaled_with_insets->addChild(normalSprite);
 
         auto topLabel = Label::createWithSystemFont("I Must be On the Top", "Arial", 15);
@@ -723,7 +724,7 @@ bool UIS9ZOrder::init()
 
         auto bottomLabel = Label::createWithSystemFont("I Must be On the Bottom", "Arial", 15);
         bottomLabel->setPosition(Vec2(80.0f, 80.0f));
-        bottomLabel->setColor(Color3B::BLUE);
+        bottomLabel->setColor(Color32::BLUE);
         blocks_scaled_with_insets->addChild(bottomLabel, -1);
 
         return true;
@@ -737,7 +738,7 @@ bool UIS9Flip::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2);
 
@@ -870,7 +871,7 @@ bool UIS9ChangeAnchorPoint::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(s_s9s_blocks9_plist);
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2 + 50);
 
@@ -891,10 +892,10 @@ bool UIS9ChangeAnchorPoint::init()
                 normalSprite->setAnchorPoint(Vec2::ZERO);
                 normalSprite->setScale9Enabled(true);
                 AXLOGD("position = {}, {},  anchor point = {}, {}", normalSprite->getPosition().x,
-                      normalSprite->getPosition().y, normalSprite->getAnchorPoint().x,
-                      normalSprite->getAnchorPoint().y);
+                       normalSprite->getPosition().y, normalSprite->getAnchorPoint().x,
+                       normalSprite->getAnchorPoint().y);
                 AXLOGD("tests:content size : width = {}, height = {}", normalSprite->getContentSize().width,
-                      normalSprite->getContentSize().height);
+                       normalSprite->getContentSize().height);
             }
         });
         this->addChild(button1);
@@ -909,10 +910,10 @@ bool UIS9ChangeAnchorPoint::init()
                 normalSprite->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
                 normalSprite->setScale9Enabled(false);
                 AXLOGD("position = {}, {},  anchor point = {}, {}", normalSprite->getPosition().x,
-                      normalSprite->getPosition().y, normalSprite->getAnchorPoint().x,
-                      normalSprite->getAnchorPoint().y);
+                       normalSprite->getPosition().y, normalSprite->getAnchorPoint().x,
+                       normalSprite->getAnchorPoint().y);
                 AXLOGD("tests:content size : width = {}, height = {}", normalSprite->getContentSize().width,
-                      normalSprite->getContentSize().height);
+                       normalSprite->getContentSize().height);
             }
         });
         this->addChild(button2);
@@ -928,7 +929,7 @@ bool UIS9NinePatchTest::init()
     {
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile("cocosui/android9patch.plist");
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2 + 50);
 
@@ -940,14 +941,14 @@ bool UIS9NinePatchTest::init()
         playerSprite->setContentSize(preferedSize);
         auto capInsets = playerSprite->getCapInsets();
         AXLOGD("player sprite capInset = {}, {} {}, {}", capInsets.origin.x, capInsets.origin.y, capInsets.size.width,
-              capInsets.size.height);
+               capInsets.size.height);
         this->addChild(playerSprite);
 
         auto animationBtnSprite = ui::Scale9Sprite::createWithSpriteFrameName("animationbuttonpressed.png");
         animationBtnSprite->setPosition(x - 100, y - 100);
         capInsets = animationBtnSprite->getCapInsets();
         AXLOGD("animationBtnSprite capInset = {}, {} {}, {}", capInsets.origin.x, capInsets.origin.y,
-              capInsets.size.width, capInsets.size.height);
+               capInsets.size.width, capInsets.size.height);
         this->addChild(animationBtnSprite);
 
         auto monsterSprite = ui::Scale9Sprite::createWithSpriteFrameName("monster.9.png");
@@ -955,7 +956,7 @@ bool UIS9NinePatchTest::init()
         capInsets = monsterSprite->getCapInsets();
         monsterSprite->setContentSize(preferedSize);
         AXLOGD("monsterSprite capInset = {}, {} {}, {}", capInsets.origin.x, capInsets.origin.y, capInsets.size.width,
-              capInsets.size.height);
+               capInsets.size.height);
         this->addChild(monsterSprite);
 
         auto spriteFrame        = SpriteFrameCache::getInstance()->getSpriteFrameByName("buttonnormal.9.png");
@@ -1030,7 +1031,7 @@ bool UIS9ToggleRenderingTypeTest::init()
     if (UIScene::init())
     {
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2 - 20);
 
@@ -1073,7 +1074,7 @@ bool UIS9GlobalZOrderTest::init()
     if (UIScene::init())
     {
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2 - 20);
 
@@ -1085,7 +1086,7 @@ bool UIS9GlobalZOrderTest::init()
 
         blocks->setPosition(Vec2(x, y));
         blocks->setPreferredSize(Size(96 * 2, 96 * 1.5));
-        blocks->setColor(Color3B::RED);
+        blocks->setColor(Color32::RED);
         blocks->setGlobalZOrder(1);
         this->addChild(blocks);
 
@@ -1093,7 +1094,7 @@ bool UIS9GlobalZOrderTest::init()
         blocks2->setPosition(Vec2(x, y));
         blocks2->setPreferredSize(Size(96 * 3, 96));
         blocks2->setGlobalZOrder(0);
-        blocks2->setColor(Color3B::GREEN);
+        blocks2->setColor(Color32::GREEN);
         this->addChild(blocks2);
 
         return true;
@@ -1106,7 +1107,7 @@ bool UIS9EnableScale9FalseTest::init()
     if (UIScene::init())
     {
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2 + 50;
         float y      = 0 + (winSize.height / 2 + 10);
 
@@ -1118,7 +1119,7 @@ bool UIS9EnableScale9FalseTest::init()
         blocks->setScale9Enabled(false);
         blocks->setPosition(Vec2(x, y));
         blocks->setPreferredSize(Size(96 * 2.0f, 96.0f));
-        blocks->setColor(Color3B::RED);
+        blocks->setColor(Color32::RED);
         blocks->setGlobalZOrder(1);
         this->addChild(blocks);
 
@@ -1127,7 +1128,7 @@ bool UIS9EnableScale9FalseTest::init()
         blocks2->setPosition(Vec2(0.0f, 0.0f));
         blocks2->setPreferredSize(Size(96 * 1.5f, 96.0f));
         blocks2->setGlobalZOrder(0);
-        blocks2->setColor(Color3B::GREEN);
+        blocks2->setColor(Color32::GREEN);
         blocks->addChild(blocks2);
 
         auto blocks3 = ui::Scale9Sprite::create("Images/blocks9.png");
@@ -1135,7 +1136,7 @@ bool UIS9EnableScale9FalseTest::init()
         blocks3->setPosition(Vec2(0.0f, 0.0f));
         blocks3->setPreferredSize(Size(96.0f, 96.0f));
         blocks3->setGlobalZOrder(2);
-        blocks3->setColor(Color3B::YELLOW);
+        blocks3->setColor(Color32::YELLOW);
         blocks2->addChild(blocks3);
 
         return true;
@@ -1148,7 +1149,7 @@ bool UIS9GrayStateOpacityTest::init()
     if (UIScene::init())
     {
 
-        auto winSize = Director::getInstance()->getWinSize();
+        auto winSize = Director::getInstance()->getLogicalSize();
         float x      = winSize.width / 2;
         float y      = 0 + (winSize.height / 2 + 10);
 

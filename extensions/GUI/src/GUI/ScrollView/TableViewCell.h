@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CCTABLEVIEWCELL_H__
-#define __CCTABLEVIEWCELL_H__
+#pragma once
 
 #include "extensions/ExtensionMacros.h"
-#include "2d/Node.h"
+#include "axmol/2d/Node.h"
 #include "extensions/ExtensionExport.h"
 
 /**
@@ -63,5 +62,3 @@ private:
 NS_AX_EXT_END
 // end of ui group
 /// @}
-
-#endif /* __CCTABLEVIEWCELL_H__ */

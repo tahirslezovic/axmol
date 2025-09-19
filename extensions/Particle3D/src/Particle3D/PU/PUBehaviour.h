@@ -24,11 +24,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __AX_PU_PARTICLE_3D_BEHAVIOUR_H__
-#define __AX_PU_PARTICLE_3D_BEHAVIOUR_H__
+#pragma once
 
-#include "base/Object.h"
-#include "math/Math.h"
+#include "axmol/base/Object.h"
+#include "axmol/math/Math.h"
 #include "Particle3D/PU/PUParticleSystem3D.h"
 #include <vector>
 #include <string>
@@ -53,8 +52,8 @@ public:
      */
     virtual void notifyRescaled(const Vec3& scale) { _behaviourScale = scale; };
 
-    virtual void prepare(){};
-    virtual void unPrepare(){};
+    virtual void prepare() {};
+    virtual void unPrepare() {};
 
     virtual void updateBehaviour(PUParticle3D* particle, float deltaTime);
 
@@ -84,6 +83,4 @@ protected:
     Vec3 _behaviourScale;
 };
 
-}
-
-#endif
+}  // namespace ax

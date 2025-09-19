@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright(c) Live2D Inc. All rights reserved.
  *
  * Use of this source code is governed by the Live2D Open Software license
@@ -8,7 +8,7 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
-#include "cocos2d.h"
+#include "axmol/axmol.h"
 #include "LAppAllocator.hpp"
 #include <CubismFramework.hpp>
 
@@ -16,7 +16,7 @@
 // #define USE_SIMPLE_AUDIO_ENGINE 1
 
 /**
-@brief    The cocos2d Application.
+@brief    The axmol Application.
 
 Private inheritance here hides part of interface from Director.
 */
@@ -26,7 +26,7 @@ public:
     AppDelegate();
     virtual ~AppDelegate();
 
-    virtual void initGLContextAttrs();
+    virtual void initGfxContextAttrs();
 
     /**
     @brief    Implement Director and Scene init code here.

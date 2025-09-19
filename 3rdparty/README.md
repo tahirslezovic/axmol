@@ -6,12 +6,12 @@
 
 ## astcenc
 - [![Upstream](https://img.shields.io/github/v/release/ARM-software/astc-encoder?label=Upstream)](https://github.com/ARM-software/astc-encoder)
-- Version: 5.2.0
+- Version: 5.3.0
 - License: Apache-2.0
 
 ## Box2D
 - [![Upstream](https://img.shields.io/github/v/release/erincatto/box2d?label=Upstream)](https://github.com/erincatto/box2d)
-- Version: 2.4.2
+- Version: 3.1.1
 - License: MIT
 
 ## Bullet
@@ -25,14 +25,9 @@
 - Version: 1.34.5
 - License: MIT
 
-## Chipmunk2D
-- [![Upstream](https://img.shields.io/github/v/tag/slembcke/Chipmunk2D?label=Upstream)](https://github.com/slembcke/Chipmunk2D)
-- Version: git 7.0.3-0cb05e7 {until Dec 16, 2021}
-- License: MIT
-
 ## Clipper2
 - [![Upstream](https://img.shields.io/github/v/tag/AngusJohnson/Clipper2?label=Upstream)](https://github.com/AngusJohnson/Clipper2)
-- Version: 1.5.3
+- Version: 1.5.4
 - License: BSL-1.0
 
 ## ConcurrentQueue
@@ -42,12 +37,12 @@
 
 ## ConvertUTF
 - Upstream: https://github.com/llvm/llvm-project
-- Version: git 2946cd7 without LLVM-specific wrappers of the functions
+- Version: git 20451cb (until Aug.13 2022) without LLVM-specific wrappers of the functions
 - License: Apache-2.0 WITH LLVM-exception
 
 ## curl
 - [![Upstream](https://img.shields.io/github/v/release/curl/curl?label=Upstream)](https://github.com/curl/curl)
-- Version: 8.13.0
+- Version: 8.16.0
 - License: Curl (MIT/X)
 
 ## doctest
@@ -60,6 +55,11 @@
 - Version: git 344eb40 (121)
 - License: MIT
 
+## fast_float
+- [![Upstream](https://img.shields.io/github/v/release/fastfloat/fast_float?label=Upstream)](https://github.com/fastfloat/fast_float)
+- Version: 8.1.0
+- License: MIT
+
 ## flatbuffers
 - [![Upstream](https://img.shields.io/github/v/release/google/flatbuffers?label=Upstream)](https://github.com/google/flatbuffers)
 - Version: 25.2.10
@@ -67,13 +67,13 @@
 
 ## {fmt}
 - [![Upstream](https://img.shields.io/github/v/release/fmtlib/fmt?label=Upstream)](https://github.com/fmtlib/fmt)
-- Version: 11.2.0
+- Version: 12.0.0
 
 - License: MIT
 
 ## FreeType
 - [![Upstream](https://img.shields.io/gitlab/v/tag/freetype/freetype?label=Upstream)](https://gitlab.freedesktop.org/freetype/freetype)
-- Version: 2.13.3
+- Version: 2.14.1
 - License: BSD-style (The FreeType Project)
 
 ## Glad
@@ -86,7 +86,7 @@
 - Version: 3.4 with modified for create as win32 child window support
 - License: zlib
 
-## GHC (iOS devices only)
+## ghc (iOS < 13 ONLY)
 - [![Upstream](https://img.shields.io/github/v/release/gulrak/filesystem?label=Upstream)](https://github.com/gulrak/filesystem)
 - Version: 1.5.14
 - License: MIT
@@ -98,7 +98,7 @@
 
 ## jpeg-turbo
 - [![Upstream](https://img.shields.io/github/v/release/libjpeg-turbo/libjpeg-turbo?label=Upstream)](https://github.com/libjpeg-turbo/libjpeg-turbo)
-- Version: 3.1.0
+- Version: 3.1.2
 - License: BSD-style (IJG,BSD-3-Clause,zlib)
 
 ## kcp
@@ -114,7 +114,7 @@
 ## lua
 - plainlua
   - [![Upstream](https://img.shields.io/github/v/release/lua/lua?label=Upstream)](https://github.com/lua/lua) http://www.lua.org/
-  - Version: 5.4.7
+  - Version: 5.4.8
   - License: MIT (http://www.lua.org/license.html)
   
 - sol2
@@ -124,7 +124,7 @@
 
 - luajit
   - Upstream: https://github.com/LuaJIT/LuaJIT
-  - Version: 2.1-eec7a80
+  - Version: 2.1-871db2c
   - License: MIT
 
 - tolua
@@ -159,13 +159,13 @@
 
 ## oboe (Android only)
 - [![Upstream](https://img.shields.io/github/v/tag/google/oboe?label=Upstream)](https://github.com/google/oboe)
-- Version: 1.9.3
+- Version: 1.10.0
 - License: Apache-2.0
 
 ## ogg
 - ogg
   - [![Upstream](https://img.shields.io/github/v/release/xiph/ogg?label=Upstream)](https://github.com/xiph/ogg)
-  - Version: 1.3.5
+  - Version: 1.3.6
   - License: BSD-3-Clause
 
 - opus
@@ -180,17 +180,21 @@
 
 ## OpenAL Soft
 - [![Upstream](https://img.shields.io/github/v/tag/kcat/openal-soft?label=Upstream)](https://github.com/kcat/openal-soft)
-- Version: 1.23.1-e714c8f (8659)
+- Version: 1.24.3
+- Modifications: 
+  - Remove `-Werror=undef`
+  - Linking `fmt::fmt` instead `alsoft::fmt`
+  - Exclude target `alsoft::excommon`
 - License: LGPL-2.1
 
 ## OpenSSL
 - [![Upstream](https://img.shields.io/github/v/tag/openssl/openssl?label=Upstream)](https://github.com/openssl/openssl)
-- Version: 3.5.0
+- Version: 3.0.17
 - License: Apache-2.0
 
 ## png
 - [![Upstream](https://img.shields.io/github/v/tag/glennrp/libpng?label=Upstream)](https://github.com/glennrp/libpng)
-- Version: 1.6.48
+- Version: 1.6.50
 - License: PNG Reference Library License version 2
 
 ## poly2tri
@@ -225,7 +229,7 @@
 
 ## simdjson
 - [![Upstream](https://img.shields.io/github/v/tag/simdjson/simdjson?label=Upstream)](https://github.com/simdjson/simdjson)
-- Version: 3.10.1
+- Version: 4.0.2
 - License: Apache-2.0
 
 ## stb (stb_image)
@@ -240,7 +244,7 @@
 
 ## webp
 - [![Upstream](https://img.shields.io/github/v/tag/webmproject/libwebp?label=Upstream)](https://github.com/webmproject/libwebp)
-- Version: 1.5.0
+- Version: 1.6.0
 - License: Google Inc
 
 ## xsxml

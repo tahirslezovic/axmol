@@ -31,8 +31,7 @@
  * Converted to c++ / cocos2d-x by Angus C
  */
 
-#ifndef __CCCONTROL_SATURATION_PICKER_H__
-#define __CCCONTROL_SATURATION_PICKER_H__
+#pragma once
 
 #include "Control.h"
 #include "Invocation.h"
@@ -77,7 +76,7 @@ public:
 
     static ControlSaturationBrightnessPicker* create(Node* target, Vec2 pos);
 
-    virtual void setEnabled(bool enabled) override;
+    void setEnabled(bool enabled) override;
     /**
      * @lua NA
      */
@@ -91,8 +90,8 @@ protected:
     void updateSliderPosition(Vec2 location);
     bool checkSliderPosition(Vec2 location);
 
-    virtual bool onTouchBegan(Touch* touch, Event* pEvent) override;
-    virtual void onTouchMoved(Touch* pTouch, Event* pEvent) override;
+    bool onTouchBegan(Touch* touch, Event* pEvent) override;
+    void onTouchMoved(Touch* pTouch, Event* pEvent) override;
 };
 
 // end of GUI group
@@ -100,5 +99,3 @@ protected:
 /// @}
 
 NS_AX_EXT_END
-
-#endif

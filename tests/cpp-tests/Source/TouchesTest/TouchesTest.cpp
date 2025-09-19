@@ -27,6 +27,8 @@
 #include "Paddle.h"
 #include "../testResource.h"
 
+#include "axmol/tlx/format.hpp"
+
 using namespace ax;
 
 enum tagPlayer
@@ -36,7 +38,7 @@ enum tagPlayer
 } PlayerTouches;
 
 #define kStatusBarHeight 0.0f  // 20.0f
-//#define k1UpperLimit (480.0f - kStatusBarHeight)
+// #define k1UpperLimit (480.0f - kStatusBarHeight)
 
 enum
 {
@@ -139,14 +141,14 @@ void PongLayer::doStep(float delta)
         resetAndScoreBallForPlayer(kHighPlayer);
 }
 
-const char* _Info_Formatter = "Current force value : %0.02f, maximum possible force : %0.02f";
-char formatBuffer[256]      = {
+#define _Info_Formatter "Current force value : {:.02f}, maximum possible force : {:.02f}"
+char formatBuffer[256] = {
     0,
 };
 
 ForceTouchTest::ForceTouchTest()
 {
-    auto s = Director::getInstance()->getWinSize();
+    auto s = Director::getInstance()->getLogicalSize();
 
     _infoLabel =
         Label::createWithTTF(TTFConfig("fonts/arial.ttf"), "Current force value : 0.00, maximum possible force : 0.00");
@@ -180,13 +182,13 @@ void ForceTouchTest::onTouchesMoved(const std::vector<ax::Touch*>& touches, ax::
     {
         float currentForce = t->getCurrentForce();
         float maxForce     = t->getMaxForce();
-        sprintf(formatBuffer, _Info_Formatter, currentForce, maxForce);
-        _infoLabel->setString(std::string(formatBuffer));
+        auto text          = fmt::format_to_z(formatBuffer, _Info_Formatter, currentForce, maxForce);
+        _infoLabel->setString(text);
     }
 }
 
 void ForceTouchTest::onTouchesEnded(const std::vector<ax::Touch*>& touches, ax::Event* event)
 {
-    sprintf(formatBuffer, _Info_Formatter, 0.0f, 0.0f);
-    _infoLabel->setString(std::string(formatBuffer));
+    auto text = fmt::format_to_z(formatBuffer, _Info_Formatter, 0.0f, 0.0f);
+    _infoLabel->setString(text);
 }

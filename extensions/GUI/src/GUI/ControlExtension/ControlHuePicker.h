@@ -31,8 +31,7 @@
  * Converted to c++ / cocos2d-x by Angus C
  */
 
-#ifndef __CCCONTROL_HUE_PICKER_H__
-#define __CCCONTROL_HUE_PICKER_H__
+#pragma once
 
 #include "Control.h"
 #include "Invocation.h"
@@ -60,11 +59,11 @@ public:
     virtual ~ControlHuePicker();
     virtual bool initWithTargetAndPos(Node* target, Vec2 pos);
 
-    virtual void setEnabled(bool enabled) override;
+    void setEnabled(bool enabled) override;
 
     // overrides
-    virtual bool onTouchBegan(Touch* touch, Event* pEvent) override;
-    virtual void onTouchMoved(Touch* pTouch, Event* pEvent) override;
+    bool onTouchBegan(Touch* touch, Event* pEvent) override;
+    void onTouchMoved(Touch* pTouch, Event* pEvent) override;
 
 protected:
     void updateSliderPosition(Vec2 location);
@@ -87,5 +86,3 @@ protected:
 /// @}
 
 NS_AX_EXT_END
-
-#endif

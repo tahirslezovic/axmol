@@ -90,7 +90,7 @@ void GMovieClip::setFlip(FlipType value)
     _content->setFlippedY(value == FlipType::VERTICAL || value == FlipType::BOTH);
 }
 
-void GMovieClip::setColor(const ax::Color3B& value)
+void GMovieClip::setColor(const ax::Color32& value)
 {
     _content->setColor(value);
 }
@@ -167,7 +167,7 @@ void GMovieClip::setup_beforeAdd(ByteBuffer* buffer, int beginPos)
     buffer->seek(beginPos, 5);
 
     if (buffer->readBool())
-        setColor((Color3B)buffer->readColor());
+        setColor(buffer->readColor());
     setFlip((FlipType)buffer->readByte());
     setFrame(buffer->readInt());
     setPlaying(buffer->readBool());
@@ -462,9 +462,14 @@ void ActionMovieClip::drawFrame()
 
     _displayFrame = _frame;
     AnimationFrame* frame = frames.at(_frame);
-    //auto blend = static_cast<Sprite*>(_target)->getBlendFunc();
-    static_cast<Sprite*>(_target)->setSpriteFrame(frame->getSpriteFrame());
-    //static_cast<Sprite*>(_target)->setBlendFunc(blend);
+
+    auto sprite = static_cast<Sprite*>(_target);
+    if (sprite == nullptr)
+        return;
+
+    auto currentBlend = sprite->getBlendFunc();
+    sprite->setSpriteFrame(frame->getSpriteFrame());
+    sprite->setBlendFunc(currentBlend);
 }
 
 NS_FGUI_END

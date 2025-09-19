@@ -23,13 +23,12 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-#ifndef __SCRIPTING_AXLUA_NAVMESH_CONVERSIONS_H__
-#define __SCRIPTING_AXLUA_NAVMESH_CONVERSIONS_H__
+#pragma once
 
 #if defined(AX_ENABLE_NAVMESH)
 
 #    include "lua-bindings/manual/tolua_fix.h"
-#    include "platform/PlatformMacros.h"
+#    include "axmol/platform/PlatformMacros.h"
 
 namespace ax
 {
@@ -41,13 +40,9 @@ extern bool luaval_to_navmeshagentparam(lua_State* L,
                                         int lo,
                                         ax::NavMeshAgentParam* outValue,
                                         const char* funcName = "");
-extern bool luaval_to_offmeshlinkdata(lua_State* L,
-                                      int lo,
-                                      ax::OffMeshLinkData* outValue,
-                                      const char* funcName = "");
+extern bool luaval_to_offmeshlinkdata(lua_State* L, int lo, ax::OffMeshLinkData* outValue, const char* funcName = "");
 
 extern void navmeshagentparam_to_luaval(lua_State* L, const ax::NavMeshAgentParam& inValue);
 extern void offmeshlinkdata_to_luaval(lua_State* L, const ax::OffMeshLinkData& inValue);
 
 #endif  // #if defined(AX_ENABLE_NAVMESH)
-#endif  // __COCOS_SCRIPTING_LUA_BINDING_MANUAL_NAVMESH_LUA_NAVMESH_CONVERSIONS_H__

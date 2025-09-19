@@ -26,10 +26,15 @@
 #include "AppDelegate.h"
 #include "MainScene.h"
 
+#define USE_VR_RENDERER  0
 #define USE_AUDIO_ENGINE 1
 
 #if USE_AUDIO_ENGINE
-#    include "audio/AudioEngine.h"
+#    include "axmol/audio/AudioEngine.h"
+#endif
+
+#if USE_VR_RENDERER && defined(AX_ENABLE_VR)
+#    include "axmol/vr/VRGenericRenderer.h"
 #endif
 
 using namespace ax;
@@ -40,34 +45,49 @@ AppDelegate::AppDelegate() {}
 
 AppDelegate::~AppDelegate() {}
 
-// if you want a different context, modify the value of glContextAttrs
+// if you want a different context, modify the value of gfxContextAttrs
 // it will affect all platforms
-void AppDelegate::initGLContextAttrs()
+void AppDelegate::initGfxContextAttrs()
 {
-    // set OpenGL context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8, 0};
-    // since axmol-2.2 vsync was enabled in engine by default
-    // glContextAttrs.vsync = false;
+    // set graphics context attributes: red,green,blue,alpha,depth,stencil,multisamplesCount
+    // powerPreference only affect when RHI backend is D3D
+    GfxContextAttrs gfxContextAttrs = {.powerPreference = PowerPreference::HighPerformance};
 
-    GLView::setGLContextAttrs(glContextAttrs);
+    // V-Sync is enabled by default since axmol 2.2.
+    // Uncomment to disable V-Sync and unlock FPS.
+    // gfxContextAttrs.vsync = false;
+
+    // Enable high-DPI scaling support (non-Windows platforms only)
+    // Note: cpp-tests keep the default render mode to ensure consistent performance benchmarks
+#if AX_TARGET_PLATFORM != AX_PLATFORM_WIN32
+    gfxContextAttrs.renderScaleMode = RenderScaleMode::Physical;
+#endif
+    RenderView::setGfxContextAttrs(gfxContextAttrs);
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
     // initialize director
-    auto director = Director::getInstance();
-    auto glView   = director->getGLView();
-    if (!glView)
+    auto director   = Director::getInstance();
+    auto renderView = director->getRenderView();
+    if (!renderView)
     {
 #if (AX_TARGET_PLATFORM == AX_PLATFORM_WIN32) || (AX_TARGET_PLATFORM == AX_PLATFORM_MAC) || \
     (AX_TARGET_PLATFORM == AX_PLATFORM_LINUX)
-        glView = GLViewImpl::createWithRect(
+        renderView = RenderViewImpl::createWithRect(
             "Dummy", ax::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
-        glView = GLViewImpl::create("Dummy");
+        renderView = RenderViewImpl::create("Dummy");
 #endif
-        director->setGLView(glView);
+        director->setRenderView(renderView);
     }
+#if USE_VR_RENDERER && defined(AX_ENABLE_VR)
+    auto vrRenderer = std::make_unique<VRGenericRenderer>();
+    // On Android/iOS emulator devices, uncomment to visualize the left/right eye VR rendering output.
+    // Useful for debugging stereo rendering without a physical headset.
+    // vrRenderer->setDebugIgnoreHeadTracker(true);
+    renderView->setVR(std::move(vrRenderer));
+#endif
 
     // turn on display FPS
     director->setStatsDisplay(true);
@@ -76,8 +96,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     director->setAnimationInterval(1.0f / 60);
 
     // Set the design resolution
-    glView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height,
-                                    ResolutionPolicy::SHOW_ALL);
+    renderView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height,
+                                        ResolutionPolicy::SHOW_ALL);
 
     // create a scene. it's an autorelease object
     auto scene = utils::createInstance<MainScene>();

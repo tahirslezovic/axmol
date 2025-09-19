@@ -1,8 +1,8 @@
 /****************************************************************************
- Copyright(c) 2016 cocos2d - x.org
+ Copyright(c) 2016 cocos2d-x.org
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
- http ://www.cocos2d-x.org
+ https://axmol.dev
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files(the "Software"), to deal
@@ -23,7 +23,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "ui/UITabControl.h"
+#include "axmol/ui/UITabControl.h"
 #include "UITabControlTest.h"
 
 using namespace ax;
@@ -78,17 +78,17 @@ bool UITabControlTest::init()
         auto container1 = Layout::create();
         container1->setOpacity(255);
         container1->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
-        container1->setBackGroundColor(Color3B::GRAY);
+        container1->setBackGroundColor(Color32::GRAY);
         container1->setBackGroundColorOpacity(255);
         auto container2 = Layout::create();
         container2->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
         container2->setOpacity(255);
-        container2->setBackGroundColor(Color3B::BLUE);
+        container2->setBackGroundColor(Color32::BLUE);
         container2->setBackGroundColorOpacity(255);
         auto container3 = Layout::create();
         container3->setBackGroundColorType(Layout::BackGroundColorType::SOLID);
         container3->setOpacity(255);
-        container3->setBackGroundColor(Color3B::RED);
+        container3->setBackGroundColor(Color32::RED);
         container3->setBackGroundColorOpacity(255);
 
         tab->insertTab(0, header1, container1);
@@ -102,9 +102,8 @@ bool UITabControlTest::init()
 
         tab->setTabChangedEventListener([displayText](int index, TabControl::EventType evtType) {
             displayText->retain();
-            char display[20];
-            sprintf(display, "tab %d selected", index);
-            displayText->setString(display);
+            std::string text = fmt::format("tab {} selected", index);
+            displayText->setString(text);
             displayText->release();
         });
 
