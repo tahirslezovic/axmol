@@ -157,6 +157,12 @@ bool ComponentLua::getLuaFunction(std::string_view functionName)
     //    {
     //        AXLOGD("can not get {} function from {}", functionName, _scriptFileName);
     //    }
+    // SuperEditor fix: a non-function (nil) result must be popped — otherwise every
+    // update()/onEnter()/onExit() lookup on a script without that method leaks one
+    // stack slot per call (per frame for update) until the Lua stack reallocates
+    // and corrupts the VM (SIGSEGV in luaV_execute / lua_load).
+    if (type != LUA_TFUNCTION)
+        lua_pop(l, 1);
 
     return type == LUA_TFUNCTION;
 }
