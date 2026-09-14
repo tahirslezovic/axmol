@@ -494,10 +494,14 @@ protected:
     static std::unordered_map<AUDIO_ID, AudioInfo> _audioIDInfoMap;
 
     // audio file path,audio IDs
-    static hlookup::string_map<std::list<AUDIO_ID>> _audioPathIDMap;
+    static hlookup::stl_string_map<std::list<AUDIO_ID>> _audioPathIDMap;
 
     // profileName,ProfileHelper
-    static hlookup::string_map<ProfileHelper> _audioPathProfileHelperMap;
+    // SuperEditor fix: node-based map — AudioInfo::profileHelper i filePath
+    // (string_view u kljuc) su reference u ovu/gornju mapu; robin_map (flat)
+    // ih invalidira pri rehash-u → crash u remove() kad se koristi vise od
+    // jednog AudioProfile-a ili vise razlicitih putanja.
+    static hlookup::stl_string_map<ProfileHelper> _audioPathProfileHelperMap;
 
     static unsigned int _maxInstances;
 

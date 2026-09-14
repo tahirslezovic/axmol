@@ -49,9 +49,9 @@ const int AudioEngine::INVALID_AUDIO_ID = -1;
 const float AudioEngine::TIME_UNKNOWN   = -1.0f;
 
 // audio file path,audio IDs
-hlookup::string_map<std::list<AUDIO_ID>> AudioEngine::_audioPathIDMap;
+hlookup::stl_string_map<std::list<AUDIO_ID>> AudioEngine::_audioPathIDMap;
 // profileName,ProfileHelper
-hlookup::string_map<AudioEngine::ProfileHelper> AudioEngine::_audioPathProfileHelperMap;
+hlookup::stl_string_map<AudioEngine::ProfileHelper> AudioEngine::_audioPathProfileHelperMap;
 unsigned int AudioEngine::_maxInstances                        = MAX_AUDIOINSTANCES;
 AudioEngine::ProfileHelper* AudioEngine::_defaultProfileHelper = nullptr;
 std::unordered_map<AUDIO_ID, AudioEngine::AudioInfo> AudioEngine::_audioIDInfoMap;
@@ -451,7 +451,11 @@ void AudioEngine::uncache(std::string_view filePath)
                 _audioIDInfoMap.erase(audioID);
             }
         }
-        _audioPathIDMap.erase(filePath);
+        {
+            auto itPath = _audioPathIDMap.find(filePath);
+            if (itPath != _audioPathIDMap.end())
+                _audioPathIDMap.erase(itPath);
+        }
     }
 
     if (_audioEngineImpl)
