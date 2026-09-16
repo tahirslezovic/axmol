@@ -126,13 +126,12 @@ public:
      */
     static void setPNGPremultipliedAlphaEnabled(bool enabled) { PNG_PREMULTIPLIED_ALPHA_ENABLED = enabled; }
 
-    // [SuperEditor] Encrypted-texture provider hook. When set, and a normal
-    // file read for initWithImageFile* yields no data (plain image absent in
-    // shipping), Image asks the provider to supply decoded image BYTES for the
-    // requested path (e.g. decrypt a sibling .pngc). Provider returns true and
-    // fills `out` with a full image file buffer (PNG/JPG/...), or false to let
-    // the normal loader proceed. Keeps all crypto in the app layer.
-    static void setEncryptedImageProvider(std::function<bool(std::string_view path, Data& out)> fn);
+    // [SuperEditor] Encrypted-image decryptor hook. Invoked on the raw bytes
+    // read for initWithImageFile*; if those bytes are an encrypted container
+    // the hook replaces them in-place with the decrypted image file (PNG/JPG),
+    // else leaves them untouched. Keeps all crypto in the app layer. Pairs with
+    // FileUtils::setMissingFileResolver (maps foo.png -> foo.pngc on lookup).
+    static void setEncryptedImageDecryptor(std::function<bool(Data& inout)> fn);
 
     /** The new APIs to treats (or not) compressed image files as if they have alpha premultiplied.
      *
@@ -239,7 +238,7 @@ protected:
      @brief Determine whether we premultiply alpha for png files.
      */
     static bool PNG_PREMULTIPLIED_ALPHA_ENABLED;
-    static std::function<bool(std::string_view, Data&)> s_encryptedImageProvider; // [SuperEditor]
+    static std::function<bool(Data&)> s_encryptedImageDecryptor; // [SuperEditor]
     static uint32_t COMPRESSED_IMAGE_PMA_FLAGS;
 
     uint8_t* _data;

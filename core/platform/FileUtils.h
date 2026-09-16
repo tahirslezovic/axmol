@@ -27,6 +27,7 @@ THE SOFTWARE.
 #pragma once
 
 #include <string>
+#include <functional>
 #include <vector>
 #include <unordered_map>
 #include <type_traits>
@@ -125,6 +126,12 @@ public:
      * @lua NA
      */
     static void setDelegate(FileUtils* delegate);
+
+    // [SuperEditor] Missing-file resolver. When fullPathForFilename fails to
+    // locate a file, this hook (if set) is asked for an alternative filename to
+    // try (e.g. map "foo.png" -> "foo.pngc" so encrypted textures resolve).
+    // Return empty to give up. Keeps the .pngc convention out of the engine.
+    static void setMissingFileResolver(std::function<std::string(std::string_view)> fn);
 
     /**
      *  The destructor of FileUtils.
@@ -879,6 +886,7 @@ protected:
      *  The singleton pointer of FileUtils.
      */
     static FileUtils* s_sharedFileUtils;
+    static std::function<std::string(std::string_view)> s_missingFileResolver; // [SuperEditor]
 
     /**
      *  Remove null value key (for iOS)

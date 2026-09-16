@@ -606,10 +606,10 @@ static uint32_t makeFourCC(char ch0, char ch1, char ch2, char ch3)
 // Implement Image
 //////////////////////////////////////////////////////////////////////////
 bool Image::PNG_PREMULTIPLIED_ALPHA_ENABLED = true;
-std::function<bool(std::string_view, Data&)> Image::s_encryptedImageProvider = nullptr; // [SuperEditor]
-void Image::setEncryptedImageProvider(std::function<bool(std::string_view, Data&)> fn)
+std::function<bool(Data&)> Image::s_encryptedImageDecryptor = nullptr; // [SuperEditor]
+void Image::setEncryptedImageDecryptor(std::function<bool(Data&)> fn)
 {
-    s_encryptedImageProvider = std::move(fn);
+    s_encryptedImageDecryptor = std::move(fn);
 }
 uint32_t Image::COMPRESSED_IMAGE_PMA_FLAGS  = Image::CompressedImagePMAFlag::DUAL_SAMPLER;
 
@@ -659,9 +659,9 @@ bool Image::initWithImageFile(std::string_view path)
 
     Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
 
-    // [SuperEditor] shipping: plain image absent -> provider supplies decrypted bytes
-    if (data.isNull() && s_encryptedImageProvider)
-        s_encryptedImageProvider(path, data);
+    // [SuperEditor] shipping: bytes may be an encrypted container -> decrypt in-place
+    if (!data.isNull() && s_encryptedImageDecryptor)
+        s_encryptedImageDecryptor(data);
 
     if (!data.isNull())
     {
@@ -680,9 +680,9 @@ bool Image::initWithImageFileThreadSafe(std::string_view fullpath)
 
     Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
 
-    // [SuperEditor] shipping: plain image absent -> provider supplies decrypted bytes
-    if (data.isNull() && s_encryptedImageProvider)
-        s_encryptedImageProvider(fullpath, data);
+    // [SuperEditor] shipping: bytes may be an encrypted container -> decrypt in-place
+    if (!data.isNull() && s_encryptedImageDecryptor)
+        s_encryptedImageDecryptor(data);
 
     if (!data.isNull())
     {

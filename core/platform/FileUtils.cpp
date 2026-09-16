@@ -461,10 +461,16 @@ static void generateElementForArray(const ValueVector& array, pugi::xml_node& pa
 
 // Implement FileUtils
 FileUtils* FileUtils::s_sharedFileUtils = nullptr;
+std::function<std::string(std::string_view)> FileUtils::s_missingFileResolver = nullptr; // [SuperEditor]
 
 void FileUtils::destroyInstance()
 {
     AX_SAFE_DELETE(s_sharedFileUtils);
+}
+
+void FileUtils::setMissingFileResolver(std::function<std::string(std::string_view)> fn)
+{
+    s_missingFileResolver = std::move(fn);
 }
 
 void FileUtils::setDelegate(FileUtils* delegate)
@@ -693,6 +699,22 @@ std::string FileUtils::fullPathForFilename(std::string_view filename) const
             // Using the filename passed in as key.
             _fullPathCache.emplace(filename, fullpath);
             return fullpath;
+        }
+    }
+
+    // [SuperEditor] last resort: map to an alternative name (e.g. foo.png ->
+    // foo.pngc for encrypted textures). Recurse once via normal resolution.
+    if (s_missingFileResolver)
+    {
+        std::string alt = s_missingFileResolver(filename);
+        if (!alt.empty() && alt != filename)
+        {
+            std::string altFull = this->fullPathForFilename(alt);
+            if (!altFull.empty())
+            {
+                _fullPathCache.emplace(filename, altFull);
+                return altFull;
+            }
         }
     }
 
