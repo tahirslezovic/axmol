@@ -787,12 +787,20 @@ void Renderer::flushTriangles()
 // helpers
 bool Renderer::checkVisibility(const Mat4& transform, const Vec2& size)
 {
+    if (!_cullingEnabled)
+        return true;
+
     auto director = Director::getInstance();
     auto scene    = director->getRunningScene();
 
     // If draw to Rendertexture, return true directly.
-    //  only cull the default camera. The culling algorithm is valid for default camera.
-    if (!scene || (scene && scene->_defaultCamera != Camera::getVisitingCamera()))
+    //  only cull the camera carrying CameraFlag::DEFAULT (normally the scene's
+    //  default camera — identical to upstream). SuperEditor: in-editor Play
+    //  keeps the editor camera as scene default (flag USER7) and renders the
+    //  world through the gameplay camera (flag DEFAULT), which then gets
+    //  culled exactly like in the standalone runtime.
+    auto* visiting = Camera::getVisitingCamera();
+    if (!scene || !visiting || visiting->getCameraFlag() != CameraFlag::DEFAULT)
         return true;
 
     Rect visibleRect(director->getVisibleOrigin(), director->getVisibleSize());

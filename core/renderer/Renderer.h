@@ -412,6 +412,13 @@ public:
     /** returns whether or not a rectangle is visible or not */
     bool checkVisibility(const Mat4& transform, const Vec2& size);
 
+    /** SuperEditor: global switch for 2D frustum culling (Sprite/Label/...).
+     *  The editor turns it off while editing (its perspective/rotated/zoomed
+     *  viewport gets false negatives) and back on during in-editor Play.
+     *  Default: enabled. */
+    void setCullingEnabled(bool enabled) { _cullingEnabled = enabled; }
+    bool isCullingEnabled() const { return _cullingEnabled; }
+
     /** read pixels from RenderTarget or screen framebuffer */
     void readPixels(backend::RenderTarget* rt, std::function<void(const backend::PixelBufferDescriptor&)> callback);
 
@@ -546,6 +553,7 @@ protected:
     // the flag for checking whether renderer is rendering
     bool _isRendering      = false;
     bool _isDepthTestFor2D = false;
+    bool _cullingEnabled = true;
 
     GroupCommandManager* _groupCommandManager = nullptr;
 
