@@ -606,6 +606,11 @@ static uint32_t makeFourCC(char ch0, char ch1, char ch2, char ch3)
 // Implement Image
 //////////////////////////////////////////////////////////////////////////
 bool Image::PNG_PREMULTIPLIED_ALPHA_ENABLED = true;
+std::function<bool(std::string_view, Data&)> Image::s_encryptedImageProvider = nullptr; // [SuperEditor]
+void Image::setEncryptedImageProvider(std::function<bool(std::string_view, Data&)> fn)
+{
+    s_encryptedImageProvider = std::move(fn);
+}
 uint32_t Image::COMPRESSED_IMAGE_PMA_FLAGS  = Image::CompressedImagePMAFlag::DUAL_SAMPLER;
 
 void Image::setCompressedImagesHavePMA(uint32_t targets, bool havePMA)
@@ -654,6 +659,10 @@ bool Image::initWithImageFile(std::string_view path)
 
     Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
 
+    // [SuperEditor] shipping: plain image absent -> provider supplies decrypted bytes
+    if (data.isNull() && s_encryptedImageProvider)
+        s_encryptedImageProvider(path, data);
+
     if (!data.isNull())
     {
         ssize_t n = 0;
@@ -670,6 +679,10 @@ bool Image::initWithImageFileThreadSafe(std::string_view fullpath)
     _filePath = fullpath;
 
     Data data = FileUtils::getInstance()->getDataFromFile(_filePath);
+
+    // [SuperEditor] shipping: plain image absent -> provider supplies decrypted bytes
+    if (data.isNull() && s_encryptedImageProvider)
+        s_encryptedImageProvider(fullpath, data);
 
     if (!data.isNull())
     {
