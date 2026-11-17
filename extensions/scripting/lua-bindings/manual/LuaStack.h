@@ -30,6 +30,9 @@ extern "C" {
 #include "lua.h"
 }
 
+#include <functional>
+#include <vector>
+
 #include "lua-bindings/manual/LuaValue.h"
 
 /**
@@ -300,6 +303,14 @@ public:
      * @return 0, LUA_ERRSYNTAX or LUA_ERRMEM:.
      */
     int luaLoadBuffer(lua_State* L, const char* chunk, int chunkSize, const char* chunkName);
+
+    // [SuperEditor] Encrypted-chunk hook: if set, every buffer loaded through
+    // luaLoadBuffer (ComponentLua scene scripts, executeScriptFile, ...) is
+    // offered to fn first. fn returns true and fills `out` with the plain chunk
+    // (source or bytecode) when it recognized and decrypted it; false leaves
+    // the buffer untouched (plain .lua keeps working). All crypto stays in the
+    // app layer. Pairs with FileUtils::setMissingFileResolver (foo.lua -> foo.enc).
+    static void setChunkDecryptor(std::function<bool(const char* chunk, size_t size, std::vector<char>& out)> fn);
 
     /**
      * Load the Lua chunks from the zip file

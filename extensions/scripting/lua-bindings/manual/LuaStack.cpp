@@ -759,9 +759,25 @@ void skipBOM(const char*& chunk, int& chunkSize)
 
 }  // end anonymous namespace
 
+// [SuperEditor] see LuaStack::setChunkDecryptor
+static std::function<bool(const char*, size_t, std::vector<char>&)> s_chunkDecryptor;
+
+void LuaStack::setChunkDecryptor(std::function<bool(const char* chunk, size_t size, std::vector<char>& out)> fn)
+{
+    s_chunkDecryptor = std::move(fn);
+}
+
 int LuaStack::luaLoadBuffer(lua_State* L, const char* chunk, int chunkSize, const char* chunkName)
 {
     int r = 0;
+
+    std::vector<char> decrypted;  // [SuperEditor] keeps the plain chunk alive for luaL_loadbuffer
+    if (s_chunkDecryptor && chunk && chunkSize > 0 &&
+        s_chunkDecryptor(chunk, (size_t)chunkSize, decrypted))
+    {
+        chunk     = decrypted.data();
+        chunkSize = (int)decrypted.size();
+    }
 
     skipBOM(chunk, chunkSize);
     r = luaL_loadbuffer(L, chunk, chunkSize, chunkName);
