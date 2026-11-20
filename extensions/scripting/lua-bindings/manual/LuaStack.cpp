@@ -779,6 +779,27 @@ int LuaStack::luaLoadBuffer(lua_State* L, const char* chunk, int chunkSize, cons
         chunkSize = (int)decrypted.size();
     }
 
+    // [SuperEditor] chunk koji je FAJL dobija Lua oznaku '@': greske/traceback
+    // tada skracuju POCETAK putanje ("...Scripts/Player.lua:78") umesto kraja
+    // ([string "/Users/.../Scr..."]:78 — bez imena fajla). ComponentLua i
+    // executeScriptFile prosledjuju golu putanju; AxluaLoader vec dodaje '@'.
+    std::string fileChunkName;
+    if (chunkName && chunkName[0] != '@' && chunkName[0] != '=')
+    {
+        std::string_view n(chunkName);
+        auto endsWith = [&](std::string_view s) {
+            return n.size() >= s.size() && n.compare(n.size() - s.size(), s.size(), s) == 0;
+        };
+        if (n.find('/') != std::string_view::npos || n.find('\\') != std::string_view::npos || endsWith(".lua") ||
+            endsWith(".luac") || endsWith(".enc"))
+        {
+            fileChunkName.reserve(n.size() + 1);
+            fileChunkName.push_back('@');
+            fileChunkName.append(n);
+            chunkName = fileChunkName.c_str();
+        }
+    }
+
     skipBOM(chunk, chunkSize);
     r = luaL_loadbuffer(L, chunk, chunkSize, chunkName);
 
