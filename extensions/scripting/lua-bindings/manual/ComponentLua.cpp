@@ -253,6 +253,31 @@ void ComponentLua::storeLuaTable()
         lua_insert(l, -2);     // stack: table_return_from_lua mt key key value
         lua_rawset(l, -4);     // stack: table_return_from_lua mt key
     }
+
+    // SuperEditor: the metatable above is SHARED by every ComponentLua, so a
+    // method name used by two different scripts (open, apply, ...) resolves to
+    // whichever script was loaded last. Copy the script's elements into this
+    // instance's peer table too — tolua's __index checks the peer first, so
+    // self:method() / comp.method always find this component's own script.
+    // The shared copy above stays for compatibility.
+    object_to_luaval<ax::ComponentLua>(l, "ax.ComponentLua", this);  // stack: table_return_from_lua mt userdata
+    lua_getfenv(l, -1);                                                   // stack: table_return_from_lua mt userdata peer
+    if (lua_rawequal(l, -1, TOLUA_NOPEER))
+    {
+        lua_pop(l, 1);
+        lua_newtable(l);
+        lua_pushvalue(l, -1);
+        lua_setfenv(l, -3);                                               // stack: table_return_from_lua mt userdata peer
+    }
+    lua_pushnil(l);                                                       // stack: table_return_from_lua mt userdata peer nil
+    while (lua_next(l, -5))                                               // stack: table_return_from_lua mt userdata peer key value
+    {
+        lua_pushvalue(l, -2);  // stack: ... peer key value key
+        lua_insert(l, -2);     // stack: ... peer key key value
+        lua_rawset(l, -4);     // stack: ... peer key
+    }
+    lua_pop(l, 2);  // stack: table_return_from_lua mt
+
     lua_pop(l, 2);
 }
 
