@@ -27,8 +27,54 @@ THE SOFTWARE.
 #include "2d/Component.h"
 #include "2d/Node.h"
 
+#include <algorithm>
+#include <vector>
+
 namespace ax
 {
+
+namespace
+{
+// SuperEditor: callback komponente (npr. Lua onEnter/update koji pozove Anim.play)
+// sme da doda ili ukloni komponentu ISTOG noda. Iteracija direktno po robin_map-u
+// bi tada citala invalidiran iterator (EXC_BAD_ACCESS u onEnter) — zato se prvo
+// napravi kopija (retain), pa se zove samo ono sto je i dalje zakaceno za owner-a.
+class ComponentSnapshot
+{
+public:
+    explicit ComponentSnapshot(const hlookup::string_map<Component*>& map) : _size(map.size())
+    {
+        if (_size > kInline)
+        {
+            _heap.resize(_size);
+            _data = _heap.data();
+        }
+        size_t i = 0;
+        for (auto&& iter : map)
+        {
+            iter.second->retain();
+            _data[i++] = iter.second;
+        }
+    }
+    ~ComponentSnapshot()
+    {
+        for (size_t i = 0; i < _size; ++i)
+            _data[i]->release();
+    }
+    ComponentSnapshot(const ComponentSnapshot&)            = delete;
+    ComponentSnapshot& operator=(const ComponentSnapshot&) = delete;
+
+    Component* const* begin() const { return _data; }
+    Component* const* end() const { return _data + _size; }
+
+private:
+    static constexpr size_t kInline = 8;  // vecina nodova ima 1-3 komponente: bez alokacije po frejmu
+    Component* _inline[kInline];
+    std::vector<Component*> _heap;
+    Component** _data = _inline;
+    size_t _size;
+};
+}  // namespace
 
 ComponentContainer::ComponentContainer(Node* node) : _owner(node) {}
 
@@ -101,14 +147,16 @@ void ComponentContainer::removeAll()
 {
     if (!_componentMap.empty())
     {
-        for (auto&& iter : _componentMap)
+        // SuperEditor: mapa se isprazni PRE callback-a (onRemove sme da dira kontejner)
+        auto removed = std::move(_componentMap);
+        _componentMap.clear();
+        for (auto&& iter : removed)
         {
             iter.second->onRemove();
             iter.second->setOwner(nullptr);
             iter.second->release();
         }
 
-        _componentMap.clear();
         _owner->unscheduleUpdate();
     }
 }
@@ -118,9 +166,11 @@ void ComponentContainer::visit(float delta)
     if (!_componentMap.empty())
     {
         AX_SAFE_RETAIN(_owner);
-        for (auto&& iter : _componentMap)
+        ComponentSnapshot snapshot(_componentMap);  // dodate tokom update-a krecu od sledeceg frejma
+        for (auto* com : snapshot)
         {
-            iter.second->update(delta);
+            if (com->getOwner() == _owner)
+                com->update(delta);
         }
         AX_SAFE_RELEASE(_owner);
     }
@@ -128,17 +178,33 @@ void ComponentContainer::visit(float delta)
 
 void ComponentContainer::onEnter()
 {
-    for (auto&& iter : _componentMap)
+    // Node::onEnter postavlja _running tek posle ovoga, pa Node::addComponent komponenti
+    // dodatoj tokom petlje NE zove onEnter -> dobija ga ovde (u novom krugu, do stabilnog stanja).
+    std::vector<Component*> entered;
+    while (true)
     {
-        iter.second->onEnter();
+        ComponentSnapshot snapshot(_componentMap);
+        bool any = false;
+        for (auto* com : snapshot)
+        {
+            if (com->getOwner() != _owner || std::find(entered.begin(), entered.end(), com) != entered.end())
+                continue;
+            entered.push_back(com);
+            any = true;
+            com->onEnter();
+        }
+        if (!any)
+            break;
     }
 }
 
 void ComponentContainer::onExit()
 {
-    for (auto&& iter : _componentMap)
+    ComponentSnapshot snapshot(_componentMap);
+    for (auto* com : snapshot)
     {
-        iter.second->onExit();
+        if (com->getOwner() == _owner)
+            com->onExit();
     }
 }
 
