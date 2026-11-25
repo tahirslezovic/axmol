@@ -69,9 +69,9 @@ public:
 
 private:
     static constexpr size_t kInline = 8;  // vecina nodova ima 1-3 komponente: bez alokacije po frejmu
-    Component* _inline[kInline];
+    Component* _local[kInline];
     std::vector<Component*> _heap;
-    Component** _data = _inline;
+    Component** _data = _local;
     size_t _size;
 };
 }  // namespace
